@@ -1,0 +1,40 @@
+html, body { margin: 0; background: #15132b; }
+body { -webkit-font-smoothing: antialiased; }
+img, video { max-width: 100%; }
+
+/* Opening screen (index.html): the 1440×900 scene scaled to fill the window */
+.opening-stage { position: fixed; inset: 0; overflow: hidden; background: #15132b; cursor: pointer; }
+.opening-stage:focus-visible { outline: 2px solid #e7c77f; outline-offset: -6px; }
+.opening-box { position: absolute; left: 50%; top: 50%; width: 1440px; height: 900px; transform-origin: 50% 50%; }
+
+/* Section transition: the scroll opens once, then fades away */
+.transition { position: fixed; inset: 0; z-index: 1000; overflow: hidden; background: #15132b; cursor: pointer; opacity: 1; transition: opacity .7s ease; }
+.transition.done { opacity: 0; pointer-events: none; }
+.transition-box { position: absolute; left: 50%; top: 50%; width: 1440px; height: 900px; transform-origin: 50% 50%; }
+.transition .dc-ScrollOpen .stage,
+.transition .dc-ScrollOpen .paper,
+.transition .dc-ScrollOpen .rodT,
+.transition .dc-ScrollOpen .rodB,
+.transition .dc-ScrollOpen .rise,
+.transition .dc-ScrollOpen .art,
+.transition .dc-ScrollOpen .dust { animation-duration: 7s !important; animation-iteration-count: 1 !important; animation-fill-mode: forwards !important; }
+
+/* Keep the galaxy background tall enough on narrow screens */
+@media (max-width: 900px) { .tile { aspect-ratio: auto !important; height: 820px; } }
+
+/* Phones: tighten the scroll frame and scale down the big titles */
+@media (max-width: 640px) {
+  h1 { font-size: 46px !important; }
+  h2 { font-size: 30px !important; }
+  main.scroll { margin: 0 4px !important; padding: 12px !important; }
+  .frame > div { padding: 30px 16px !important; }
+  .rod .knob.l { left: -12px; } .rod .knob.r { right: -12px; }
+  [style*="writing-mode: vertical-rl"] { font-size: 28px !important; padding-left: 10px !important; }
+  section[style*="display: flex; flex-wrap: wrap; align-items: center"] > div:first-child { gap: 16px !important; }
+  [style*="height: 800px"], [style*="height: 760px"] { height: 420px !important; }
+  #coursework article > div > div[style*="flex: 0 0 auto"] { flex: 1 1 100% !important; min-width: 0; }
+  #coursework article a { height: auto !important; min-height: 44px; padding: 10px 14px !important; white-space: normal; text-align: center; letter-spacing: .06em !important; }
+}
+.opening-stage { background: #15132b url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center / cover no-repeat; }
+
+.local-thanks { margin: 14px auto 0; max-width: 560px; text-align: center; font-size: 14px; letter-spacing: .04em; color: #e7c77f; }

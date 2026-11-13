@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Michelle Wang (Peifeier) · 王佩菲迩</title>
+<meta name="description" content="Michelle Wang (Peifeier) — UCLA student in applied mathematics, researching world models, AI safety and robotics.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Noto+Serif+SC:wght@300;400;500;600&amp;display=swap">
+<style>
+
+body{margin:0}
+a{color:inherit}a:hover{opacity:.8}
+.mist{animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(60px,30px)}}
+.card{transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s}
+.card:hover{transform:translateY(-12px) rotate(-1deg)}
+.card .page{transform-origin:60px 60px}
+.card:hover .page{animation:flip 1.6s ease-in-out infinite}
+@keyframes flip{0%,100%{transform:scaleX(1)}50%{transform:scaleX(-1)}}
+.card .gearA{transform-origin:52px 64px}
+.card .gearB{transform-origin:84px 40px}
+.card:hover .gearA{animation:spin 6s linear infinite}
+.card:hover .gearB{animation:spin 4s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.card .orbit{transform-origin:60px 60px}
+.card:hover .orbit{animation:spin 9s linear infinite}
+.card .ribbon{transform-origin:60px 100px}
+.card:hover .ribbon{animation:sway 2.4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(0)}50%{transform:rotate(7deg) translateX(4px)}}
+.card .art{-webkit-mask-image:radial-gradient(closest-side at 50% 48%,#000 48%,transparent 100%);mask-image:radial-gradient(closest-side at 50% 48%,#000 48%,transparent 100%)}
+.card .art img{transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .8s}
+.card:hover .art img{transform:scale(1.06);filter:drop-shadow(0 0 4px rgba(240,214,156,.65))}
+.c3:hover .art img{animation:breathe 3.6s ease-in-out infinite}
+@keyframes breathe{0%,100%{filter:drop-shadow(0 0 3px rgba(240,214,156,.5))}50%{filter:drop-shadow(0 0 10px rgba(240,214,156,.95))}}
+.c4:hover .art img{animation:breeze 3s ease-in-out infinite}
+@keyframes breeze{0%,100%{transform:scale(1.06) rotate(0)}50%{transform:scale(1.06) rotate(1.5deg) translateX(3px)}}
+.bloom{animation:bloom .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes bloom{from{opacity:0;transform:translateY(-14px) scaleY(.6)}to{opacity:1;transform:none}}
+input::placeholder{color:inherit;opacity:.55}
+.cur-butterfly,.cur-butterfly *:not(input){cursor:url(assets/a2a43518cc487a87715c401299241c26.png) 20 20,auto}
+.cur-snowflake,.cur-snowflake *:not(input){cursor:url(assets/8d540259063aff1945bb245ca9242a3f.png) 20 20,auto}
+.cur-cloud,.cur-cloud *:not(input){cursor:url(assets/6b9f111720f1c1bc07c046db2a8fe0e1.png) 20 20,auto}
+.cur-apsara,.cur-apsara *:not(input){cursor:url(assets/ed51a7da387ee4180298b1981990a15a.png) 20 20,auto}
+.cur-swallow,.cur-swallow *:not(input){cursor:url(assets/f8b2a9826b6edfd18b1a2d6a77fcacbf.png) 20 20,auto}
+.tile{flex:0 0 auto;width:100%;aspect-ratio:1376/768;background:url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center/cover no-repeat}
+.flip{transform:scaleY(-1)}
+.selImg{background:url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center/cover no-repeat;-webkit-mask-image:linear-gradient(transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(transparent,#000 18%,#000 82%,transparent)}
+.mark{z-index:2}
+.mark img{display:block;transition:transform .3s,filter .3s;animation:floaty 5s ease-in-out infinite;filter:drop-shadow(0 0 4px rgba(255,214,140,.45))}
+.mark:hover img,.mark:focus-visible img{transform:scale(1.4);filter:drop-shadow(0 0 10px rgba(255,214,140,.95))}
+.pick img{transition:filter .3s}
+.pick:hover img{filter:drop-shadow(0 0 6px rgba(255,214,140,.8))}
+.pick{transition:border-color .3s,background .3s,transform .3s}
+.pick:hover{transform:translateY(-3px)}
+.pick svg{transition:filter .3s}
+.pick:hover svg{filter:drop-shadow(0 0 6px rgba(255,214,140,.8))}
+.mark{position:absolute;transform:translate(-50%,-50%);background:none;border:none;padding:8px;margin:0}
+.mark svg{display:block;transition:transform .3s,filter .3s;animation:floaty 5s ease-in-out infinite}
+.mark:hover svg,.mark:focus-visible svg{transform:scale(1.4);filter:drop-shadow(0 0 9px rgba(255,214,140,.95))}
+.mark .tip{position:absolute;left:50%;bottom:100%;transform:translate(-50%,6px);opacity:0;pointer-events:none;white-space:nowrap;transition:opacity .25s,transform .25s}
+.mark:hover .tip,.mark:focus-visible .tip{opacity:1;transform:translate(-50%,-2px)}
+@keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -7px}}
+.bgTop{background:url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center top/cover no-repeat;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.bgBot{background:url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center bottom/cover no-repeat;-webkit-mask-image:linear-gradient(transparent,#000 40%);mask-image:linear-gradient(transparent,#000 40%)}
+
+.dc-Butterflies{margin:0}
+.dc-Butterflies .flap{transform-origin:30px 24px;animation:Butterflies_flap .32s ease-in-out infinite alternate}
+@keyframes Butterflies_flap{from{transform:scaleX(1)}to{transform:scaleX(.16)}}
+.dc-Butterflies .fly{animation-timing-function:ease-in-out;animation-iteration-count:infinite;will-change:transform}
+.dc-Butterflies .p1{animation-name:Butterflies_p1}
+.dc-Butterflies .p2{animation-name:Butterflies_p2}
+.dc-Butterflies .p3{animation-name:Butterflies_p3}
+@keyframes Butterflies_p1{0%{transform:translate(0,0) rotate(-10deg)}25%{transform:translate(140px,-70px) rotate(8deg)}50%{transform:translate(60px,-160px) rotate(-6deg)}75%{transform:translate(-100px,-70px) rotate(10deg)}100%{transform:translate(0,0) rotate(-10deg)}}
+@keyframes Butterflies_p2{0%{transform:translate(0,0) rotate(6deg)}20%{transform:translate(-90px,50px) rotate(-8deg)}45%{transform:translate(-180px,-20px) rotate(4deg)}70%{transform:translate(-60px,-110px) rotate(-10deg)}100%{transform:translate(0,0) rotate(6deg)}}
+@keyframes Butterflies_p3{0%{transform:translate(0,0) rotate(0deg)}30%{transform:translate(200px,40px) rotate(12deg)}55%{transform:translate(260px,-90px) rotate(-6deg)}80%{transform:translate(90px,-130px) rotate(8deg)}100%{transform:translate(0,0) rotate(0deg)}}
+@media (prefers-reduced-motion: reduce){.dc-Butterflies .fly,.dc-Butterflies .flap{animation:none}}
+</style>
+<link rel="stylesheet" href="site.css">
+</head>
+<body class="page-main">
+<div id="dc-root"></div>
+
+<template data-dc="Main">
+<div class="{{curClass}}" style="background: {{t.bg}}; color: {{t.ink}}; font-family: 'Noto Serif SC', serif; position: relative; overflow: hidden; transition: background .6s, color .6s; min-height: 100vh">
+<div class="mist" style="position: absolute; left: -15%; top: -240px; width: 80%; height: 1000px; background: radial-gradient(closest-side, {{t.mist}}, transparent); pointer-events: none"></div>
+<div class="mist" style="position: absolute; right: -20%; top: 1100px; width: 70%; height: 900px; background: radial-gradient(closest-side, {{t.mist}}, transparent); pointer-events: none"></div>
+<sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}">
+<div aria-hidden="true" style="position: absolute; inset: 0; display: flex; flex-direction: column; pointer-events: none"><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div></div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(rgba(10,8,26,0), rgba(10,8,26,0.25) 30%, rgba(10,8,26,0.25) 75%, rgba(10,8,26,0.1)); pointer-events: none"></div>
+<div style="position: absolute; left: 0; top: 0; width: 70%; height: 1000px; background: radial-gradient(ellipse at 25% 42%, rgba(12,10,24,0.62), transparent 68%); pointer-events: none"></div>
+</sc-if>
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 1100px; pointer-events: none">
+<dc-import name="Butterflies" density="many" hint-size="100%,1100px"></dc-import>
+</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 900px; pointer-events: none">
+<dc-import name="Butterflies" density="few" hint-size="100%,900px"></dc-import>
+</div>
+
+<header style="position: relative; max-width: 1200px; margin: 0 auto; padding: 28px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px">
+<a href="#" style="display: flex; align-items: center; gap: 12px; text-decoration: none">
+<span style="width: 36px; height: 36px; border: 1px solid {{t.line}}; display: grid; place-items: center; font-family: 'Cormorant Garamond', serif; font-size: 20px; color: {{t.line}}">M</span>
+<span style="font-family: 'Cormorant Garamond', serif; font-size: 24px; letter-spacing: 0.03em">Michelle Wang <span style="font-family: 'Noto Serif SC', serif; font-size: 16px; color: {{t.line}}; letter-spacing: 0.1em">王佩菲迩</span></span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 30px; font-size: 15px; letter-spacing: 0.12em">
+<a href="#" style="text-decoration: none; color: {{t.ink}}; border-bottom: 1px solid {{t.line}}; padding-bottom: 4px">{{s.n0}}</a>
+<a href="education.html" style="text-decoration: none; color: {{t.muted}}">{{s.n1}}</a>
+<a href="projects.html" style="text-decoration: none; color: {{t.muted}}">{{s.n2}}</a>
+<a href="research.html" style="text-decoration: none; color: {{t.muted}}">{{s.n3}}</a>
+<a href="life.html" style="text-decoration: none; color: {{t.muted}}">{{s.n4}}</a>
+</nav>
+</header>
+
+<section style="position: relative; max-width: 1200px; margin: 0 auto; padding: 40px 32px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 40px">
+<div style="flex: 1 1 460px; min-width: 0">
+<div style="font-size: 13px; letter-spacing: 0.3em; color: {{t.line}}; margin-bottom: 28px">{{s.eyebrow}}</div>
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 92px; line-height: 0.98; letter-spacing: -0.01em">Michelle Wang</h1>
+<div style="margin-top: 14px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px"><span style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 40px; color: {{t.line}}">(Peifeier)</span><span lang="zh" style="font-family: 'Noto Serif SC', serif; font-size: 40px; font-weight: 400; letter-spacing: 0.2em">王佩菲迩</span></div>
+<div style="margin-top: 22px; font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-size: 30px; font-weight: 400; color: {{t.accent}}">{{s.welcome}}</div>
+<div style="width: 64px; height: 1px; background: {{t.line}}; margin: 34px 0"></div>
+<p style="margin: 0; max-width: 440px; font-size: 16px; line-height: 2; font-weight: 300; color: {{t.muted}}">{{s.tagline}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px">
+<a href="assets/Michelle_Wang_Peifeier_Resume.pdf" download="Michelle_Wang_Peifeier_Resume.pdf" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; border: 1px solid {{t.line}}; color: {{t.ink}}; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14"></path></svg>{{s.cv}}</a>
+<a href="https://github.com/MwMwM-2428" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid {{t.lineSoft}}; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">GitHub</a>
+<a href="https://devpost.com/MwMwM-2428" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid {{t.lineSoft}}; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">Devpost</a>
+<a href="https://www.linkedin.com/in/michelle-wang0606/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid {{t.lineSoft}}; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">LinkedIn</a>
+<a href="mailto:mwang0627@g.ucla.edu" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid {{t.lineSoft}}; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">{{s.email}}</a>
+<a href="#comments" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em; background-color: transparent">留言 Comments ↓</a>
+</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; position: relative; height: 680px; display: flex; justify-content: center">
+<svg viewBox="0 0 520 520" width="520" height="520" fill="none" aria-hidden="true" style="position: absolute; top: 40px; left: 50%; transform: translateX(-50%); max-width: 100%">
+<circle cx="260" cy="260" r="240" stroke="{{t.lineSoft}}" stroke-width="1"></circle>
+<circle cx="260" cy="260" r="226" stroke="{{t.lineSoft}}" stroke-width="0.6" stroke-dasharray="1 7"></circle>
+<path d="M260 20 L260 40 M260 480 L260 500 M20 260 L40 260 M480 260 L500 260" stroke="{{t.line}}" stroke-width="1"></path>
+<path d="M412 92 C380 130 380 190 420 222 C372 216 340 172 352 124 C362 104 386 92 412 92Z" stroke="{{t.line}}" stroke-width="1"></path>
+</svg>
+<div style="position: relative; margin-top: 30px; width: 380px; max-width: 86%; height: 590px; padding: 8px; box-sizing: border-box; border: 1px solid {{t.line}}; border-radius: 190px 190px 6px 6px; box-shadow: 0 30px 80px rgba(10,8,30,0.45)">
+<div style="height: 100%; box-sizing: border-box; border: 1px solid {{t.lineSoft}}; border-radius: 182px 182px 3px 3px; overflow: hidden; position: relative">
+<img src="assets/c9c749fc2b8b3c077c100f783e415bb6.jpg" alt="Michelle smiling and raising a glass in a sunlit gallery of botanical drawings" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 42%, #000 60%, transparent 100%); mask-image: radial-gradient(ellipse 90% 85% at 50% 42%, #000 60%, transparent 100%)">
+</div>
+<svg viewBox="0 0 40 30" width="34" height="26" fill="none" stroke="{{t.line}}" stroke-width="1" aria-hidden="true" style="position: absolute; left: 50%; bottom: -14px; transform: translateX(-50%); background: {{t.bg}}; padding: 0 8px"><path d="M20 15 C14 3 3 2 4 10 C5 15 12 16 20 15Z M20 15 C26 3 37 2 36 10 C35 15 28 16 20 15Z M20 15 C15 18 9 25 12 27 C16 29 19 22 20 15Z M20 15 C25 18 31 25 28 27 C24 29 21 22 20 15Z"></path></svg>
+</div>
+<sc-for list="{{marks}}" as="m" hint-placeholder-count="8">
+<button type="button" class="mark" aria-label="{{m.aria}}" style="left: calc(50% + {{m.dx}}px); top: {{m.dy}}px">
+<span class="tip" style="padding: 6px 14px; background: {{t.bg}}; border: 1px solid {{t.line}}; font-size: 13px; letter-spacing: 0.06em; color: {{t.ink}}">{{m.name}}</span>
+<img src="{{m.img}}" alt="" width="{{m.s}}" height="{{m.s}}" style="animation-delay: {{m.del}}">
+</button>
+</sc-for>
+<div style="position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 13px; letter-spacing: 0.28em; color: {{t.line}}">{{s.gHint}} · {{count}}</div>
+</div>
+</section>
+
+<div style="position: relative; margin-top: 60px; padding: 110px 0 120px">
+<div class="selImg" style="position: absolute; inset: 0; opacity: {{selOp}}; pointer-events: none"></div>
+<div style="position: absolute; inset: 0; background: radial-gradient(ellipse 50% 45% at 50% 50%, {{selVeil}}, transparent 75%); pointer-events: none"></div>
+<section style="position: relative; max-width: 1200px; margin: 0 auto; padding: 0 32px">
+<div style="display: flex; align-items: center; gap: 18px; justify-content: center; margin-bottom: 18px">
+<span style="flex: 1 1 0; max-width: 220px; height: 1px; background: {{t.lineSoft}}"></span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0 L12 6 L6 12 L0 6Z" fill="none" stroke="{{t.line}}"></path></svg>
+<span style="flex: 1 1 0; max-width: 220px; height: 1px; background: {{t.lineSoft}}"></span>
+</div>
+<h2 style="margin: 0; text-align: center; font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-weight: 400; font-size: 44px">{{s.gTitle}}</h2>
+<p style="margin: 10px auto 0; max-width: 560px; text-align: center; color: {{t.muted}}; font-size: 15px; line-height: 1.9; letter-spacing: 0.04em">{{s.gSub}}</p>
+<form onSubmit="{{sign}}" style="margin: 40px auto 0; max-width: 760px; display: flex; flex-direction: column; align-items: center; gap: 30px">
+<label style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.2em; color: {{t.line}}">{{s.gName}}
+<input type="text" value="{{gName}}" onChange="{{onGName}}" placeholder="{{s.gPh}}" maxlength="24" style="height: 48px; background: transparent; border: none; border-bottom: 1px solid {{t.line}}; color: {{t.ink}}; font-family: 'Noto Serif SC', serif; font-size: 17px; text-align: center; outline: none">
+</label>
+<fieldset style="border: none; margin: 0; padding: 0; min-width: 0; width: 100%">
+<legend style="width: 100%; text-align: center; font-size: 12px; letter-spacing: 0.2em; color: {{t.line}}; margin-bottom: 16px; padding: 0">{{s.gPick}}</legend>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center">
+<sc-for list="{{kinds}}" as="k" hint-placeholder-count="5">
+<button type="button" class="pick cur-{{k.id}}" onClick="{{k.pick}}" aria-pressed="{{k.on}}" style="width: 136px; height: 148px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: {{k.bg}}; border: 1px solid {{k.border}}; color: {{t.ink}}; font-family: 'Noto Serif SC', serif; font-size: 14px; letter-spacing: 0.06em; backdrop-filter: blur(4px)">
+<img src="{{k.img}}" alt="" width="76" height="76">
+<span>{{k.label}}</span>
+</button>
+</sc-for>
+</div>
+</fieldset>
+<button type="submit" style="height: 48px; padding: 0 30px; background: none; border: 1px solid {{t.line}}; color: {{t.ink}}; font-family: 'Noto Serif SC', serif; font-size: 14px; letter-spacing: 0.14em">{{s.gGo}}</button>
+<sc-if value="{{hasMine}}" hint-placeholder-val="{{ false }}"><p role="status" style="margin: -8px 0 0; font-size: 14px; color: {{t.accent}}">{{mineMsg}}</p></sc-if>
+</form>
+</section>
+</div>
+
+<section style="position: relative; max-width: 1200px; margin: 0 auto; padding: 60px 32px 40px">
+<div style="display: flex; align-items: center; gap: 18px; justify-content: center; margin-bottom: 18px">
+<span style="flex: 1 1 0; max-width: 220px; height: 1px; background: {{t.lineSoft}}"></span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0 L12 6 L6 12 L0 6Z" fill="none" stroke="{{t.line}}"></path></svg>
+<span style="flex: 1 1 0; max-width: 220px; height: 1px; background: {{t.lineSoft}}"></span>
+</div>
+<h2 style="margin: 0; text-align: center; font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-weight: 400; font-size: 44px">{{s.pick}}</h2>
+<p style="margin: 10px 0 56px; text-align: center; color: {{t.muted}}; font-size: 15px; letter-spacing: 0.1em">{{s.pickSub}}</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px">
+
+<a class="card c1" href="education.html" style="display: block; aspect-ratio: 3 / 5; padding: 10px; border: 1px solid #c8ab6e; background: #1c1638; color: #ece8f3; text-decoration: none; box-sizing: border-box; box-shadow: 0 24px 60px rgba(10,8,30,0.35)">
+<div style="height: 100%; box-sizing: border-box; border: 1px solid rgba(200,171,110,0.4); display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 14px 4px 20px; overflow: hidden">
+<div style="font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 0.3em; color: #c8ab6e">I</div>
+<div class="art" style="flex: 1 1 0; min-height: 0; width: 100%; overflow: hidden"><img src="assets/e48f0a78505e00c42abdec4725176725.png" alt="Gold line drawing of a scholar in a graduation cap reading a book, with butterflies and moon phases" style="width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block"></div>
+<div style="text-align: center">
+<div style="font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-size: 28px">{{s.c1t}}</div>
+<div style="margin-top: 6px; font-size: 13px; color: #b9b1cc">{{s.c1s}}</div>
+<div style="margin-top: 12px; font-size: 12px; letter-spacing: 0.12em; color: #c8ab6e">{{s.c1h}}</div>
+</div>
+</div>
+</a>
+
+<a class="card c2" href="projects.html" style="display: block; aspect-ratio: 3 / 5; padding: 10px; border: 1px solid #c8ab6e; background: #1c1638; color: #ece8f3; text-decoration: none; box-sizing: border-box; box-shadow: 0 24px 60px rgba(10,8,30,0.35)">
+<div style="height: 100%; box-sizing: border-box; border: 1px solid rgba(200,171,110,0.4); display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 14px 4px 20px; overflow: hidden">
+<div style="font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 0.3em; color: #c8ab6e">II</div>
+<div class="art" style="flex: 1 1 0; min-height: 0; width: 100%; overflow: hidden"><img src="assets/bf62b30de7a56185687dd13ce726b176.png" alt="Gold line drawing of a woman in hanfu above a desk with a laptop and a monitor, among clouds and lilies" style="width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block"></div>
+<div style="text-align: center">
+<div style="font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-size: 28px">{{s.c2t}}</div>
+<div style="margin-top: 6px; font-size: 13px; color: #b9b1cc">{{s.c2s}}</div>
+<div style="margin-top: 12px; font-size: 12px; letter-spacing: 0.12em; color: #c8ab6e">{{s.c2h}}</div>
+</div>
+</div>
+</a>
+
+<a class="card c3" href="research.html" style="display: block; aspect-ratio: 3 / 5; padding: 10px; border: 1px solid #c8ab6e; background: #1c1638; color: #ece8f3; text-decoration: none; box-sizing: border-box; box-shadow: 0 24px 60px rgba(10,8,30,0.35)">
+<div style="height: 100%; box-sizing: border-box; border: 1px solid rgba(200,171,110,0.4); display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 14px 4px 20px; overflow: hidden">
+<div style="font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 0.3em; color: #c8ab6e">III</div>
+<div class="art" style="flex: 1 1 0; min-height: 0; width: 100%; overflow: hidden"><img src="assets/e0ae6c8c2714e12759d4eb290f43c61f.png" alt="Gold line drawing of a woman in hanfu with closed eyes holding a small planet, surrounded by constellations" style="width: 100%; height: 100%; object-fit: cover; object-position: center 22%; display: block"></div>
+<div style="text-align: center">
+<div style="font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-size: 28px">{{s.c3t}}</div>
+<div style="margin-top: 6px; font-size: 13px; color: #b9b1cc">{{s.c3s}}</div>
+<div style="margin-top: 12px; font-size: 12px; letter-spacing: 0.12em; color: #c8ab6e">{{s.c3h}}</div>
+</div>
+</div>
+</a>
+
+<a class="card c4" href="life.html" style="display: block; aspect-ratio: 3 / 5; padding: 10px; border: 1px solid #c8ab6e; background: #1c1638; color: #ece8f3; text-decoration: none; box-sizing: border-box; box-shadow: 0 24px 60px rgba(10,8,30,0.35)">
+<div style="height: 100%; box-sizing: border-box; border: 1px solid rgba(200,171,110,0.4); display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 14px 4px 20px; overflow: hidden">
+<div style="font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 0.3em; color: #c8ab6e">IV</div>
+<div class="art" style="flex: 1 1 0; min-height: 0; width: 100%; overflow: hidden"><img src="assets/2c75f2f9b9eee5a53842939b30c68b3d.png" alt="Gold line drawing of a figure with flowing hair and ribbons playing a guzheng, a horse and pavilion behind" style="width: 100%; height: 100%; object-fit: cover; object-position: 40% 30%; display: block"></div>
+<div style="text-align: center">
+<div style="font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-size: 28px">{{s.c4t}}</div>
+<div style="margin-top: 6px; font-size: 13px; color: #b9b1cc">{{s.c4s}}</div>
+<div style="margin-top: 12px; font-size: 12px; letter-spacing: 0.12em; color: #c8ab6e">{{s.c4h}}</div>
+</div>
+</div>
+</a>
+
+</div>
+</section>
+
+<section id="comments" style="position: relative; max-width: 1000px; margin: 80px auto 0; padding: 60px clamp(18px, 4vw, 48px) 52px; box-sizing: border-box; border: 1px solid {{t.line}}; background: {{t.paper}}; box-shadow: 0 0 60px rgba(231,199,127,0.16), inset 0 0 40px rgba(231,199,127,0.06); backdrop-filter: blur(8px)">
+<div style="text-align: center; font-size: 13px; letter-spacing: 0.4em; color: {{t.line}}; margin-bottom: 12px">留言 · COMMENTS</div>
+<h2 style="margin: 0; text-align: center; font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-weight: 400; font-size: 44px">{{s.ask}}</h2>
+<p style="margin: 10px 0 36px; text-align: center; color: {{t.muted}}; font-size: 15px; letter-spacing: 0.06em">{{s.askSub}}</p>
+<form onSubmit="{{send}}" style="max-width: 640px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end">
+<label style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.2em; color: {{t.line}}">{{s.label}}
+<input type="text" value="{{draft}}" onChange="{{onDraft}}" placeholder="{{s.ph}}" style="height: 52px; background: {{t.bg}}; border: 1px solid {{t.line}}; color: {{t.ink}}; font-family: 'Noto Serif SC', serif; font-size: 16px; outline: none; padding: 0 16px">
+</label>
+<button type="submit" style="height: 52px; padding: 0 28px; background: {{t.line}}; border: 1px solid {{t.line}}; color: {{t.bg}}; font-family: 'Noto Serif SC', serif; font-size: 15px; font-weight: 500; letter-spacing: 0.12em; cursor: pointer">{{s.send}}</button>
+</form>
+<div style="margin-top: 64px; height: 1px; background: {{t.line}}; opacity: 0.6"></div>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 44px; padding-top: 0">
+<sc-for list="{{comments}}" as="c" hint-placeholder-count="4">
+<div class="bloom" style="display: flex; flex-direction: column; align-items: center; width: 150px; padding-top: {{c.mt}}">
+<svg viewBox="0 0 60 115" width="64" height="122" fill="{{t.wisFill}}" stroke="{{t.accent}}" stroke-width="0.9" aria-hidden="true">
+<path d="M30 0 L30 12" stroke="{{t.line}}" fill="none"></path>
+<path d="M30 8 C20 3 12 7 8 14 C16 16 24 14 30 8Z M30 8 C40 3 48 7 52 14 C44 16 36 14 30 8Z" stroke="{{t.line}}" fill="none"></path>
+<ellipse cx="30" cy="20" rx="6" ry="5"></ellipse><ellipse cx="22" cy="28" rx="5.5" ry="4.5"></ellipse><ellipse cx="38" cy="28" rx="5.5" ry="4.5"></ellipse><ellipse cx="30" cy="36" rx="5.5" ry="4.5"></ellipse><ellipse cx="21" cy="44" rx="5" ry="4.2"></ellipse><ellipse cx="39" cy="44" rx="5" ry="4.2"></ellipse><ellipse cx="30" cy="52" rx="5" ry="4.2"></ellipse><ellipse cx="23" cy="60" rx="4.6" ry="3.8"></ellipse><ellipse cx="37" cy="60" rx="4.6" ry="3.8"></ellipse><ellipse cx="30" cy="68" rx="4.4" ry="3.6"></ellipse><ellipse cx="25" cy="76" rx="4" ry="3.4"></ellipse><ellipse cx="35" cy="76" rx="4" ry="3.4"></ellipse><ellipse cx="30" cy="84" rx="3.8" ry="3.2"></ellipse><ellipse cx="28" cy="92" rx="3.4" ry="2.8"></ellipse><ellipse cx="31" cy="99" rx="3" ry="2.5"></ellipse><ellipse cx="30" cy="106" rx="2.4" ry="2"></ellipse>
+</svg>
+<p style="margin: 12px 0 0; text-align: center; font-size: 14px; line-height: 1.7; color: {{t.muted}}">{{c.text}}</p>
+</div>
+</sc-for>
+</div>
+</section>
+
+<footer style="position: relative; max-width: 1200px; margin: 40px auto 0; padding: 32px; border-top: 1px solid {{t.lineSoft}}; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 13px; color: {{t.muted}}; letter-spacing: 0.08em">
+<span>© 2026 Michelle Wang (Peifeier) · 王佩菲迩 · {{s.footer}}</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px 22px"><a href="assets/Michelle_Wang_Peifeier_Resume.pdf" download="Michelle_Wang_Peifeier_Resume.pdf" target="_blank" rel="noopener" style="text-decoration: none">{{s.cv}}</a><a href="https://github.com/MwMwM-2428" target="_blank" rel="noopener" style="text-decoration: none">GitHub</a><a href="https://devpost.com/MwMwM-2428" target="_blank" rel="noopener" style="text-decoration: none">Devpost</a><a href="https://www.linkedin.com/in/michelle-wang0606/" target="_blank" rel="noopener" style="text-decoration: none">LinkedIn</a><a href="mailto:mwang0627@g.ucla.edu" style="text-decoration: none">mwang0627@g.ucla.edu</a><a href="mailto:mwang2428@gmail.com" style="text-decoration: none">mwang2428@gmail.com</a></span>
+</footer>
+<p style="position: relative; margin: 0; padding: 0 32px 8px; text-align: center; font-size: 12px; letter-spacing: 0.2em; color: {{t.muted}}">LAST EDITED NOV 2026</p>
+</div>
+</template>
+<template data-dc="Butterflies">
+<div style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
+<svg width="0" height="0" style="position: absolute" aria-hidden="true"><defs>
+<linearGradient id="bwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{{fillA}}"/><stop offset="0.6" stop-color="{{fillB}}"/><stop offset="1" stop-color="{{fillC}}"/></linearGradient>
+</defs></svg>
+<sc-for list="{{bs}}" as="b" hint-placeholder-count="12">
+<div class="fly {{b.path}}" style="position: absolute; left: {{b.x}}; top: {{b.y}}; width: {{b.w}}; opacity: {{b.op}}; animation-duration: {{b.dur}}; animation-delay: {{b.del}}">
+<svg viewBox="0 0 60 48" width="100%" aria-hidden="true" style="display: block; overflow: visible; filter: drop-shadow(0 0 6px {{glow}}) drop-shadow(0 0 14px {{glow}})">
+<g class="flap" style="animation-duration: {{b.flap}}; animation-delay: {{b.del}}">
+<path d="M30 24 C24 8 8 2 5 10 C2 18 14 24 30 24Z" fill="url(#bwg)" stroke="{{stroke}}" stroke-width="1"/>
+<path d="M30 24 C36 8 52 2 55 10 C58 18 46 24 30 24Z" fill="url(#bwg)" stroke="{{stroke}}" stroke-width="1"/>
+<path d="M30 24 C24 28 14 38 18 42 C22 45 28 36 30 24Z" fill="url(#bwg)" stroke="{{stroke}}" stroke-width="1"/>
+<path d="M30 24 C36 28 46 38 42 42 C38 45 32 36 30 24Z" fill="url(#bwg)" stroke="{{stroke}}" stroke-width="1"/>
+<path d="M30 24 C22 16 14 11 9 11 M30 24 C38 16 46 11 51 11 M30 24 C24 30 20 36 19 40 M30 24 C36 30 40 36 41 40" fill="none" stroke="{{stroke}}" stroke-width="0.5" opacity="0.8"/>
+</g>
+<path d="M30 17 L30 32" stroke="{{stroke}}" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M30 17 C28 11 25 8 22 7 M30 17 C32 11 35 8 38 7" fill="none" stroke="{{stroke}}" stroke-width="0.6"/>
+</svg>
+</div>
+</sc-for>
+</div>
+</template>
+
+<script src="dc.js"></script>
+<script src="site.js"></script>
+<script>
+DC.define('__Transition', class extends DCLogic { renderVals() { return {}; } });
+DC.define('Main', (function(){
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { draft: '', added: [], gName: '', kind: 'butterfly', chosen: false, marks: [], mine: null };
+  }
+  guestVals(t, s, lang) {
+    const IMG = {
+      butterfly: 'assets/03bbbd2d6ca5358f15a2dbacf70e43d0.png',
+      snowflake: 'assets/ea11d600f9e1c16a1c08a4ea7b051f5b.png',
+      cloud: 'assets/9c0a8b306e3510f3d6422f7e9ae7e63c.png',
+      apsara: 'assets/767d0d9f2f17fcd8948cba4a2af9e0ff.png',
+      swallow: 'assets/0f6f8e1149f2cba9283476ba289c37de.png'
+    };
+    const ids = ['butterfly', 'snowflake', 'cloud', 'apsara', 'swallow'];
+    const labels = { butterfly: s.k1, snowflake: s.k2, cloud: s.k3, apsara: s.k4, swallow: s.k5 };
+    const kind = this.state.kind;
+    const seedName = lang === 'zh' ? '［访客名字］' : '[Visitor name]';
+    const seed = [0, 1, 2, 3, 4, 5, 6, 7].map((i) => ({ name: seedName, kind: ids[i % 5] }));
+    const all = seed.concat(this.state.marks);
+    const mine = this.state.mine;
+    return {
+      gName: this.state.gName,
+      onGName: (e) => this.setState({ gName: e.target.value }),
+      curClass: this.state.chosen ? 'cur-' + kind : '',
+      kinds: ids.map((id) => ({
+        id, img: IMG[id], label: labels[id],
+        on: id === kind && this.state.chosen ? 'true' : 'false',
+        bg: id === kind && this.state.chosen ? 'rgba(200,171,110,0.16)' : 'transparent',
+        border: id === kind && this.state.chosen ? t.line : t.lineSoft,
+        pick: () => this.setState({ kind: id, chosen: true })
+      })),
+      sign: (e) => {
+        e.preventDefault();
+        const n = this.state.gName.trim();
+        if (!n) return;
+        this.setState({ marks: this.state.marks.concat([{ name: n, kind, mine: true }]), mine: n, gName: '', chosen: true });
+      },
+      hasMine: !!mine,
+      mineMsg: mine ? s.welcome2 + mine + s.welcome3 : '',
+      count: all.length,
+      selOp: t.bg === '#f6f5f9' ? 0.28 : 0,
+      selVeil: t.bg === '#f6f5f9' ? 'rgba(246,245,249,0.75)' : 'rgba(14,11,32,0.55)',
+      marks: all.map((m, i) => {
+        const n = all.length;
+        const a = (115 + (n > 1 ? i * 310 / (n - 1) : 0)) * Math.PI / 180;
+        const r = 1 + 0.06 * ((i % 3) - 1);
+        return {
+          name: m.name, img: IMG[m.kind], aria: s.visitor + m.name,
+          dx: Math.round(Math.cos(a) * 250 * r),
+          dy: Math.round(325 + Math.sin(a) * 330 * r),
+          s: m.mine ? 58 : 42 + (i % 3) * 5,
+          del: '-' + ((i * 0.9) % 5).toFixed(1) + 's'
+        };
+      })
+    };
+  }
+  renderVals() {
+    const theme = this.state.theme ?? this.props.theme ?? 'dark';
+    const lang = this.state.lang ?? this.props.lang ?? 'en';
+    const T = {
+      dark: { bg: '#15132b', paper: 'rgba(22,19,44,0.88)', ink: '#ece8f3', muted: '#aaa3bc', line: '#c8ab6e', lineSoft: 'rgba(200,171,110,0.32)', accent: '#ab9dd8', mist: 'rgba(171,157,216,0.13)', wisFill: 'rgba(171,157,216,0.10)', figLine: '#d2b97f', figDetail: '#e6e0f1', figAccent: '#86a5d4', gold: '#e7c77f' },
+      light: { bg: '#f6f5f9', paper: '#ffffff', ink: '#2a2637', muted: '#5f5970', line: '#3d3752', lineSoft: 'rgba(61,55,82,0.22)', accent: '#6c5ca0', mist: 'rgba(108,92,160,0.09)', wisFill: 'rgba(108,92,160,0.08)', figLine: '#3d3752', figDetail: '#6c5ca0', figAccent: '#4f6a98', gold: '#9a7432' }
+    };
+    const S = {
+      en: { n0: 'Home', n1: 'Education', n2: 'Projects', n3: 'Research', n4: 'Life', eyebrow: 'APPLIED MATHEMATICS · UCLA', welcome: 'Welcome to my website :) ', tagline: 'I study how machines imagine the world — world models and embodied perception — and spend the rest of my time dancing, listening, and making things by hand.', cv: 'Download CV', email: 'Email', pick: 'Draw a card', pickSub: 'Four doors into my world', c1t: 'Education', c1s: 'School · CV', c1h: 'TURN THE PAGE', c2t: 'Projects', c2s: 'Things I have built', c2h: 'POWER ON', c3t: 'Research', c3s: 'World models · Perception', c3h: 'LOCK IN ', c4t: 'Life', c4s: 'Dance · Music · Crafts · ACG', c4h: 'FOLLOW THE MUSIC', ask: 'Any comments for me?', askSub: 'Every note you leave blooms into a wisteria cluster.', label: 'YOUR NOTE', ph: 'Write something…', send: 'Let it bloom', footer: 'Made with care', gTitle: 'Leave your mark', gSub: 'Tell me your name and choose the cursor that will follow you around my site. Your mark joins the others around my photo.', gName: 'YOUR NAME', gPh: 'Your name…', gPick: 'CHOOSE YOUR CURSOR', gGo: 'Leave my mark', gWall: 'VISITORS', gHint: 'HOVER TO SEE VISITORS', welcome2: 'Welcome, ', welcome3: ' — your mark now circles my photo.', visitor: 'Visitor: ', k1: 'Butterfly', k2: 'Snowflake', k3: 'Lucky cloud', k4: 'Flying apsara', k5: 'Swallow' },
+      zh: { n0: '首页', n1: '学历', n2: '项目', n3: '研究', n4: '生活', eyebrow: '应用数学 · 加州大学洛杉矶分校', welcome: '欢迎来到我的小站', tagline: '我研究机器如何「想象」世界——世界模型与具身感知；其余的时间，跳舞、听歌、做手工。', cv: '下载简历', email: '邮箱', pick: '抽一张牌', pickSub: '通往我的世界的四扇门', c1t: '学历', c1s: '学业 · 履历', c1h: '翻开书页', c2t: '项目', c2s: '我做过的东西', c2h: '开机', c3t: '研究', c3s: '世界模型 · 感知', c3h: '观星', c4t: '生活', c4s: '舞 · 乐 · 手作 · 二次元', c4h: '随乐而行', ask: '有什么想对我说的吗？', askSub: '你留下的每一句话，都会开成一串紫藤。', label: '留言', ph: '写点什么……', send: '让它开花', footer: '用心制作', gTitle: '留下你的印记', gSub: '告诉我你的名字，选一个陪你逛我小站的光标。你的印记会环绕在我的照片旁。', gName: '你的名字', gPh: '你的名字……', gPick: '选择你的光标', gGo: '留下印记', gWall: '访客', gHint: '悬停查看访客', welcome2: '欢迎你，', welcome3: '——你的印记已环绕在我的照片旁。', visitor: '访客：', k1: '蝴蝶', k2: '雪花', k3: '祥云', k4: '飞天', k5: '燕子' }
+    };
+    const seed = lang === 'zh' ? '［访客留言会显示在这里］' : '[A visitor note appears here]';
+    const offsets = ['0px', '28px', '10px', '36px', '4px', '22px'];
+    const base = [seed, seed, seed, seed].map((text, i) => ({ text, mt: offsets[i] }));
+    const added = this.state.added.map((text, i) => ({ text, mt: offsets[(i + 4) % offsets.length] }));
+    const t = T[theme];
+    return {
+      t, s: S[lang], isDark: theme === 'dark',
+      enBorder: lang === 'en' ? t.line : t.lineSoft,
+      zhBorder: lang === 'zh' ? t.line : t.lineSoft,
+      toEn: () => this.setState({ lang: 'en' }),
+      toZh: () => this.setState({ lang: 'zh' }),
+      flipTheme: () => this.setState({ theme: theme === 'dark' ? 'light' : 'dark' }),
+      draft: this.state.draft,
+      onDraft: (e) => this.setState({ draft: e.target.value }),
+      send: (e) => { e.preventDefault(); const v = this.state.draft.trim(); if (v) this.setState({ draft: '', added: this.state.added.concat([v]) }); },
+      comments: added.concat(base),
+      ...this.guestVals(t, S[lang], lang)
+    };
+  }
+}
+return Component;
+})());
+DC.define('Butterflies', (function(){
+class Component extends DCLogic {
+  renderVals() {
+    const pts = [
+      [52, 14, 46], [64, 8, 36], [70, 30, 54], [44, 40, 40], [80, 20, 44], [58, 52, 32],
+      [74, 60, 40], [18, 16, 28], [30, 50, 24], [88, 42, 34], [12, 66, 22], [40, 72, 30]
+    ];
+    const many = (this.props.density ?? 'many') === 'many';
+    const list = many ? pts : pts.filter((p, i) => i % 2 === 0);
+    const paths = ['p1', 'p2', 'p3'];
+    return {
+      stroke: this.props.stroke ?? '#e7c77f',
+      glow: this.props.glow ?? 'rgba(255,214,140,0.55)',
+      fillA: '#e6dcff', fillB: '#9d8cf0', fillC: '#6a73d6',
+      bs: list.map((p, i) => ({
+        x: p[0] + '%', y: p[1] + '%', w: p[2] + 'px',
+        path: paths[i % 3],
+        dur: (16 + (i * 7) % 14) + 's',
+        del: '-' + ((i * 3.7) % 16).toFixed(1) + 's',
+        flap: (0.24 + (i % 4) * 0.05).toFixed(2) + 's',
+        op: p[2] < 30 ? 0.7 : 0.95
+      }))
+    };
+  }
+}
+return Component;
+})());
+DC.mount('Main', {}, document.getElementById('dc-root'), { restore: 'mw-site-Main' });
+
+SITE.init('Main');
+</script>
+</body>
+</html>
