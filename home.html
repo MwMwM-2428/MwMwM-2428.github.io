@@ -328,8 +328,8 @@ class Component extends DCLogic {
     const ids = ['butterfly', 'snowflake', 'cloud', 'apsara', 'swallow'];
     const labels = { butterfly: s.k1, snowflake: s.k2, cloud: s.k3, apsara: s.k4, swallow: s.k5 };
     const kind = this.state.kind;
-    const seedName = lang === 'zh' ? '［访客名字］' : '[Visitor name]';
-    const seed = [0, 1, 2, 3, 4, 5, 6, 7].map((i) => ({ name: seedName, kind: ids[i % 5] }));
+    const seedNames = ['moonmoth', 'kiwi', 'jun', 'stardust', 'haru', 'Lena', 'tofu', 'pip'];
+    const seed = seedNames.map((name, i) => ({ name, kind: ids[i % 5] }));
     const all = seed.concat(this.state.marks);
     const mine = this.state.mine;
     return {

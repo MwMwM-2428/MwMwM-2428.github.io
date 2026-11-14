@@ -5,9 +5,8 @@
     { label: 'School', zh: '学校', addr: 'mwang0627@g.ucla.edu' },
     { label: 'Personal', zh: '个人', addr: 'mwang2428@gmail.com' }
   ];
-  var MUSIC = ['assets/music/chinax.mp3', 'assets/music/new-me.mp3', 'assets/music/die-for-you.mp3'];
+  var MUSIC = ['iUj1pvSthhA', 'HRlW6yZo6Kc', 'TDVlDUAIz5k', 'um6VLQEm500', 'nQZKe9zla2U'];  // ChinaX, New Me, Heaven Can Wait, Decaffeinated, Ready To Fly
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var BFLY = '<svg viewBox="0 0 60 48" aria-hidden="true"><g class="xflap"><path d="M30 24 C24 8 8 2 5 10 C2 18 14 24 30 24Z"/><path d="M30 24 C36 8 52 2 55 10 C58 18 46 24 30 24Z"/><path d="M30 24 C24 28 14 38 18 42 C22 45 28 36 30 24Z"/><path d="M30 24 C36 28 46 38 42 42 C38 45 32 36 30 24Z"/></g><path class="xbody" d="M30 17 L30 32"/></svg>';
 
   /* ---------- copy to clipboard ---------- */
   function copy(text, btn) {
@@ -30,11 +29,9 @@
         '<a class="xaddr" href="mailto:' + e.addr + '">' + e.addr + '</a>' +
         '<button type="button" class="xcopy" data-copy="' + e.addr + '" data-label="Click to copy to clipboard">Click to copy to clipboard</button></div>';
     });
-    if (kind === 'contact') {
-      html += '<div class="xnote"><span class="xthread l"></span><span class="xthread r"></span>' +
-        '<span class="xbf l">' + BFLY + '</span><span class="xbf r">' + BFLY + '</span>' +
-        '<p>Look forward to talking to you ;)!</p></div>';
-    }
+    html += '<div class="xscroll" aria-label="Look forward to talking to you ;)!">' +
+      '<div class="xpaper"><p>Look forward to talking to you ;)!</p></div>' +
+      '<span class="xrod l"></span><span class="xrod r"></span></div>';
     p.innerHTML = html;
     p.addEventListener('click', function (ev) { var b = ev.target.closest('.xcopy'); if (b) copy(b.getAttribute('data-copy'), b); });
     return p;
@@ -139,24 +136,60 @@
     if (img) shoot(b, img.getAttribute('src'));
   }, true);
 
-  /* ---------- music ---------- */
-  var audio = null, curIdx = -1;
+  /* ---------- music: official YouTube videos in a small visible player ---------- */
+  var player = null, ytReady = false, ytLoading = false, curIdx = -1, pending = null, poll = null, musicInst = null;
   function bar() { var m = document.getElementById('music'); return m && m.querySelector('span[style*="height: 3px"]'); }
+  function holder() {
+    var m = document.getElementById('music'); if (!m) return null;
+    var h = m.querySelector('.xyt');
+    if (!h) {
+      h = document.createElement('div'); h.className = 'xyt'; h.setAttribute('data-keep', '');
+      h.innerHTML = '<div class="xyt-frame"><div id="xyt-player"></div></div><a class="xyt-link" target="_blank" rel="noopener">Open on YouTube ↗</a>';
+      var anchor = m.querySelector('.cbox'); m.insertBefore(h, anchor || null);
+    }
+    return h;
+  }
+  function loadApi() {
+    if (ytLoading) return; ytLoading = true;
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () { if (prev) prev(); ytReady = true; if (pending) { var p = pending; pending = null; window.SITE.music(p[0], p[1], p[2]); } };
+    var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api';
+    s.onerror = function () { var h = holder(); if (h) h.querySelector('.xyt-frame').innerHTML = '<p class="xaudio-note">The player couldn’t load — use the YouTube link below.</p>'; };
+    document.head.appendChild(s);
+  }
+  function startPoll() {
+    clearInterval(poll);
+    poll = setInterval(function () {
+      if (!player || !player.getDuration) return;
+      var d = player.getDuration(), t = player.getCurrentTime(), b = bar();
+      if (b && d) b.style.width = (t / d * 100) + '%';
+    }, 500);
+  }
   window.SITE = window.SITE || {};
   window.SITE.music = function (inst, idx, play) {
-    if (!audio) {
-      audio = new Audio(); audio.preload = 'none';
-      audio.addEventListener('timeupdate', function () { var b = bar(); if (b && audio.duration) b.style.width = (audio.currentTime / audio.duration * 100) + '%'; });
-      audio.addEventListener('ended', function () { var n = (curIdx + 1) % MUSIC.length; inst.setState({ idx: n, playing: true }); window.SITE.music(inst, n, true); });
-      audio.addEventListener('error', function () {
-        inst.setState({ playing: false });
-        var m = document.getElementById('music'); if (!m || m.querySelector('.xaudio-note')) return;
-        var p = document.createElement('p'); p.className = 'xaudio-note'; p.setAttribute('data-keep', ''); p.textContent = 'This song isn’t uploaded yet — check back soon ♪';
-        m.appendChild(p);
+    musicInst = inst;
+    var h = holder(); if (!h) return;
+    h.classList.add('on');
+    h.querySelector('.xyt-link').href = 'https://www.youtube.com/watch?v=' + MUSIC[idx];
+    if (!ytReady) { pending = [inst, idx, play]; loadApi(); return; }
+    if (!player) {
+      curIdx = idx;
+      player = new YT.Player('xyt-player', {
+        width: '100%', height: '100%', videoId: MUSIC[idx],
+        playerVars: { autoplay: play ? 1 : 0, playsinline: 1, rel: 0, modestbranding: 1 },
+        events: {
+          onReady: function (e) { if (play) e.target.playVideo(); startPoll(); },
+          onStateChange: function (e) {
+            if (e.data === 0) { var n = (curIdx + 1) % MUSIC.length; musicInst.setState({ idx: n, playing: true, pct: 0 }); window.SITE.music(musicInst, n, true); }
+            else if (e.data === 1 && !musicInst.state.playing) musicInst.setState({ playing: true });
+            else if (e.data === 2 && musicInst.state.playing) musicInst.setState({ playing: false });
+          }
+        }
       });
+      return;
     }
-    if (idx !== curIdx) { audio.src = MUSIC[idx]; curIdx = idx; }
-    if (play) { var pr = audio.play(); if (pr && pr.catch) pr.catch(function () {}); } else audio.pause();
+    if (idx !== curIdx) { curIdx = idx; if (play) player.loadVideoById(MUSIC[idx]); else player.cueVideoById(MUSIC[idx]); return; }
+    if (play) player.playVideo(); else player.pauseVideo();
   };
 
   /* ---------- comment aliases (static comment forms) ---------- */

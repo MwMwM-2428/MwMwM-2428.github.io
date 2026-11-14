@@ -53,19 +53,18 @@ img, video { max-width: 100%; }
 .xcopy { align-self: stretch; min-height: 38px; border: 1px solid rgba(231,199,127,.6); background: rgb(53,48,68); color: #ece8f3; font-family: inherit; font-size: 13px; letter-spacing: .06em; cursor: pointer; transition: background .25s; }
 .xcopy:hover { background: rgb(72,64,84); }
 .xcopy.ok { background: rgba(231,199,127,.85); color: #1c1638; }
-.xnote { position: relative; margin: 34px 10px 4px; padding: 18px 16px; background: linear-gradient(180deg, #fbf3df, #efe1bd); color: #3a2c16; text-align: center; border-radius: 2px; box-shadow: 0 10px 24px rgba(6,4,18,.45); transform: rotate(-1.5deg); animation: xsway 4s ease-in-out infinite; }
-.xnote p { margin: 0; font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-style: italic; font-size: 21px; }
-@keyframes xsway { 0%,100% { transform: rotate(-1.5deg) translateY(0); } 50% { transform: rotate(1deg) translateY(-3px); } }
-.xthread { position: absolute; top: -26px; width: 1px; height: 28px; background: linear-gradient(#e7c77f, rgba(231,199,127,.3)); }
-.xthread.l { left: 22px; } .xthread.r { right: 22px; }
-.xbf { position: absolute; top: -50px; width: 40px; filter: drop-shadow(0 0 6px rgba(255,214,140,.7)); }
-.xbf.l { left: 2px; } .xbf.r { right: 2px; }
-.xbf svg { display: block; width: 100%; overflow: visible; }
-.xbf path { fill: #a996f2; stroke: #e7c77f; stroke-width: 1.2; }
-.xbf .xbody { stroke-width: 2; stroke-linecap: round; fill: none; }
-.xflap { transform-origin: 30px 24px; animation: xflap .3s ease-in-out infinite alternate; }
-.xbf.r .xflap { animation-delay: -.15s; }
-@keyframes xflap { from { transform: scaleX(1); } to { transform: scaleX(.25); } }
+.xscroll { position: relative; height: 74px; margin: 18px 6px 4px; }
+.xpaper { position: absolute; left: 10px; right: 10px; top: 4px; bottom: 4px; display: grid; place-items: center; padding: 0 18px; background: linear-gradient(180deg, #fbf3df, #efe1bd); color: #3a2c16; box-shadow: inset 0 0 18px rgba(120,90,40,.25), 0 8px 20px rgba(6,4,18,.4); clip-path: inset(0 50% 0 50%); animation: xunroll .9s cubic-bezier(.55,.05,.3,1) .15s forwards; }
+.xpaper::before { content: ""; position: absolute; inset: 5px; border: 1px solid rgba(154,116,50,.45); pointer-events: none; }
+.xpaper p { margin: 0; text-align: center; font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-style: italic; font-size: 18px; white-space: nowrap; opacity: 0; animation: xfade .5s ease-out .85s forwards; }
+.xrod { position: absolute; top: 0; bottom: 0; width: 10px; border-radius: 4px; background: linear-gradient(90deg, #3a2c16, #a8843f 28%, #f3dca6 50%, #b8954f 70%, #3a2c16); box-shadow: 0 0 10px rgba(240,214,156,.4); left: calc(50% - 10px); animation: xrodl .9s cubic-bezier(.55,.05,.3,1) .15s forwards; }
+.xrod.r { left: 50%; animation-name: xrodr; }
+.xrod::before, .xrod::after { content: ""; position: absolute; left: -3px; width: 16px; height: 8px; border-radius: 3px; background: radial-gradient(circle at 40% 35%, #fff1c9, #d9b56c 45%, #8a6a32); }
+.xrod::before { top: -6px; } .xrod::after { bottom: -6px; }
+@keyframes xunroll { to { clip-path: inset(0 0 0 0); } }
+@keyframes xrodl { to { left: 0; } }
+@keyframes xrodr { to { left: calc(100% - 10px); } }
+@keyframes xfade { to { opacity: 1; } }
 
 /* ---------- Shooting star → firework ---------- */
 #xfx { position: absolute; left: 0; top: 0; width: 100%; pointer-events: none; z-index: 1100; overflow: hidden; }
@@ -85,4 +84,11 @@ img, video { max-width: 100%; }
 @keyframes xpop { from { transform: scale(0); } to { transform: scale(1); } }
 
 .xaudio-note { margin: 12px 0 0; font-size: 13px; color: #e7c77f; letter-spacing: .04em; }
-@media (prefers-reduced-motion: reduce) { .xnote, .xflap { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .xpaper, .xpaper p, .xrod { animation-duration: .01s !important; animation-delay: 0s !important; } }
+
+/* ---------- Music: YouTube player ---------- */
+.xyt { display: none; margin: 26px 0 0; max-width: 420px; }
+.xyt.on { display: block; }
+.xyt-frame { position: relative; aspect-ratio: 16 / 9; border: 1px solid #c8ab6e; padding: 5px; box-sizing: border-box; background: rgba(10,8,26,.5); }
+.xyt-frame iframe, .xyt-frame > div { width: 100%; height: 100%; display: block; border: 0; }
+.xyt-link { display: inline-block; margin-top: 8px; font-size: 13px; letter-spacing: .08em; color: #e7c77f; }

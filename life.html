@@ -216,7 +216,7 @@ a{color:inherit}a:hover{opacity:.8}
 <h2 id="h-music" style="margin: 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 52px">Music <span style="font-family: 'Noto Serif SC', serif; font-style: normal; font-size: 30px; color: #c8ab6e; letter-spacing: 0.2em">乐</span></h2>
 <a href="#top" style="font-size: 13px; letter-spacing: 0.15em; color: #b9b1cc">BACK TO TOP ↑</a>
 </div>
-<p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Three songs on repeat right now.</p>
+<p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Songs on repeat right now — tap one to play.</p>
 <div style="margin-top: 28px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
 <div class="{{spinClass}}" style="flex: 0 0 auto">
 <svg viewBox="0 0 300 300" width="260" height="260" fill="none" aria-hidden="true">
@@ -430,7 +430,9 @@ class Component extends DCLogic {
     const list = [
       { title: 'ChinaX', artist: '徐梦圆 Xu Mengyuan' },
       { title: 'New Me', artist: 'YOASOBI' },
-      { title: 'Die For You', artist: 'Bruno Mars' }
+      { title: 'Heaven Can Wait', artist: 'Michael Jackson' },
+      { title: 'Decaffeinated', artist: 'Sana' },
+      { title: 'Ready To Fly', artist: 'Misayoshi' }
     ];
     const idx = this.state.idx;
     const playing = this.state.playing;
@@ -441,7 +443,7 @@ class Component extends DCLogic {
       spinClass: playing ? 'spin' : '',
       progress: (this.state.pct || 0) + '%',
       toggle: () => { this.setState({ playing: !playing }); if (window.SITE && SITE.music) SITE.music(this, idx, !playing); },
-      songs: list.map((s, i) => ({ title: s.title, artist: s.artist, num: ['I', 'II', 'III'][i], color: i === idx ? '#ffffff' : '#cfc7e0', pick: () => { this.setState({ idx: i, playing: true, pct: 0 }); if (window.SITE && SITE.music) SITE.music(this, i, true); } })),
+      songs: list.map((s, i) => ({ title: s.title, artist: s.artist, num: ['I', 'II', 'III', 'IV', 'V'][i], color: i === idx ? '#ffffff' : '#cfc7e0', pick: () => { this.setState({ idx: i, playing: true, pct: 0 }); if (window.SITE && SITE.music) SITE.music(this, i, true); } })),
       three: n(3), six: n(6), four: n(4),
       dances: [
         { src: 'assets/572bc8e9dd7cd04a35b3bb02ab8f3539.mp4', poster: 'assets/c09eba28814bfd7aef723e91124c3531.jpg', en: 'My own choreography in the desert — I did solid research for this one', zh: '自己编的舞，在沙漠里跳，前期做足了功课' },
