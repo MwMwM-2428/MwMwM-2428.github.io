@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Michelle Wang (Peifeier) · 王佩菲迩</title>
 <meta name="description" content="Michelle Wang (Peifeier) — UCLA student in applied mathematics, researching world models, AI safety and robotics.">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Noto+Serif+SC:wght@300;400;500&amp;display=swap">
 <style>
@@ -20,8 +20,12 @@ body{margin:0}
 .bg{background:url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center/cover no-repeat}
 
 .dc-Butterflies{margin:0}
-.dc-Butterflies .flap{transform-origin:30px 24px;animation:Butterflies_flap .32s ease-in-out infinite alternate}
-@keyframes Butterflies_flap{from{transform:scaleX(1)}to{transform:scaleX(.16)}}
+.dc-Butterflies .bfw{display:flex;align-items:flex-start;perspective:260px}
+.dc-Butterflies .bfw img{display:block;width:50%;height:auto}
+.dc-Butterflies .wl{transform-origin:100% 50%;animation:Butterflies_wl .34s ease-in-out infinite alternate}
+.dc-Butterflies .wr{transform-origin:0% 50%;animation:Butterflies_wr .34s ease-in-out infinite alternate}
+@keyframes Butterflies_wl{from{transform:rotateY(0deg)}to{transform:rotateY(68deg)}}
+@keyframes Butterflies_wr{from{transform:rotateY(0deg)}to{transform:rotateY(-68deg)}}
 .dc-Butterflies .fly{animation-timing-function:ease-in-out;animation-iteration-count:infinite;will-change:transform}
 .dc-Butterflies .p1{animation-name:Butterflies_p1}
 .dc-Butterflies .p2{animation-name:Butterflies_p2}
@@ -29,7 +33,7 @@ body{margin:0}
 @keyframes Butterflies_p1{0%{transform:translate(0,0) rotate(-10deg)}25%{transform:translate(140px,-70px) rotate(8deg)}50%{transform:translate(60px,-160px) rotate(-6deg)}75%{transform:translate(-100px,-70px) rotate(10deg)}100%{transform:translate(0,0) rotate(-10deg)}}
 @keyframes Butterflies_p2{0%{transform:translate(0,0) rotate(6deg)}20%{transform:translate(-90px,50px) rotate(-8deg)}45%{transform:translate(-180px,-20px) rotate(4deg)}70%{transform:translate(-60px,-110px) rotate(-10deg)}100%{transform:translate(0,0) rotate(6deg)}}
 @keyframes Butterflies_p3{0%{transform:translate(0,0) rotate(0deg)}30%{transform:translate(200px,40px) rotate(12deg)}55%{transform:translate(260px,-90px) rotate(-6deg)}80%{transform:translate(90px,-130px) rotate(8deg)}100%{transform:translate(0,0) rotate(0deg)}}
-@media (prefers-reduced-motion: reduce){.dc-Butterflies .fly,.dc-Butterflies .flap{animation:none}}
+@media (prefers-reduced-motion: reduce){.dc-Butterflies .fly,.dc-Butterflies .wl,.dc-Butterflies .wr{animation:none}}
 </style>
 <link rel="stylesheet" href="site.css">
 </head>
@@ -78,17 +82,7 @@ body{margin:0}
 </defs></svg>
 <sc-for list="{{bs}}" as="b" hint-placeholder-count="12">
 <div class="fly {{b.path}}" style="position: absolute; left: {{b.x}}; top: {{b.y}}; width: {{b.w}}; opacity: {{b.op}}; animation-duration: {{b.dur}}; animation-delay: {{b.del}}">
-<svg viewBox="0 0 60 48" width="100%" aria-hidden="true" style="display: block; overflow: visible; filter: drop-shadow(0 0 6px {{glow}}) drop-shadow(0 0 14px {{glow}})">
-<g class="flap" style="animation-duration: {{b.flap}}; animation-delay: {{b.del}}">
-<path d="M30 24 C24 8 8 2 5 10 C2 18 14 24 30 24Z" fill="url(#bwg)" stroke="{{stroke}}" stroke-width="1"/>
-<path d="M30 24 C36 8 52 2 55 10 C58 18 46 24 30 24Z" fill="url(#bwg)" stroke="{{stroke}}" stroke-width="1"/>
-<path d="M30 24 C24 28 14 38 18 42 C22 45 28 36 30 24Z" fill="url(#bwg)" stroke="{{stroke}}" stroke-width="1"/>
-<path d="M30 24 C36 28 46 38 42 42 C38 45 32 36 30 24Z" fill="url(#bwg)" stroke="{{stroke}}" stroke-width="1"/>
-<path d="M30 24 C22 16 14 11 9 11 M30 24 C38 16 46 11 51 11 M30 24 C24 30 20 36 19 40 M30 24 C36 30 40 36 41 40" fill="none" stroke="{{stroke}}" stroke-width="0.5" opacity="0.8"/>
-</g>
-<path d="M30 17 L30 32" stroke="{{stroke}}" stroke-width="1.8" stroke-linecap="round"/>
-<path d="M30 17 C28 11 25 8 22 7 M30 17 C32 11 35 8 38 7" fill="none" stroke="{{stroke}}" stroke-width="0.6"/>
-</svg>
+<div class="bfw" style="filter: drop-shadow(0 0 5px {{glow}}) drop-shadow(0 0 12px {{glow}})"><img class="wl" src="assets/4c92f7b05e3b0b8bafcf0ff6a8e48d74.png" alt="" style="animation-duration: {{b.flap}}; animation-delay: {{b.del}}"><img class="wr" src="assets/dd0fbc724844aac659c9b8c004047feb.png" alt="" style="animation-duration: {{b.flap}}; animation-delay: {{b.del}}"></div>
 </div>
 </sc-for>
 </div>
@@ -120,7 +114,7 @@ class Component extends DCLogic {
       glow: this.props.glow ?? 'rgba(255,214,140,0.55)',
       fillA: '#e6dcff', fillB: '#9d8cf0', fillC: '#6a73d6',
       bs: list.map((p, i) => ({
-        x: p[0] + '%', y: p[1] + '%', w: p[2] + 'px',
+        x: p[0] + '%', y: p[1] + '%', w: Math.round(p[2] * 1.15) + 'px',
         path: paths[i % 3],
         dur: (16 + (i * 7) % 14) + 's',
         del: '-' + ((i * 3.7) % 16).toFixed(1) + 's',
