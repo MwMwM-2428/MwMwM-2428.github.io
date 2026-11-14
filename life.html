@@ -221,9 +221,10 @@ a{color:inherit}a:hover{opacity:.8}
 <a href="#top" style="font-size: 13px; letter-spacing: 0.15em; color: #b9b1cc">BACK TO TOP ↑</a>
 </div>
 <p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Songs on repeat right now — tap one to play.</p>
-<div style="margin-top: 28px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
-<div class="{{spinClass}}" style="flex: 0 0 auto">
-<svg viewBox="0 0 300 300" width="260" height="260" fill="none" aria-hidden="true">
+<div class="mstage" style="margin-top: 30px; display: flex; flex-wrap: wrap; gap: 44px; align-items: center">
+<div style="flex: 0 1 300px; min-width: 240px">
+<div class="{{spinClass}}" style="width: 120px; margin-bottom: 18px">
+<svg viewBox="0 0 300 300" width="120" height="120" fill="none" aria-hidden="true">
 <g class="disc">
 <circle cx="150" cy="150" r="140" stroke="#c8ab6e" stroke-width="1.2"></circle>
 <circle cx="150" cy="150" r="118" stroke="rgba(200,171,110,0.35)" stroke-width="0.6"></circle>
@@ -235,22 +236,29 @@ a{color:inherit}a:hover{opacity:.8}
 </g>
 </svg>
 </div>
-<div style="flex: 1 1 300px; min-width: 0">
 <div style="font-size: 12px; letter-spacing: 0.3em; color: #c8ab6e">NOW PLAYING</div>
-<div style="margin-top: 10px; font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-size: 34px">{{song.title}}</div>
+<div style="margin-top: 10px; font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-style: italic; font-size: 38px; line-height: 1.15">{{song.title}}</div>
 <div style="margin-top: 4px; color: #cfc7e0; font-size: 15px">{{song.artist}}</div>
-<div style="margin: 18px 0; height: 1px; background: rgba(200,171,110,0.35); position: relative"><span style="position: absolute; left: 0; top: -1px; height: 3px; width: {{progress}}; background: #c8ab6e"></span></div>
+<div style="margin: 18px 0; height: 1px; background: rgba(200,171,110,0.35); position: relative"><span class="mbar" style="position: absolute; left: 0; top: -1px; height: 3px; width: {{progress}}; background: #c8ab6e"></span></div>
+<div style="display: flex; align-items: center; gap: 18px">
 <button type="button" onClick="{{toggle}}" aria-label="{{playLabel}}" style="width: 52px; height: 52px; border-radius: 50%; border: 1px solid #c8ab6e; background: none; color: #c8ab6e; display: grid; place-items: center; cursor: pointer">
 <sc-if value="{{playing}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 5v14M16 5v14"></path></svg></sc-if>
 <sc-if value="{{paused}}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 5l11 7-11 7z"></path></svg></sc-if>
 </button>
-<ul style="list-style: none; margin: 22px 0 0; padding: 0">
-<sc-for list="{{songs}}" as="sg" hint-placeholder-count="3">
+<span class="xyt-linkslot"></span>
+</div>
+</div>
+<div class="xyt-slot" style="flex: 1 1 360px; max-width: 520px; min-width: 0; position: relative; border: 1px solid #e7c77f; padding: 7px; background: rgba(10,8,26,0.5); box-shadow: 0 0 40px rgba(231,199,127,0.15)">
+<span aria-hidden="true" style="position: absolute; left: -6px; top: -6px; width: 22px; height: 22px; border-left: 1px solid #e7c77f; border-top: 1px solid #e7c77f"></span>
+<span aria-hidden="true" style="position: absolute; right: -6px; bottom: -6px; width: 22px; height: 22px; border-right: 1px solid #e7c77f; border-bottom: 1px solid #e7c77f"></span>
+<div style="aspect-ratio: 16 / 9; display: grid; place-items: center; text-align: center; background: radial-gradient(ellipse at 50% 45%, rgba(120,96,210,0.3), rgba(10,8,26,0.85) 70%); color: #cfc7e0; font-size: 14px; letter-spacing: 0.12em; line-height: 2"><div>Choose a song below to start the music ♪<br><span style="font-size: 12px; color: #c8ab6e">点一首歌开始播放</span></div></div>
+</div>
+</div>
+<ul class="mlist" style="list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); column-gap: 44px">
+<sc-for list="{{songs}}" as="sg" hint-placeholder-count="6">
 <li><button type="button" onClick="{{sg.pick}}" style="width: 100%; min-height: 52px; display: flex; align-items: center; gap: 14px; background: none; border: none; border-bottom: 1px solid rgba(200,171,110,0.2); color: {{sg.color}}; font-family: 'Noto Serif SC', serif; font-size: 15px; text-align: left; cursor: pointer; padding: 0 4px"><span style="font-family: 'Cormorant Garamond', serif; color: #c8ab6e; width: 26px">{{sg.num}}</span><span style="flex: 1 1 auto">{{sg.title}}</span><span style="font-size: 13px; color: #b9b1cc">{{sg.artist}}</span></button></li>
 </sc-for>
 </ul>
-</div>
-</div>
 <div class="cbox">
 <div class="ceye">留言 · COMMENTS</div>
 <h3 style="margin: 12px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 34px">Do you play any instruments?</h3>
@@ -426,7 +434,8 @@ class Component extends DCLogic {
       { title: 'New Me', artist: 'YOASOBI' },
       { title: 'Heaven Can Wait', artist: 'Michael Jackson' },
       { title: 'Decaffeinated', artist: 'Sana' },
-      { title: 'Ready To Fly', artist: 'Misayoshi' }
+      { title: 'Ready To Fly', artist: 'Misayoshi' },
+      { title: '旅途 Journey', artist: '自得琴社 Zide Qin Society' }
     ];
     const idx = this.state.idx;
     const playing = this.state.playing;
@@ -437,7 +446,7 @@ class Component extends DCLogic {
       spinClass: playing ? 'spin' : '',
       progress: (this.state.pct || 0) + '%',
       toggle: () => { this.setState({ playing: !playing }); if (window.SITE && SITE.music) SITE.music(this, idx, !playing); },
-      songs: list.map((s, i) => ({ title: s.title, artist: s.artist, num: ['I', 'II', 'III', 'IV', 'V'][i], color: i === idx ? '#ffffff' : '#cfc7e0', pick: () => { this.setState({ idx: i, playing: true, pct: 0 }); if (window.SITE && SITE.music) SITE.music(this, i, true); } })),
+      songs: list.map((s, i) => ({ title: s.title, artist: s.artist, num: ['I', 'II', 'III', 'IV', 'V', 'VI'][i], color: i === idx ? '#ffffff' : '#cfc7e0', pick: () => { this.setState({ idx: i, playing: true, pct: 0 }); if (window.SITE && SITE.music) SITE.music(this, i, true); } })),
       three: n(3), six: n(6), four: n(4),
       dances: [
         { src: 'assets/572bc8e9dd7cd04a35b3bb02ab8f3539.mp4', poster: 'assets/c09eba28814bfd7aef723e91124c3531.jpg', en: 'My own choreography in the desert — I did solid research for this one', zh: '自己编的舞，在沙漠里跳，前期做足了功课' },

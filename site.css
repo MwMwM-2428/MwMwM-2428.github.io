@@ -86,9 +86,8 @@ img, video { max-width: 100%; }
 .xaudio-note { margin: 12px 0 0; font-size: 13px; color: #e7c77f; letter-spacing: .04em; }
 @media (prefers-reduced-motion: reduce) { .xpaper, .xpaper p, .xrod { animation-duration: .01s !important; animation-delay: 0s !important; } }
 
-/* ---------- Music: YouTube player ---------- */
-.xyt { display: none; margin: 26px 0 0; max-width: 420px; }
-.xyt.on { display: block; }
-.xyt-frame { position: relative; aspect-ratio: 16 / 9; border: 1px solid #c8ab6e; padding: 5px; box-sizing: border-box; background: rgba(10,8,26,.5); }
-.xyt-frame iframe, .xyt-frame > div { width: 100%; height: 100%; display: block; border: 0; }
-.xyt-link { display: inline-block; margin-top: 8px; font-size: 13px; letter-spacing: .08em; color: #e7c77f; }
+/* ---------- Music: framed player screen ---------- */
+.xyt-screen { position: absolute; left: 7px; right: 7px; top: 7px; bottom: 7px; display: none; background: #000; }
+.xyt-screen.on { display: block; }
+.xyt-screen iframe, .xyt-screen > div { width: 100%; height: 100%; display: block; border: 0; }
+.xyt-link { font-size: 13px; letter-spacing: .08em; color: #e7c77f; white-space: nowrap; }

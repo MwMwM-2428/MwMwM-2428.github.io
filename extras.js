@@ -5,7 +5,7 @@
     { label: 'School', zh: '学校', addr: 'mwang0627@g.ucla.edu' },
     { label: 'Personal', zh: '个人', addr: 'mwang2428@gmail.com' }
   ];
-  var MUSIC = ['iUj1pvSthhA', 'HRlW6yZo6Kc', 'TDVlDUAIz5k', 'um6VLQEm500', 'nQZKe9zla2U'];  // ChinaX, New Me, Heaven Can Wait, Decaffeinated, Ready To Fly
+  var MUSIC = [{ yt: 'iUj1pvSthhA' }, { yt: 'HRlW6yZo6Kc' }, { yt: 'TDVlDUAIz5k' }, { yt: 'um6VLQEm500' }, { yt: 'nQZKe9zla2U' }, { bili: 'BV1oa4y1v7oc' }];  // ChinaX, New Me, Heaven Can Wait, Decaffeinated, Ready To Fly, 旅途
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- copy to clipboard ---------- */
@@ -136,46 +136,61 @@
     if (img) shoot(b, img.getAttribute('src'));
   }, true);
 
-  /* ---------- music: official YouTube videos in a small visible player ---------- */
-  var player = null, ytReady = false, ytLoading = false, curIdx = -1, pending = null, poll = null, musicInst = null;
-  function bar() { var m = document.getElementById('music'); return m && m.querySelector('span[style*="height: 3px"]'); }
-  function holder() {
-    var m = document.getElementById('music'); if (!m) return null;
-    var h = m.querySelector('.xyt');
-    if (!h) {
-      h = document.createElement('div'); h.className = 'xyt'; h.setAttribute('data-keep', '');
-      h.innerHTML = '<div class="xyt-frame"><div id="xyt-player"></div></div><a class="xyt-link" target="_blank" rel="noopener">Open on YouTube ↗</a>';
-      var anchor = m.querySelector('.cbox'); m.insertBefore(h, anchor || null);
-    }
+  /* ---------- music: official YouTube / Bilibili players inside the framed screen ---------- */
+  var player = null, ytReady = false, ytLoading = false, curIdx = -1, pending = null, poll = null, musicInst = null, mode = null;
+  function bar() { var m = document.getElementById('music'); return m && m.querySelector('.mbar'); }
+  function screen() {
+    var slot = document.querySelector('#music .xyt-slot'); if (!slot) return null;
+    var h = slot.querySelector('.xyt-screen');
+    if (!h) { h = document.createElement('div'); h.className = 'xyt-screen'; h.setAttribute('data-keep', ''); slot.appendChild(h); }
     return h;
+  }
+  function link(url, label) {
+    var ls = document.querySelector('#music .xyt-linkslot'); if (!ls) return;
+    var a = ls.querySelector('a');
+    if (!a) { a = document.createElement('a'); a.className = 'xyt-link'; a.target = '_blank'; a.rel = 'noopener'; a.setAttribute('data-keep', ''); ls.appendChild(a); }
+    a.href = url; a.textContent = label;
   }
   function loadApi() {
     if (ytLoading) return; ytLoading = true;
     var prev = window.onYouTubeIframeAPIReady;
     window.onYouTubeIframeAPIReady = function () { if (prev) prev(); ytReady = true; if (pending) { var p = pending; pending = null; window.SITE.music(p[0], p[1], p[2]); } };
-    var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api';
-    s.onerror = function () { var h = holder(); if (h) h.querySelector('.xyt-frame').innerHTML = '<p class="xaudio-note">The player couldn’t load — use the YouTube link below.</p>'; };
-    document.head.appendChild(s);
+    var sc = document.createElement('script'); sc.src = 'https://www.youtube.com/iframe_api';
+    sc.onerror = function () { var h = screen(); if (h) h.innerHTML = '<p class="xaudio-note" style="padding:20px">The player couldn’t load — use the link beside the play button.</p>'; };
+    document.head.appendChild(sc);
   }
   function startPoll() {
     clearInterval(poll);
     poll = setInterval(function () {
-      if (!player || !player.getDuration) return;
+      if (mode !== 'yt' || !player || !player.getDuration) return;
       var d = player.getDuration(), t = player.getCurrentTime(), b = bar();
       if (b && d) b.style.width = (t / d * 100) + '%';
     }, 500);
   }
+  function destroyYT() { if (player && player.destroy) { try { player.destroy(); } catch (e) {} } player = null; }
   window.SITE = window.SITE || {};
   window.SITE.music = function (inst, idx, play) {
     musicInst = inst;
-    var h = holder(); if (!h) return;
+    var h = screen(); if (!h) return;
+    var src = MUSIC[idx];
+    if (src.bili) {
+      link('https://www.bilibili.com/video/' + src.bili, 'Open on Bilibili ↗');
+      destroyYT(); mode = 'bili'; curIdx = idx;
+      if (play) {
+        h.classList.add('on');
+        h.innerHTML = '<iframe src="https://player.bilibili.com/player.html?bvid=' + src.bili + '&autoplay=1&high_quality=1&danmaku=0" allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="旅途 Journey — 自得琴社"></iframe>';
+        var b = bar(); if (b) b.style.width = '0%';
+      } else { h.innerHTML = ''; h.classList.remove('on'); }
+      return;
+    }
+    link('https://www.youtube.com/watch?v=' + src.yt, 'Open on YouTube ↗');
     h.classList.add('on');
-    h.querySelector('.xyt-link').href = 'https://www.youtube.com/watch?v=' + MUSIC[idx];
     if (!ytReady) { pending = [inst, idx, play]; loadApi(); return; }
-    if (!player) {
-      curIdx = idx;
+    if (mode !== 'yt' || !player) {
+      mode = 'yt'; curIdx = idx; destroyYT();
+      h.innerHTML = '<div id="xyt-player"></div>';
       player = new YT.Player('xyt-player', {
-        width: '100%', height: '100%', videoId: MUSIC[idx],
+        width: '100%', height: '100%', videoId: src.yt,
         playerVars: { autoplay: play ? 1 : 0, playsinline: 1, rel: 0, modestbranding: 1 },
         events: {
           onReady: function (e) { if (play) e.target.playVideo(); startPoll(); },
@@ -188,7 +203,7 @@
       });
       return;
     }
-    if (idx !== curIdx) { curIdx = idx; if (play) player.loadVideoById(MUSIC[idx]); else player.cueVideoById(MUSIC[idx]); return; }
+    if (idx !== curIdx) { curIdx = idx; if (play) player.loadVideoById(src.yt); else player.cueVideoById(src.yt); return; }
     if (play) player.playVideo(); else player.pauseVideo();
   };
 
