@@ -70,6 +70,7 @@ a{color:inherit}a:hover{opacity:.8}
 .cin::placeholder{color:#cfc7e0}
 .cbtn{height:52px;padding:0 26px;background:#e7c77f;border:1px solid #e7c77f;color:#1c1638;font-family:'Noto Serif SC',serif;font-size:15px;font-weight:500;letter-spacing:.12em;cursor:pointer}
 @media (prefers-reduced-motion: reduce){.stars,.glint,.shoot,.cons,.art,.sym,.spin .disc{animation:none}.shoot{display:none}html{scroll-behavior:auto}}
+.alias-wrap{position:relative;display:inline-block;cursor:default;outline:none}.alias-tip{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translate(-50%,6px);opacity:0;pointer-events:none;white-space:nowrap;padding:5px 12px;background:#15132b;border:1px solid #e7c77f;color:#f3dca6;font-size:12px;letter-spacing:.08em;transition:opacity .25s,transform .25s;z-index:3}.alias-wrap:hover .alias-tip,.alias-wrap:focus-visible .alias-tip{opacity:1;transform:translate(-50%,0)}
 
 .dc-Butterflies{margin:0}
 .dc-Butterflies .flap{transform-origin:30px 24px;animation:Butterflies_flap .32s ease-in-out infinite alternate}
@@ -194,15 +195,16 @@ a{color:inherit}a:hover{opacity:.8}
 <div class="ceye">留言 · COMMENTS</div>
 <h3 style="margin: 12px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 34px">What is your favorite style of dance?</h3>
 <p style="margin: 6px 0 22px; color: #cfc7e0; font-size: 14px; letter-spacing: 0.08em">每个回答都会开成一朵玫瑰 · Each answer blooms into a rose</p>
-<form style="max-width: 560px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px">
+<form style="max-width: 720px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px">
+<label style="flex: 0 1 180px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR ALIAS<input class="cin alias-in" name="alias" type="text" maxlength="24" placeholder="A nickname…"></label>
 <label style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR ANSWER<input class="cin" type="text" placeholder="Ballet, K-pop, 古典舞…"></label>
 <button class="cbtn" type="button" style="align-self: flex-end">Send</button>
 </form>
 <div style="margin-top: 34px; display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 44px">
-<sc-for list="{{notes}}" as="n" hint-placeholder-count="4">
+<sc-for list="{{notes0}}" as="n" hint-placeholder-count="4">
 <div style="width: 150px; display: flex; flex-direction: column; align-items: center; margin-top: {{n.mt}}">
-<svg class="sym" viewBox="0 0 60 80" width="50" height="66" fill="rgba(185,169,234,0.22)" stroke="#e7c77f" stroke-width="1" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(255,214,140,0.45))"><path d="M30 34 C20 34 16 26 20 18 C24 10 36 10 40 18 C44 26 40 34 30 34Z"></path><path d="M30 28 C25 28 24 22 28 19 C32 16 36 22 33 26 M24 22 C26 30 34 30 36 22" fill="none"></path><path d="M30 34 L30 76 M30 52 C22 48 16 50 14 54 C20 58 26 56 30 52Z M30 62 C38 58 44 60 46 64 C40 68 34 66 30 62Z" fill="none"></path></svg>
-<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: #cfc7e0">[A visitor answer appears here]</p>
+<span class="alias-wrap" tabindex="0" aria-label="Comment by {{n.alias}}"><svg class="sym" viewBox="0 0 60 80" width="50" height="66" fill="rgba(185,169,234,0.22)" stroke="#e7c77f" stroke-width="1" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(255,214,140,0.45))"><path d="M30 34 C20 34 16 26 20 18 C24 10 36 10 40 18 C44 26 40 34 30 34Z"></path><path d="M30 28 C25 28 24 22 28 19 C32 16 36 22 33 26 M24 22 C26 30 34 30 36 22" fill="none"></path><path d="M30 34 L30 76 M30 52 C22 48 16 50 14 54 C20 58 26 56 30 52Z M30 62 C38 58 44 60 46 64 C40 68 34 66 30 62Z" fill="none"></path></svg><span class="alias-tip">{{n.alias}}</span></span>
+<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: #cfc7e0">{{n.text}}</p>
 </div>
 </sc-for>
 </div>
@@ -249,15 +251,16 @@ a{color:inherit}a:hover{opacity:.8}
 <div class="ceye">留言 · COMMENTS</div>
 <h3 style="margin: 12px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 34px">Do you play any instruments?</h3>
 <p style="margin: 6px 0 22px; color: #cfc7e0; font-size: 14px; letter-spacing: 0.08em">每个回答都会挂成一串铃兰 · Each answer rings as a lily of the valley</p>
-<form style="max-width: 560px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px">
+<form style="max-width: 720px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px">
+<label style="flex: 0 1 180px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR ALIAS<input class="cin alias-in" name="alias" type="text" maxlength="24" placeholder="A nickname…"></label>
 <label style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR ANSWER<input class="cin" type="text" placeholder="Piano, guzheng, nothing yet…"></label>
 <button class="cbtn" type="button" style="align-self: flex-end">Send</button>
 </form>
 <div style="margin-top: 34px; display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 44px">
-<sc-for list="{{notes}}" as="n" hint-placeholder-count="4">
+<sc-for list="{{notes1}}" as="n" hint-placeholder-count="3">
 <div style="width: 150px; display: flex; flex-direction: column; align-items: center; margin-top: {{n.mt}}">
-<svg class="sym" viewBox="0 0 60 80" width="50" height="66" fill="rgba(185,169,234,0.22)" stroke="#e7c77f" stroke-width="1" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(255,214,140,0.45))"><path d="M8 8 C26 2 44 8 54 24" fill="none"></path><path d="M26 16 L26 22 M18 30 C18 22 34 22 34 30 C34 34 36 36 37 38 L15 38 C16 36 18 34 18 30Z"></path><path d="M42 26 L42 32 M35 39 C35 33 49 33 49 39 C49 42 51 44 52 46 L32 46 C33 44 35 42 35 39Z"></path><path d="M30 50 C24 62 26 72 32 78 M30 50 C38 60 40 70 36 78" fill="none"></path></svg>
-<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: #cfc7e0">[A visitor answer appears here]</p>
+<span class="alias-wrap" tabindex="0" aria-label="Comment by {{n.alias}}"><svg class="sym" viewBox="0 0 60 80" width="50" height="66" fill="rgba(185,169,234,0.22)" stroke="#e7c77f" stroke-width="1" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(255,214,140,0.45))"><path d="M8 8 C26 2 44 8 54 24" fill="none"></path><path d="M26 16 L26 22 M18 30 C18 22 34 22 34 30 C34 34 36 36 37 38 L15 38 C16 36 18 34 18 30Z"></path><path d="M42 26 L42 32 M35 39 C35 33 49 33 49 39 C49 42 51 44 52 46 L32 46 C33 44 35 42 35 39Z"></path><path d="M30 50 C24 62 26 72 32 78 M30 50 C38 60 40 70 36 78" fill="none"></path></svg><span class="alias-tip">{{n.alias}}</span></span>
+<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: #cfc7e0">{{n.text}}</p>
 </div>
 </sc-for>
 </div>
@@ -282,15 +285,16 @@ a{color:inherit}a:hover{opacity:.8}
 <div class="ceye">留言 · COMMENTS</div>
 <h3 style="margin: 12px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 34px">Knitting or crocheting?</h3>
 <p style="margin: 6px 0 22px; color: #cfc7e0; font-size: 14px; letter-spacing: 0.08em">每个回答都会绕成一团毛线 · Each answer winds into a ball of yarn</p>
-<form style="max-width: 560px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px">
+<form style="max-width: 720px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px">
+<label style="flex: 0 1 180px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR ALIAS<input class="cin alias-in" name="alias" type="text" maxlength="24" placeholder="A nickname…"></label>
 <label style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR ANSWER<input class="cin" type="text" placeholder="Team knit or team crochet…"></label>
 <button class="cbtn" type="button" style="align-self: flex-end">Send</button>
 </form>
 <div style="margin-top: 34px; display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 44px">
-<sc-for list="{{notes}}" as="n" hint-placeholder-count="4">
+<sc-for list="{{notes2}}" as="n" hint-placeholder-count="3">
 <div style="width: 150px; display: flex; flex-direction: column; align-items: center; margin-top: {{n.mt}}">
-<svg class="sym" viewBox="0 0 60 80" width="50" height="66" fill="rgba(185,169,234,0.22)" stroke="#e7c77f" stroke-width="1" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(255,214,140,0.45))"><circle cx="30" cy="40" r="20"></circle><path d="M14 30 C24 36 38 36 46 28 M12 42 C24 48 40 48 50 40 M16 52 C26 56 38 56 46 50 M24 21 C20 32 22 48 30 59 M36 21 C42 32 42 48 36 59" fill="none"></path><path d="M48 52 C56 60 52 70 44 74 C38 77 34 74 30 78" fill="none"></path></svg>
-<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: #cfc7e0">[A visitor answer appears here]</p>
+<span class="alias-wrap" tabindex="0" aria-label="Comment by {{n.alias}}"><svg class="sym" viewBox="0 0 60 80" width="50" height="66" fill="rgba(185,169,234,0.22)" stroke="#e7c77f" stroke-width="1" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(255,214,140,0.45))"><circle cx="30" cy="40" r="20"></circle><path d="M14 30 C24 36 38 36 46 28 M12 42 C24 48 40 48 50 40 M16 52 C26 56 38 56 46 50 M24 21 C20 32 22 48 30 59 M36 21 C42 32 42 48 36 59" fill="none"></path><path d="M48 52 C56 60 52 70 44 74 C38 77 34 74 30 78" fill="none"></path></svg><span class="alias-tip">{{n.alias}}</span></span>
+<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: #cfc7e0">{{n.text}}</p>
 </div>
 </sc-for>
 </div>
@@ -326,15 +330,16 @@ a{color:inherit}a:hover{opacity:.8}
 <div class="ceye">留言 · COMMENTS</div>
 <h3 style="margin: 12px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 34px">Any anime recommendations?</h3>
 <p style="margin: 6px 0 22px; color: #cfc7e0; font-size: 14px; letter-spacing: 0.08em">每条推荐都会飘成一朵樱花 · Each pick drifts in as a cherry blossom</p>
-<form style="max-width: 560px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px">
+<form style="max-width: 720px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px">
+<label style="flex: 0 1 180px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR ALIAS<input class="cin alias-in" name="alias" type="text" maxlength="24" placeholder="A nickname…"></label>
 <label style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR PICK<input class="cin" type="text" placeholder="A show I should watch…"></label>
 <button class="cbtn" type="button" style="align-self: flex-end">Send</button>
 </form>
 <div style="margin-top: 34px; display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 44px">
-<sc-for list="{{notes}}" as="n" hint-placeholder-count="4">
+<sc-for list="{{notes3}}" as="n" hint-placeholder-count="4">
 <div style="width: 150px; display: flex; flex-direction: column; align-items: center; margin-top: {{n.mt}}">
-<svg class="sym" viewBox="0 0 60 80" width="50" height="66" fill="rgba(185,169,234,0.22)" stroke="#e7c77f" stroke-width="1" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(255,214,140,0.45))"><path d="M30 40 C26 32 24 24 30 18 C36 24 34 32 30 40Z M30 40 C38 36 46 36 50 42 C44 48 36 46 30 40Z M30 40 C34 48 34 56 28 60 C24 54 26 46 30 40Z M30 40 C22 46 14 46 10 40 C14 34 22 34 30 40Z M30 40 C24 36 18 30 18 24 C24 24 28 32 30 40Z"></path><circle cx="30" cy="40" r="3"></circle></svg>
-<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: #cfc7e0">[A visitor answer appears here]</p>
+<span class="alias-wrap" tabindex="0" aria-label="Comment by {{n.alias}}"><svg class="sym" viewBox="0 0 60 80" width="50" height="66" fill="rgba(185,169,234,0.22)" stroke="#e7c77f" stroke-width="1" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(255,214,140,0.45))"><path d="M30 40 C26 32 24 24 30 18 C36 24 34 32 30 40Z M30 40 C38 36 46 36 50 42 C44 48 36 46 30 40Z M30 40 C34 48 34 56 28 60 C24 54 26 46 30 40Z M30 40 C22 46 14 46 10 40 C14 34 22 34 30 40Z M30 40 C24 36 18 30 18 24 C24 24 28 32 30 40Z"></path><circle cx="30" cy="40" r="3"></circle></svg><span class="alias-tip">{{n.alias}}</span></span>
+<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: #cfc7e0">{{n.text}}</p>
 </div>
 </sc-for>
 </div>
@@ -412,13 +417,14 @@ a{color:inherit}a:hover{opacity:.8}
 <template data-dc="__Transition"><dc-import name="ScrollOpen" num="IV · LIFE" title="Life" zh="生 活" line="Dancing, music, things made by hand, and the shows I love." art="assets/2c75f2f9b9eee5a53842939b30c68b3d.png" hint="CLICK TO SKIP · 点击跳过"></dc-import></template>
 <script src="dc.js"></script>
 <script src="site.js"></script>
+<script src="extras.js"></script>
 <script>
 DC.define('__Transition', class extends DCLogic { renderVals() { return {}; } });
 DC.define('Life', (function(){
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { idx: 0, playing: true };
+    this.state = { idx: 0, playing: false, pct: 0 };
   }
   renderVals() {
     const list = [
@@ -433,9 +439,9 @@ class Component extends DCLogic {
       song: list[idx], playing, paused: !playing,
       playLabel: playing ? 'Pause' : 'Play',
       spinClass: playing ? 'spin' : '',
-      progress: ['38%', '12%', '64%'][idx],
-      toggle: () => this.setState({ playing: !playing }),
-      songs: list.map((s, i) => ({ title: s.title, artist: s.artist, num: ['I', 'II', 'III'][i], color: i === idx ? '#ffffff' : '#cfc7e0', pick: () => this.setState({ idx: i, playing: true }) })),
+      progress: (this.state.pct || 0) + '%',
+      toggle: () => { this.setState({ playing: !playing }); if (window.SITE && SITE.music) SITE.music(this, idx, !playing); },
+      songs: list.map((s, i) => ({ title: s.title, artist: s.artist, num: ['I', 'II', 'III'][i], color: i === idx ? '#ffffff' : '#cfc7e0', pick: () => { this.setState({ idx: i, playing: true, pct: 0 }); if (window.SITE && SITE.music) SITE.music(this, i, true); } })),
       three: n(3), six: n(6), four: n(4),
       dances: [
         { src: 'assets/572bc8e9dd7cd04a35b3bb02ab8f3539.mp4', poster: 'assets/c09eba28814bfd7aef723e91124c3531.jpg', en: 'My own choreography in the desert — I did solid research for this one', zh: '自己编的舞，在沙漠里跳，前期做足了功课' },
@@ -462,7 +468,7 @@ class Component extends DCLogic {
         { en: 'Solo Leveling', zh: '我独自升级', ja: '俺だけレベルアップな件' },
         { en: 'Cat’s Eye', zh: '猫眼三姐妹', ja: 'キャッツ・アイ' }
       ],
-      notes: ['0px', '26px', '8px', '32px'].map((mt) => ({ mt }))
+      notes0: [{"mt": "0px", "alias": "mei", "text": "chinese classical forever"}, {"mt": "30px", "alias": "Alex", "text": "salsa!!"}, {"mt": "8px", "alias": "tofu", "text": "kpop covers count right"}, {"mt": "36px", "alias": "j", "text": "ballroom, cha cha specifically"}], notes1: [{"mt": "0px", "alias": "lin", "text": "piano since I was 6, still bad at sight reading"}, {"mt": "30px", "alias": "cass", "text": "ukulele. three chords only"}, {"mt": "8px", "alias": "Ray", "text": "guzheng too! which piece are you learning?"}], notes2: [{"mt": "0px", "alias": "pip", "text": "crochet, two needles is too many"}, {"mt": "30px", "alias": "Mara", "text": "knitting but I’ve been on the same scarf for a year"}, {"mt": "8px", "alias": "q", "text": "neither, but perler beads yes"}], notes3: [{"mt": "0px", "alias": "haru", "text": "frieren, no question"}, {"mt": "30px", "alias": "Ben", "text": "mob psycho 100"}, {"mt": "8px", "alias": "yuki", "text": "kaguya-sama if you like romcoms"}, {"mt": "36px", "alias": "Leo", "text": "haikyuu if you haven’t"}]
     };
   }
 }
@@ -513,7 +519,7 @@ class Component extends DCLogic {
 }
 return Component;
 })());
-DC.mount('Life', {}, document.getElementById('dc-root'), { restore: 'mw-site-Life' });
+DC.mount('Life', {}, document.getElementById('dc-root'), {});
 SITE.transition('Life');
 SITE.init('Life');
 </script>

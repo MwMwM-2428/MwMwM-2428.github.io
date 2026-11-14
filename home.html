@@ -64,6 +64,7 @@ input::placeholder{color:inherit;opacity:.55}
 @keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -7px}}
 .bgTop{background:url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center top/cover no-repeat;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
 .bgBot{background:url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center bottom/cover no-repeat;-webkit-mask-image:linear-gradient(transparent,#000 40%);mask-image:linear-gradient(transparent,#000 40%)}
+.alias-wrap{position:relative;display:inline-block;cursor:default;outline:none}.alias-tip{position:absolute;left:50%;bottom:calc(100% + 4px);transform:translate(-50%,6px);opacity:0;pointer-events:none;white-space:nowrap;padding:5px 12px;background:#15132b;border:1px solid #e7c77f;color:#f3dca6;font-size:12px;letter-spacing:.08em;transition:opacity .25s,transform .25s;z-index:3}.alias-wrap:hover .alias-tip,.alias-wrap:focus-visible .alias-tip{opacity:1;transform:translate(-50%,0)}
 
 .dc-Butterflies{margin:0}
 .dc-Butterflies .flap{transform-origin:30px 24px;animation:Butterflies_flap .32s ease-in-out infinite alternate}
@@ -126,7 +127,7 @@ input::placeholder{color:inherit;opacity:.55}
 <a href="https://github.com/MwMwM-2428" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid {{t.lineSoft}}; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">GitHub</a>
 <a href="https://devpost.com/MwMwM-2428" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid {{t.lineSoft}}; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">Devpost</a>
 <a href="https://www.linkedin.com/in/michelle-wang0606/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid {{t.lineSoft}}; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">LinkedIn</a>
-<a href="mailto:mwang0627@g.ucla.edu" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid {{t.lineSoft}}; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">{{s.email}}</a>
+<a href="mailto:mwang0627@g.ucla.edu" data-dd="email" aria-haspopup="true" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border: 1px solid {{t.lineSoft}}; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">{{s.email}} <span aria-hidden="true" style="font-size: 10px">▾</span></a>
 <a href="#comments" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; color: #ece8f3; text-decoration: none; font-size: 14px; letter-spacing: 0.08em; background-color: transparent">留言 Comments ↓</a>
 </div>
 </div>
@@ -250,8 +251,11 @@ input::placeholder{color:inherit;opacity:.55}
 <div style="text-align: center; font-size: 13px; letter-spacing: 0.4em; color: {{t.line}}; margin-bottom: 12px">留言 · COMMENTS</div>
 <h2 style="margin: 0; text-align: center; font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-weight: 400; font-size: 44px">{{s.ask}}</h2>
 <p style="margin: 10px 0 36px; text-align: center; color: {{t.muted}}; font-size: 15px; letter-spacing: 0.06em">{{s.askSub}}</p>
-<form onSubmit="{{send}}" style="max-width: 640px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end">
-<label style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.2em; color: {{t.line}}">{{s.label}}
+<form onSubmit="{{send}}" style="max-width: 760px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end">
+<label style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.2em; color: {{t.line}}">{{s.aliasLabel}}
+<input class="alias-in" name="alias" type="text" value="{{alias}}" onChange="{{onAlias}}" placeholder="{{s.aliasPh}}" maxlength="24" style="height: 52px; background: {{t.bg}}; border: 1px solid {{t.line}}; color: {{t.ink}}; font-family: 'Noto Serif SC', serif; font-size: 16px; outline: none; padding: 0 16px">
+</label>
+<label style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.2em; color: {{t.line}}">{{s.label}}
 <input type="text" value="{{draft}}" onChange="{{onDraft}}" placeholder="{{s.ph}}" style="height: 52px; background: {{t.bg}}; border: 1px solid {{t.line}}; color: {{t.ink}}; font-family: 'Noto Serif SC', serif; font-size: 16px; outline: none; padding: 0 16px">
 </label>
 <button type="submit" style="height: 52px; padding: 0 28px; background: {{t.line}}; border: 1px solid {{t.line}}; color: {{t.bg}}; font-family: 'Noto Serif SC', serif; font-size: 15px; font-weight: 500; letter-spacing: 0.12em; cursor: pointer">{{s.send}}</button>
@@ -260,11 +264,12 @@ input::placeholder{color:inherit;opacity:.55}
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 44px; padding-top: 0">
 <sc-for list="{{comments}}" as="c" hint-placeholder-count="4">
 <div class="bloom" style="display: flex; flex-direction: column; align-items: center; width: 150px; padding-top: {{c.mt}}">
+<span class="alias-wrap" tabindex="0" aria-label="Comment by {{c.alias}}"><span class="alias-tip">{{c.alias}}</span>
 <svg viewBox="0 0 60 115" width="64" height="122" fill="{{t.wisFill}}" stroke="{{t.accent}}" stroke-width="0.9" aria-hidden="true">
 <path d="M30 0 L30 12" stroke="{{t.line}}" fill="none"></path>
 <path d="M30 8 C20 3 12 7 8 14 C16 16 24 14 30 8Z M30 8 C40 3 48 7 52 14 C44 16 36 14 30 8Z" stroke="{{t.line}}" fill="none"></path>
 <ellipse cx="30" cy="20" rx="6" ry="5"></ellipse><ellipse cx="22" cy="28" rx="5.5" ry="4.5"></ellipse><ellipse cx="38" cy="28" rx="5.5" ry="4.5"></ellipse><ellipse cx="30" cy="36" rx="5.5" ry="4.5"></ellipse><ellipse cx="21" cy="44" rx="5" ry="4.2"></ellipse><ellipse cx="39" cy="44" rx="5" ry="4.2"></ellipse><ellipse cx="30" cy="52" rx="5" ry="4.2"></ellipse><ellipse cx="23" cy="60" rx="4.6" ry="3.8"></ellipse><ellipse cx="37" cy="60" rx="4.6" ry="3.8"></ellipse><ellipse cx="30" cy="68" rx="4.4" ry="3.6"></ellipse><ellipse cx="25" cy="76" rx="4" ry="3.4"></ellipse><ellipse cx="35" cy="76" rx="4" ry="3.4"></ellipse><ellipse cx="30" cy="84" rx="3.8" ry="3.2"></ellipse><ellipse cx="28" cy="92" rx="3.4" ry="2.8"></ellipse><ellipse cx="31" cy="99" rx="3" ry="2.5"></ellipse><ellipse cx="30" cy="106" rx="2.4" ry="2"></ellipse>
-</svg>
+</svg></span>
 <p style="margin: 12px 0 0; text-align: center; font-size: 14px; line-height: 1.7; color: {{t.muted}}">{{c.text}}</p>
 </div>
 </sc-for>
@@ -303,13 +308,14 @@ input::placeholder{color:inherit;opacity:.55}
 
 <script src="dc.js"></script>
 <script src="site.js"></script>
+<script src="extras.js"></script>
 <script>
 DC.define('__Transition', class extends DCLogic { renderVals() { return {}; } });
 DC.define('Main', (function(){
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { draft: '', added: [], gName: '', kind: 'butterfly', chosen: false, marks: [], mine: null };
+    this.state = { draft: '', alias: '', added: [], gName: '', kind: 'butterfly', chosen: false, marks: [], mine: null };
   }
   guestVals(t, s, lang) {
     const IMG = {
@@ -370,13 +376,18 @@ class Component extends DCLogic {
       light: { bg: '#f6f5f9', paper: '#ffffff', ink: '#2a2637', muted: '#5f5970', line: '#3d3752', lineSoft: 'rgba(61,55,82,0.22)', accent: '#6c5ca0', mist: 'rgba(108,92,160,0.09)', wisFill: 'rgba(108,92,160,0.08)', figLine: '#3d3752', figDetail: '#6c5ca0', figAccent: '#4f6a98', gold: '#9a7432' }
     };
     const S = {
-      en: { n0: 'Home', n1: 'Education', n2: 'Projects', n3: 'Research', n4: 'Life', eyebrow: 'APPLIED MATHEMATICS · UCLA', welcome: 'Welcome to my website :) ', tagline: 'I study how machines imagine the world — world models and embodied perception — and spend the rest of my time dancing, listening, and making things by hand.', cv: 'Download CV', email: 'Email', pick: 'Draw a card', pickSub: 'Four doors into my world', c1t: 'Education', c1s: 'School · CV', c1h: 'TURN THE PAGE', c2t: 'Projects', c2s: 'Things I have built', c2h: 'POWER ON', c3t: 'Research', c3s: 'World models · Perception', c3h: 'LOCK IN ', c4t: 'Life', c4s: 'Dance · Music · Crafts · ACG', c4h: 'FOLLOW THE MUSIC', ask: 'Any comments for me?', askSub: 'Every note you leave blooms into a wisteria cluster.', label: 'YOUR NOTE', ph: 'Write something…', send: 'Let it bloom', footer: 'Made with care', gTitle: 'Leave your mark', gSub: 'Tell me your name and choose the cursor that will follow you around my site. Your mark joins the others around my photo.', gName: 'YOUR NAME', gPh: 'Your name…', gPick: 'CHOOSE YOUR CURSOR', gGo: 'Leave my mark', gWall: 'VISITORS', gHint: 'HOVER TO SEE VISITORS', welcome2: 'Welcome, ', welcome3: ' — your mark now circles my photo.', visitor: 'Visitor: ', k1: 'Butterfly', k2: 'Snowflake', k3: 'Lucky cloud', k4: 'Flying apsara', k5: 'Swallow' },
-      zh: { n0: '首页', n1: '学历', n2: '项目', n3: '研究', n4: '生活', eyebrow: '应用数学 · 加州大学洛杉矶分校', welcome: '欢迎来到我的小站', tagline: '我研究机器如何「想象」世界——世界模型与具身感知；其余的时间，跳舞、听歌、做手工。', cv: '下载简历', email: '邮箱', pick: '抽一张牌', pickSub: '通往我的世界的四扇门', c1t: '学历', c1s: '学业 · 履历', c1h: '翻开书页', c2t: '项目', c2s: '我做过的东西', c2h: '开机', c3t: '研究', c3s: '世界模型 · 感知', c3h: '观星', c4t: '生活', c4s: '舞 · 乐 · 手作 · 二次元', c4h: '随乐而行', ask: '有什么想对我说的吗？', askSub: '你留下的每一句话，都会开成一串紫藤。', label: '留言', ph: '写点什么……', send: '让它开花', footer: '用心制作', gTitle: '留下你的印记', gSub: '告诉我你的名字，选一个陪你逛我小站的光标。你的印记会环绕在我的照片旁。', gName: '你的名字', gPh: '你的名字……', gPick: '选择你的光标', gGo: '留下印记', gWall: '访客', gHint: '悬停查看访客', welcome2: '欢迎你，', welcome3: '——你的印记已环绕在我的照片旁。', visitor: '访客：', k1: '蝴蝶', k2: '雪花', k3: '祥云', k4: '飞天', k5: '燕子' }
+      en: { n0: 'Home', n1: 'Education', n2: 'Projects', n3: 'Research', n4: 'Life', eyebrow: 'APPLIED MATHEMATICS · UCLA', welcome: 'Welcome to my website :) ', tagline: 'I study how machines imagine the world — world models and embodied perception — and spend the rest of my time dancing, listening, and making things by hand.', cv: 'Download CV', email: 'Email', pick: 'Draw a card', pickSub: 'Four doors into my world', c1t: 'Education', c1s: 'School · CV', c1h: 'TURN THE PAGE', c2t: 'Projects', c2s: 'Things I have built', c2h: 'POWER ON', c3t: 'Research', c3s: 'World models · Perception', c3h: 'LOCK IN ', c4t: 'Life', c4s: 'Dance · Music · Crafts · ACG', c4h: 'FOLLOW THE MUSIC', ask: 'Any comments for me?', askSub: 'Every note you leave blooms into a wisteria cluster.', aliasLabel: 'YOUR ALIAS', aliasPh: 'A nickname…', label: 'YOUR NOTE', ph: 'Write something…', send: 'Let it bloom', footer: 'Made with care', gTitle: 'Leave your mark', gSub: 'Tell me your name and choose the cursor that will follow you around my site. Your mark joins the others around my photo.', gName: 'YOUR NAME', gPh: 'Your name…', gPick: 'CHOOSE YOUR CURSOR', gGo: 'Leave my mark', gWall: 'VISITORS', gHint: 'HOVER TO SEE VISITORS', welcome2: 'Welcome, ', welcome3: ' — your mark now circles my photo.', visitor: 'Visitor: ', k1: 'Butterfly', k2: 'Snowflake', k3: 'Lucky cloud', k4: 'Flying apsara', k5: 'Swallow' },
+      zh: { n0: '首页', n1: '学历', n2: '项目', n3: '研究', n4: '生活', eyebrow: '应用数学 · 加州大学洛杉矶分校', welcome: '欢迎来到我的小站', tagline: '我研究机器如何「想象」世界——世界模型与具身感知；其余的时间，跳舞、听歌、做手工。', cv: '下载简历', email: '邮箱', pick: '抽一张牌', pickSub: '通往我的世界的四扇门', c1t: '学历', c1s: '学业 · 履历', c1h: '翻开书页', c2t: '项目', c2s: '我做过的东西', c2h: '开机', c3t: '研究', c3s: '世界模型 · 感知', c3h: '观星', c4t: '生活', c4s: '舞 · 乐 · 手作 · 二次元', c4h: '随乐而行', ask: '有什么想对我说的吗？', askSub: '你留下的每一句话，都会开成一串紫藤。', aliasLabel: '你的昵称', aliasPh: '昵称……', label: '留言', ph: '写点什么……', send: '让它开花', footer: '用心制作', gTitle: '留下你的印记', gSub: '告诉我你的名字，选一个陪你逛我小站的光标。你的印记会环绕在我的照片旁。', gName: '你的名字', gPh: '你的名字……', gPick: '选择你的光标', gGo: '留下印记', gWall: '访客', gHint: '悬停查看访客', welcome2: '欢迎你，', welcome3: '——你的印记已环绕在我的照片旁。', visitor: '访客：', k1: '蝴蝶', k2: '雪花', k3: '祥云', k4: '飞天', k5: '燕子' }
     };
-    const seed = lang === 'zh' ? '［访客留言会显示在这里］' : '[A visitor note appears here]';
     const offsets = ['0px', '28px', '10px', '36px', '4px', '22px'];
-    const base = [seed, seed, seed, seed].map((text, i) => ({ text, mt: offsets[i] }));
-    const added = this.state.added.map((text, i) => ({ text, mt: offsets[(i + 4) % offsets.length] }));
+    const seedNotes = [
+      { alias: 'jun', text: 'wait how did you make the scroll animation' },
+      { alias: 'kiwi', text: 'the swallow cursor is my favorite' },
+      { alias: 'anon', text: 'what font is this?' },
+      { alias: 'Lena', text: 'good luck with finals!' }
+    ];
+    const base = seedNotes.map((n, i) => ({ ...n, mt: offsets[i] }));
+    const added = this.state.added.map((n, i) => (typeof n === 'string' ? { text: n, alias: 'a visitor' } : n)).map((n, i) => ({ ...n, mt: offsets[(i + 4) % offsets.length] }));
     const t = T[theme];
     return {
       t, s: S[lang], isDark: theme === 'dark',
@@ -387,7 +398,9 @@ class Component extends DCLogic {
       flipTheme: () => this.setState({ theme: theme === 'dark' ? 'light' : 'dark' }),
       draft: this.state.draft,
       onDraft: (e) => this.setState({ draft: e.target.value }),
-      send: (e) => { e.preventDefault(); const v = this.state.draft.trim(); if (v) this.setState({ draft: '', added: this.state.added.concat([v]) }); },
+      alias: this.state.alias,
+      onAlias: (e) => this.setState({ alias: e.target.value }),
+      send: (e) => { e.preventDefault(); const v = this.state.draft.trim(); const a = (this.state.alias || '').trim() || (lang === 'zh' ? '匿名访客' : 'a visitor'); if (v) this.setState({ draft: '', alias: '', added: this.state.added.concat([{ text: v, alias: a }]) }); },
       comments: added.concat(base),
       ...this.guestVals(t, S[lang], lang)
     };

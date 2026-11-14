@@ -62,7 +62,10 @@
       var pageLabel = PAGE_NAMES[name] || name;
       function deliver(form, text) {
         var subject = 'A note from your website (' + pageLabel + ')';
-        window.location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text);
+        var aliasEl = form.querySelector('.alias-in');
+        var who = aliasEl && aliasEl.value.trim();
+        var body = (who ? 'From: ' + who + '\n\n' : '') + text;
+        window.location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         var thanks = form.parentNode.querySelector('.local-thanks');
         if (!thanks) {
           thanks = document.createElement('p');
@@ -73,7 +76,7 @@
       }
       document.addEventListener('submit', function (e) {
         var form = e.target;
-        var input = form.querySelector('input[type="text"], textarea');
+        var input = form.querySelector('input[type="text"]:not(.alias-in), textarea');
         if (!input) return;
         if (!form.closest('#comments, .cbox')) return;
         var text = (input.value || '').trim();
