@@ -10,6 +10,7 @@ Static site: plain HTML, CSS and JavaScript. No build step needed.
 | Projects | `projects.html` |
 | Research | `research.html` |
 | Life | `life.html` |
+| References (artistic references from rednote) | `references.html` — images in `assets/refs/`, named by rednote note ID |
 
 `assets/` holds every image, video and the resume PDF. `dc.js` renders the pages, `site.js` handles the
 opening screen, the scroll-opening transitions and comment delivery, and `site.css` has the shared tweaks.

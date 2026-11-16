@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>References · Michelle Wang</title>
+<meta name="description" content="Michelle Wang (Peifeier) — UCLA student in applied mathematics, researching world models, AI safety and robotics.">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Noto+Serif+SC:wght@300;400;500&amp;display=swap">
+<style>
+
+body{margin:0;background:#15132b}
+html{scroll-behavior:smooth}
+.tile{flex:0 0 auto;width:100%;aspect-ratio:1376/768;background:url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center/cover no-repeat}
+.flip{transform:scaleY(-1)}
+.scroll{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(16,12,36,.8),rgba(20,16,44,.64) 10%,rgba(20,16,44,.64) 90%,rgba(16,12,36,.8));-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);border-left:1px solid rgba(231,199,127,.5);border-right:1px solid rgba(231,199,127,.5);box-shadow:0 0 70px rgba(6,4,18,.5),inset 0 0 90px rgba(6,4,18,.35)}
+.scroll>.frame{z-index:1}
+.rod{position:relative;height:14px;margin:0 6px;border-radius:7px;background:linear-gradient(180deg,#3a2c16,#a8843f 30%,#f3dca6 50%,#b8954f 68%,#3a2c16);box-shadow:0 4px 14px rgba(6,4,18,.6)}
+.knob{position:absolute;top:50%;width:26px;height:26px;margin-top:-13px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#fff1c9,#d9b56c 38%,#8a6a32 75%,#3a2c16);box-shadow:0 0 12px rgba(240,214,156,.45)}
+.knob.l{left:-20px}.knob.r{right:-20px}
+.knob::after{content:"";position:absolute;inset:7px;border-radius:50%;border:1px solid rgba(58,44,22,.6)}
+.frame{position:relative;border:1px solid rgba(231,199,127,.75);padding:6px}
+.frame::before,.frame::after{content:"";position:absolute;width:22px;height:22px;border:1px solid #e7c77f;pointer-events:none}
+.frame::before{left:-5px;top:-5px;border-right:none;border-bottom:none}
+.frame::after{right:-5px;bottom:-5px;border-left:none;border-top:none}
+.sky{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.stars{position:absolute;inset:0;background-repeat:repeat}
+.cons{position:absolute;inset:0;background:url(assets/4f7f3fc64dd0e573a2e65d1098ecd5f2.svg) 0 0/640px 640px repeat;opacity:.14;animation:consDrift 160s linear infinite}
+@keyframes consDrift{to{background-position:640px 320px}}
+.s1{background-image:radial-gradient(1px 1px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 38% 62%,#e6e0ff,transparent),radial-gradient(1.4px 1.4px at 71% 33%,#fff,transparent),radial-gradient(1px 1px at 86% 78%,#cfd8ff,transparent),radial-gradient(1px 1px at 55% 90%,#fff,transparent),radial-gradient(1.2px 1.2px at 22% 84%,#e6e0ff,transparent),radial-gradient(1px 1px at 93% 9%,#fff,transparent);background-size:260px 260px;animation:twA 3s ease-in-out infinite,d1 52s linear infinite}
+.s2{background-image:radial-gradient(1.6px 1.6px at 20% 40%,#f3dca6,transparent),radial-gradient(1.2px 1.2px at 64% 12%,#e7c77f,transparent),radial-gradient(1.8px 1.8px at 80% 58%,#fff1c9,transparent),radial-gradient(1.2px 1.2px at 42% 76%,#e7c77f,transparent),radial-gradient(1px 1px at 6% 92%,#f3dca6,transparent);background-size:410px 410px;animation:twB 4.4s ease-in-out infinite,d2 68s linear infinite}
+.s3{background-image:radial-gradient(2.4px 2.4px at 30% 30%,rgba(255,241,201,.95),transparent),radial-gradient(2px 2px at 75% 70%,rgba(220,210,255,.9),transparent);background-size:620px 540px;filter:drop-shadow(0 0 3px rgba(255,230,170,.9));animation:twC 2.6s ease-in-out infinite,d3 80s linear infinite}
+.s4{background-image:radial-gradient(.8px .8px at 5% 10%,#fff,transparent),radial-gradient(.8px .8px at 27% 44%,#fff,transparent),radial-gradient(1px 1px at 48% 18%,#e6e0ff,transparent),radial-gradient(.8px .8px at 66% 72%,#fff,transparent),radial-gradient(1px 1px at 83% 36%,#f3dca6,transparent),radial-gradient(.8px .8px at 14% 66%,#fff,transparent),radial-gradient(.8px .8px at 58% 54%,#cfd8ff,transparent),radial-gradient(1px 1px at 92% 88%,#fff,transparent),radial-gradient(.8px .8px at 36% 92%,#e6e0ff,transparent),radial-gradient(.8px .8px at 75% 6%,#fff,transparent);background-size:150px 150px;opacity:.8;animation:twB 3.8s ease-in-out infinite,d4 40s linear infinite}
+.s5{background-image:radial-gradient(1px 1px at 8% 30%,#fff,transparent),radial-gradient(1.3px 1.3px at 19% 7%,#fff1c9,transparent),radial-gradient(1px 1px at 31% 71%,#fff,transparent),radial-gradient(1.5px 1.5px at 44% 39%,#fff,transparent),radial-gradient(1px 1px at 57% 83%,#e6e0ff,transparent),radial-gradient(1.2px 1.2px at 63% 21%,#fff,transparent),radial-gradient(1px 1px at 76% 49%,#f3dca6,transparent),radial-gradient(1.4px 1.4px at 88% 15%,#fff,transparent),radial-gradient(1px 1px at 95% 64%,#fff,transparent),radial-gradient(1.2px 1.2px at 3% 88%,#e6e0ff,transparent),radial-gradient(1px 1px at 49% 96%,#fff,transparent),radial-gradient(1.6px 1.6px at 70% 92%,#fff1c9,transparent);background-size:190px 210px;filter:drop-shadow(0 0 2px rgba(255,255,255,.7));animation:twC 3.2s ease-in-out infinite,d5 46s linear infinite}
+.s6{background-image:radial-gradient(.7px .7px at 10% 50%,#fff,transparent),radial-gradient(.7px .7px at 30% 20%,#fff,transparent),radial-gradient(.7px .7px at 50% 80%,#fff,transparent),radial-gradient(.7px .7px at 70% 40%,#fff,transparent),radial-gradient(.7px .7px at 90% 70%,#fff,transparent),radial-gradient(.7px .7px at 20% 90%,#fff,transparent),radial-gradient(.7px .7px at 80% 10%,#fff,transparent);background-size:90px 90px;animation:twA 5s ease-in-out infinite,d6 30s linear infinite}
+@keyframes twA{0%,100%{opacity:.2}50%{opacity:1}}
+@keyframes twB{0%,100%{opacity:1}45%{opacity:.15}}
+@keyframes twC{0%,100%{opacity:.35}12%{opacity:1}24%{opacity:.45}36%{opacity:1}60%{opacity:.2}80%{opacity:.95}}
+@keyframes d1{to{background-position:-260px 0}}
+@keyframes d2{to{background-position:-410px 0}}
+@keyframes d3{to{background-position:-620px 0}}
+@keyframes d4{to{background-position:-150px 0}}
+@keyframes d5{to{background-position:-190px 0}}
+@keyframes d6{to{background-position:-90px 0}}
+.shoot{position:absolute;top:4%;left:-14%;width:230px;height:2.5px;border-radius:3px;background:linear-gradient(90deg,transparent,rgba(255,236,190,.55) 55%,#fffaf0 92%,#fff);transform-origin:100% 50%;filter:drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px #f3dca6) drop-shadow(0 0 22px rgba(243,220,166,.8));animation:shoot 13s ease-in infinite;opacity:0}
+.shoot.b{top:30%;left:6%;animation-duration:19s;animation-delay:7s}
+.shoot.c{top:14%;left:28%;width:250px;animation-duration:23s;animation-delay:3s}
+.shoot.d{top:52%;left:-8%;animation-duration:17s;animation-delay:11s}
+.shoot.e{top:74%;left:40%;width:140px;animation-duration:29s;animation-delay:18s}
+@keyframes shoot{0%,86%{transform:translate(0,0) rotate(32deg);opacity:0}88%{opacity:1}96%{transform:translate(820px,512px) rotate(32deg);opacity:0}100%{transform:translate(820px,512px) rotate(32deg);opacity:0}}
+.glint{position:absolute;width:20px;height:20px;margin:-10px;opacity:0;filter:drop-shadow(0 0 4px #fff) drop-shadow(0 0 9px #f3dca6);animation:glint 4s ease-in-out infinite}
+.glint::before,.glint::after{content:"";position:absolute;left:50%;top:50%;width:20px;height:1.5px;background:linear-gradient(90deg,transparent,#fff,transparent);transform:translate(-50%,-50%)}
+.glint::after{transform:translate(-50%,-50%) rotate(90deg)}
+@keyframes glint{0%{transform:translateX(0) scale(0);opacity:0}40%{transform:translateX(-14px) scale(.4);opacity:.6}50%{transform:translateX(-18px) scale(1.25) rotate(45deg);opacity:1}62%{transform:translateX(-24px) scale(.3) rotate(70deg);opacity:.4}72%,100%{transform:translateX(-30px) scale(0);opacity:0}}
+a{color:inherit}a:hover{opacity:.8}
+.art{-webkit-mask-image:radial-gradient(closest-side at 50% 48%,#000 46%,transparent 100%);mask-image:radial-gradient(closest-side at 50% 48%,#000 46%,transparent 100%);animation:breeze 7s ease-in-out infinite}
+@keyframes breeze{0%,100%{transform:rotate(0);filter:drop-shadow(0 0 2px rgba(240,214,156,.35))}50%{transform:rotate(.8deg) translateX(3px);filter:drop-shadow(0 0 8px rgba(240,214,156,.7))}}
+.disc{transform-origin:150px 150px}
+.spin .disc{animation:spin 8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sym{transform-origin:50% 0;animation:sw 3.4s ease-in-out infinite}
+@keyframes sw{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.sub{height:46px;display:inline-flex;align-items:center;gap:8px;padding:0 18px;border:1px solid rgba(231,199,127,.55);background:rgba(231,199,127,.06);text-decoration:none;font-size:15px;color:#ece8f3;transition:background .3s,border-color .3s}
+.sub:hover{background:rgba(231,199,127,.18);border-color:#e7c77f;opacity:1}
+.sec{scroll-margin-top:24px;margin-top:96px;padding-top:56px;border-top:1px solid rgba(231,199,127,.35)}
+.cbox{margin-top:44px;padding:36px clamp(18px,4vw,40px) 32px;text-align:center;border:1px solid #e7c77f;background:linear-gradient(180deg,rgba(231,199,127,.10),rgba(12,9,30,.55));box-shadow:0 0 44px rgba(231,199,127,.14),inset 0 0 36px rgba(231,199,127,.06)}
+.ceye{font-size:13px;letter-spacing:.4em;color:#e7c77f}
+.cin{height:52px;padding:0 16px;background:rgba(10,8,26,.6);border:1px solid #e7c77f;color:#fff;font-family:'Noto Serif SC',serif;font-size:16px;outline:none}
+.cin::placeholder{color:#cfc7e0}
+.cbtn{height:52px;padding:0 26px;background:#e7c77f;border:1px solid #e7c77f;color:#1c1638;font-family:'Noto Serif SC',serif;font-size:15px;font-weight:500;letter-spacing:.12em;cursor:pointer}
+@media (prefers-reduced-motion: reduce){.stars,.glint,.shoot,.cons,.art,.sym,.spin .disc{animation:none}.shoot{display:none}html{scroll-behavior:auto}}
+.alias-wrap{position:relative;display:inline-block;cursor:default;outline:none}.alias-tip{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translate(-50%,6px);opacity:0;pointer-events:none;white-space:nowrap;padding:5px 12px;background:#15132b;border:1px solid #e7c77f;color:#f3dca6;font-size:12px;letter-spacing:.08em;transition:opacity .25s,transform .25s;z-index:3}.alias-wrap:hover .alias-tip,.alias-wrap:focus-visible .alias-tip{opacity:1;transform:translate(-50%,0)}
+
+.dc-Butterflies{margin:0}
+.dc-Butterflies .bfw{display:flex;align-items:flex-start;perspective:260px}
+.dc-Butterflies .bfw img{display:block;width:50%;height:auto}
+.dc-Butterflies .wl{transform-origin:100% 50%;animation:Butterflies_wl .34s ease-in-out infinite alternate}
+.dc-Butterflies .wr{transform-origin:0% 50%;animation:Butterflies_wr .34s ease-in-out infinite alternate}
+@keyframes Butterflies_wl{from{transform:rotateY(0deg)}to{transform:rotateY(68deg)}}
+@keyframes Butterflies_wr{from{transform:rotateY(0deg)}to{transform:rotateY(-68deg)}}
+.dc-Butterflies .fly{animation-timing-function:ease-in-out;animation-iteration-count:infinite;will-change:transform}
+.dc-Butterflies .p1{animation-name:Butterflies_p1}
+.dc-Butterflies .p2{animation-name:Butterflies_p2}
+.dc-Butterflies .p3{animation-name:Butterflies_p3}
+@keyframes Butterflies_p1{0%{transform:translate(0,0) rotate(-10deg)}25%{transform:translate(140px,-70px) rotate(8deg)}50%{transform:translate(60px,-160px) rotate(-6deg)}75%{transform:translate(-100px,-70px) rotate(10deg)}100%{transform:translate(0,0) rotate(-10deg)}}
+@keyframes Butterflies_p2{0%{transform:translate(0,0) rotate(6deg)}20%{transform:translate(-90px,50px) rotate(-8deg)}45%{transform:translate(-180px,-20px) rotate(4deg)}70%{transform:translate(-60px,-110px) rotate(-10deg)}100%{transform:translate(0,0) rotate(6deg)}}
+@keyframes Butterflies_p3{0%{transform:translate(0,0) rotate(0deg)}30%{transform:translate(200px,40px) rotate(12deg)}55%{transform:translate(260px,-90px) rotate(-6deg)}80%{transform:translate(90px,-130px) rotate(8deg)}100%{transform:translate(0,0) rotate(0deg)}}
+@media (prefers-reduced-motion: reduce){.dc-Butterflies .fly,.dc-Butterflies .wl,.dc-Butterflies .wr{animation:none}}
+.dc-ScrollOpen{margin:0}
+.dc-ScrollOpen .bg{background:url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center/cover no-repeat}
+.dc-ScrollOpen .stage{animation:ScrollOpen_stage 10s ease-in-out infinite}
+@keyframes ScrollOpen_stage{0%{opacity:0}5%,90%{opacity:1}100%{opacity:0}}
+.dc-ScrollOpen .paper{clip-path:inset(50% 0 50% 0);animation:ScrollOpen_paper 10s cubic-bezier(.55,.05,.3,1) infinite}
+@keyframes ScrollOpen_paper{0%,14%{clip-path:inset(50% 0 50% 0)}42%,100%{clip-path:inset(0 0 0 0)}}
+.dc-ScrollOpen .rodT{transform:translateY(-24px);animation:ScrollOpen_rodT 10s cubic-bezier(.55,.05,.3,1) infinite}
+.dc-ScrollOpen .rodB{transform:translateY(2px);animation:ScrollOpen_rodB 10s cubic-bezier(.55,.05,.3,1) infinite}
+@keyframes ScrollOpen_rodT{0%,14%{transform:translateY(-24px)}42%,100%{transform:translateY(-334px)}}
+@keyframes ScrollOpen_rodB{0%,14%{transform:translateY(2px)}42%,100%{transform:translateY(312px)}}
+.dc-ScrollOpen .rod{position:absolute;left:-584px;width:1168px;height:22px;border-radius:5px;background:linear-gradient(180deg,#3a2c16,#a8843f 28%,#f3dca6 50%,#b8954f 70%,#3a2c16);box-shadow:0 0 18px rgba(240,214,156,.35),0 8px 24px rgba(6,4,18,.6)}
+.dc-ScrollOpen .knob{position:absolute;top:-6px;width:20px;height:34px;border-radius:5px;background:radial-gradient(circle at 40% 35%,#fff1c9,#d9b56c 40%,#8a6a32 78%,#3a2c16);box-shadow:0 0 12px rgba(240,214,156,.5)}
+.dc-ScrollOpen .knob.t{left:-16px}
+.dc-ScrollOpen .knob.b{right:-16px}
+.dc-ScrollOpen .rise{animation:ScrollOpen_rise 10s ease-out infinite}
+@keyframes ScrollOpen_rise{0%,40%{opacity:0;transform:translateY(14px)}56%,100%{opacity:1;transform:none}}
+.dc-ScrollOpen .art{animation:ScrollOpen_art 10s ease-out infinite;-webkit-mask-image:radial-gradient(closest-side at 50% 48%,#000 50%,transparent 100%);mask-image:radial-gradient(closest-side at 50% 48%,#000 50%,transparent 100%)}
+@keyframes ScrollOpen_art{0%,36%{opacity:0;filter:drop-shadow(0 0 0 rgba(240,214,156,0))}58%{opacity:1;filter:drop-shadow(0 0 10px rgba(240,214,156,.7))}100%{opacity:1;filter:drop-shadow(0 0 3px rgba(240,214,156,.4))}}
+.dc-ScrollOpen .sky{background-image:radial-gradient(1.4px 1.4px at 12% 18%,#fff8e6,transparent),radial-gradient(1px 1px at 28% 72%,#fff,transparent),radial-gradient(1.6px 1.6px at 44% 30%,#f3dca6,transparent),radial-gradient(1px 1px at 63% 12%,#fff,transparent),radial-gradient(1.3px 1.3px at 78% 64%,#fff8e6,transparent),radial-gradient(1px 1px at 88% 26%,#fff,transparent),radial-gradient(1.5px 1.5px at 54% 86%,#f3dca6,transparent),radial-gradient(1px 1px at 8% 90%,#fff,transparent),radial-gradient(1.2px 1.2px at 36% 50%,#fff,transparent),radial-gradient(1px 1px at 94% 80%,#fff8e6,transparent);animation:ScrollOpen_tw 3.2s ease-in-out infinite}
+@keyframes ScrollOpen_tw{0%,100%{opacity:.55}50%{opacity:1}}
+.dc-ScrollOpen .dust{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff3cf;box-shadow:0 0 8px #f3dca6;opacity:0;animation:ScrollOpen_dust 10s ease-out infinite}
+@keyframes ScrollOpen_dust{0%,16%{opacity:0;transform:translate(0,0)}24%{opacity:1}46%{opacity:0;transform:translate(var(--dx),var(--dy))}100%{opacity:0}}
+@media (prefers-reduced-motion: reduce){.dc-ScrollOpen .stage,.dc-ScrollOpen .paper,.dc-ScrollOpen .rodT,.dc-ScrollOpen .rodB,.dc-ScrollOpen .rise,.dc-ScrollOpen .art,.dc-ScrollOpen .sky,.dc-ScrollOpen .dust{animation:none}
+.dc-ScrollOpen .paper{clip-path:none}
+.dc-ScrollOpen .rodT{transform:translateY(-334px)}
+.dc-ScrollOpen .rodB{transform:translateY(312px)}
+.dc-ScrollOpen .rise,.dc-ScrollOpen .art{opacity:1}}
+
+.refgrid{margin-top:28px;columns:4 220px;column-gap:22px}
+.ref{margin:0 0 28px;break-inside:avoid;display:inline-block;width:100%}
+.ref a.pic{display:block;position:relative;border:1px solid #c8ab6e;padding:6px;box-sizing:border-box;text-decoration:none;transition:border-color .3s,box-shadow .3s}
+.ref a.pic:hover{border-color:#e7c77f;box-shadow:0 0 26px rgba(231,199,127,.28);opacity:1}
+.ref .ph{aspect-ratio:3/4;display:grid;place-items:center;text-align:center;padding:18px;box-sizing:border-box;background:radial-gradient(ellipse at 50% 42%,rgba(120,96,210,.28),rgba(10,8,26,.85) 72%)}
+.ref .ph img{width:56px;height:auto;opacity:.75;filter:drop-shadow(0 0 6px rgba(255,214,140,.45))}
+
+.ref .shot{display:block;width:100%;height:auto}
+.ref .shot+.ph{display:none}
+.ref.noimg .shot{display:none}.ref.noimg .shot+.ph{display:grid}
+.ref figcaption{margin-top:10px;line-height:1.6}
+.ref .t{display:block;font-size:15px;color:#ece8f3}
+.ref .by{display:block;margin-top:2px;font-size:13px;color:#c8ab6e;letter-spacing:.04em}
+.ref .by a{text-decoration:none;border-bottom:1px solid rgba(200,171,110,.4)}
+.credit{margin:22px 0 0;max-width:620px;font-size:13px;line-height:1.9;color:#b9b1cc}
+</style>
+<link rel="stylesheet" href="site.css">
+</head>
+<body class="page-references">
+<div id="dc-root"></div>
+<div id="transition" class="transition" aria-hidden="true"><div class="transition-box" id="transition-root"></div></div>
+<template data-dc="References">
+<div style="background: #15132b; color: #ece8f3; font-family: 'Noto Serif SC', serif; padding-bottom: 80px; position: relative; overflow: hidden; min-height: 100vh">
+<div class="galaxy" aria-hidden="true"><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div></div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(rgba(10,8,26,0), rgba(10,8,26,0.22) 15%, rgba(10,8,26,0.22) 85%, rgba(10,8,26,0.1)); pointer-events: none"></div>
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 900px; pointer-events: none"><dc-import name="Butterflies" density="few" hint-size="100%,900px"></dc-import></div>
+
+<header id="top" style="position: relative; max-width: 1200px; margin: 0 auto; padding: 28px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px">
+<a href="home.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none">
+<img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt="Gold butterfly logo" width="44" height="44" style="display: block; width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 0 6px rgba(255,214,140,0.45))">
+<span style="font-family: 'Cormorant Garamond', serif; font-size: 24px">Michelle Wang <span style="font-family: 'Noto Serif SC', serif; font-size: 16px; color: #c8ab6e; letter-spacing: 0.1em">王佩菲迩</span></span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 30px; font-size: 15px; letter-spacing: 0.12em; color: #b9b1cc">
+<a href="home.html" style="text-decoration: none">Home</a>
+<a href="education.html" style="text-decoration: none">Education</a>
+<a href="projects.html" style="text-decoration: none">Projects</a>
+<a href="research.html" style="text-decoration: none">Research</a>
+<a href="life.html" style="text-decoration: none">Life</a>
+<a href="#" aria-current="page" style="text-decoration: none; color: #ece8f3; border-bottom: 1px solid #c8ab6e; padding-bottom: 4px">References</a>
+</nav>
+<a href="assets/Michelle_Wang_Peifeier_Resume.pdf" download="Michelle_Wang_Peifeier_Resume.pdf" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid #c8ab6e; text-decoration: none; font-size: 14px; letter-spacing: 0.08em">Resume</a>
+</header>
+
+<div style="position: relative; max-width: 1160px; margin: 24px auto 0; padding: 0 24px">
+<div class="rod"><span class="knob l"></span><span class="knob r"></span></div>
+<main class="scroll" style="margin: 0 24px; padding: 28px">
+<div class="sky" aria-hidden="true">
+<span class="cons"></span>
+<span class="stars s6"></span><span class="stars s4"></span><span class="stars s5"></span><span class="stars s1"></span><span class="stars s2"></span><span class="stars s3"></span>
+<span class="shoot"></span><span class="shoot b"></span><span class="shoot c"></span><span class="shoot d"></span><span class="shoot e"></span>
+<span class="glint" style="left: 12%; top: 4%"></span><span class="glint" style="left: 78%; top: 9%; animation-delay: 1.3s"></span><span class="glint" style="left: 46%; top: 18%; animation-delay: 2.6s"></span><span class="glint" style="left: 88%; top: 27%; animation-delay: .7s; animation-duration: 5s"></span><span class="glint" style="left: 24%; top: 36%; animation-delay: 3.1s"></span><span class="glint" style="left: 64%; top: 45%; animation-delay: 1.9s; animation-duration: 4.6s"></span><span class="glint" style="left: 8%; top: 55%; animation-delay: .3s"></span><span class="glint" style="left: 52%; top: 64%; animation-delay: 2.2s; animation-duration: 5.4s"></span><span class="glint" style="left: 92%; top: 73%; animation-delay: 3.6s"></span><span class="glint" style="left: 34%; top: 82%; animation-delay: 1s; animation-duration: 4.4s"></span><span class="glint" style="left: 70%; top: 92%; animation-delay: 2.8s"></span>
+</div>
+<div class="frame">
+<div style="border: 1px solid rgba(200,171,110,0.35); padding: 48px clamp(24px, 5vw, 64px)">
+
+<section style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; gap: 28px; align-items: flex-start">
+<div style="writing-mode: vertical-rl; font-size: 40px; letter-spacing: 0.4em; color: #c8ab6e; border-left: 1px solid rgba(200,171,110,0.35); padding-left: 18px">灵 感</div>
+<div>
+<div style="font-size: 13px; letter-spacing: 0.4em; color: #c8ab6e">V · REFERENCES</div>
+<h1 style="margin: 14px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 80px; line-height: 1">References</h1>
+<p style="margin: 22px 0 0; max-width: 400px; color: #b9b1cc; line-height: 2; font-weight: 300">Works by other artists that shape how my site looks — mineral colour, 白描 lines, butterflies at night. Jump to a section:</p>
+<nav aria-label="Reference sections" style="margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px">
+<a class="sub" href="#yancai">Mineral pigment & texture · 岩彩 · 肌理</a>
+<a class="sub" href="#guofeng">Chinese-style illustration · 国风</a>
+<a class="sub" href="#butterflies">Butterflies & flowers · 蝶 · 花</a>
+<a class="sub" href="#characters">Character & costume design · 角色设计</a>
+<a class="sub" href="#tarot">Tarot · 塔罗</a>
+</nav>
+<p class="credit">Every piece here belongs to its artist — tap an image to see the original post on rednote, or the name to visit their page. 所有作品版权归原作者所有。</p>
+</div>
+</div>
+<div style="flex: 0 1 480px; min-width: 0; height: 640px; display: flex; justify-content: center">
+<img class="art" src="assets/767d0d9f2f17fcd8948cba4a2af9e0ff.png" alt="Gold line drawing of a flying celestial figure with trailing ribbons" style="height: 100%; max-width: 100%; object-fit: contain">
+</div>
+</section>
+
+<section id="yancai" class="sec" aria-labelledby="h-yancai">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px">
+<h2 id="h-yancai" style="margin: 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 52px">Mineral pigment & texture <span style="font-family: 'Noto Serif SC', serif; font-style: normal; font-size: 30px; color: #c8ab6e; letter-spacing: 0.2em">岩彩 · 肌理</span></h2>
+<a href="#top" style="font-size: 13px; letter-spacing: 0.15em; color: #b9b1cc">BACK TO TOP ↑</a>
+</div>
+<p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Layered mineral colour, crackle and relief — the textures I want behind every page.</p>
+<div class="refgrid">
+<sc-for list="{{g0}}" as="r" hint-placeholder-count="8">
+<figure class="ref">
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<section id="guofeng" class="sec" aria-labelledby="h-guofeng">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px">
+<h2 id="h-guofeng" style="margin: 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 52px">Chinese-style illustration <span style="font-family: 'Noto Serif SC', serif; font-style: normal; font-size: 30px; color: #c8ab6e; letter-spacing: 0.2em">国风</span></h2>
+<a href="#top" style="font-size: 13px; letter-spacing: 0.15em; color: #b9b1cc">BACK TO TOP ↑</a>
+</div>
+<p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Celestial figures, moonlight, guzheng and scrolls unrolling.</p>
+<div class="refgrid">
+<sc-for list="{{g1}}" as="r" hint-placeholder-count="6">
+<figure class="ref">
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<section id="butterflies" class="sec" aria-labelledby="h-butterflies">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px">
+<h2 id="h-butterflies" style="margin: 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 52px">Butterflies & flowers <span style="font-family: 'Noto Serif SC', serif; font-style: normal; font-size: 30px; color: #c8ab6e; letter-spacing: 0.2em">蝶 · 花</span></h2>
+<a href="#top" style="font-size: 13px; letter-spacing: 0.15em; color: #b9b1cc">BACK TO TOP ↑</a>
+</div>
+<p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Silver butterflies at night, lilies of the valley, mother-of-pearl ornament.</p>
+<div class="refgrid">
+<sc-for list="{{g2}}" as="r" hint-placeholder-count="6">
+<figure class="ref">
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<section id="characters" class="sec" aria-labelledby="h-characters">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px">
+<h2 id="h-characters" style="margin: 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 52px">Character & costume design <span style="font-family: 'Noto Serif SC', serif; font-style: normal; font-size: 30px; color: #c8ab6e; letter-spacing: 0.2em">角色设计</span></h2>
+<a href="#top" style="font-size: 13px; letter-spacing: 0.15em; color: #b9b1cc">BACK TO TOP ↑</a>
+</div>
+<p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Mecha cores, inventors and costume sheets — how a whole figure is built.</p>
+<div class="refgrid">
+<sc-for list="{{g3}}" as="r" hint-placeholder-count="5">
+<figure class="ref">
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<section id="tarot" class="sec" aria-labelledby="h-tarot">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px">
+<h2 id="h-tarot" style="margin: 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 52px">Tarot <span style="font-family: 'Noto Serif SC', serif; font-style: normal; font-size: 30px; color: #c8ab6e; letter-spacing: 0.2em">塔罗</span></h2>
+<a href="#top" style="font-size: 13px; letter-spacing: 0.15em; color: #b9b1cc">BACK TO TOP ↑</a>
+</div>
+<p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Card art for the tarot layout on my home page.</p>
+<div class="refgrid">
+<sc-for list="{{g4}}" as="r" hint-placeholder-count="3">
+<figure class="ref">
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<section id="comments-refs" class="sec" aria-label="Comments">
+<div class="cbox">
+<div class="ceye">留言 · COMMENTS</div>
+<h3 style="margin: 12px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 34px">Which piece caught your eye?</h3>
+<p style="margin: 6px 0 22px; color: #cfc7e0; font-size: 14px; letter-spacing: 0.08em">每条留言都会化作一只蝴蝶 · Each answer flutters in as a butterfly</p>
+<form style="max-width: 720px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px">
+<label style="flex: 0 1 180px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR ALIAS<input class="cin alias-in" name="alias" type="text" maxlength="24" placeholder="A nickname…"></label>
+<label style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 12px; letter-spacing: 0.2em; color: #e7c77f">YOUR ANSWER<input class="cin" type="text" placeholder="The moonlit one, the butterflies…"></label>
+<button class="cbtn" type="button" style="align-self: flex-end">Send</button>
+</form>
+<div style="margin-top: 34px; display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 44px">
+<div style="width: 150px; display: flex; flex-direction: column; align-items: center">
+<span class="alias-wrap" tabindex="0" aria-label="Comment by Michelle"><svg class="sym" viewBox="0 0 60 80" width="50" height="66" fill="rgba(185,169,234,0.22)" stroke="#e7c77f" stroke-width="1" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(255,214,140,0.45))"><path d="M30 30 C22 14 6 12 6 26 C6 36 18 40 28 38 C16 44 14 58 24 58 C30 58 30 48 30 40Z"></path><path d="M30 30 C38 14 54 12 54 26 C54 36 42 40 32 38 C44 44 46 58 36 58 C30 58 30 48 30 40Z"></path><path d="M30 26 L30 62 M30 26 C28 18 24 14 20 12 M30 26 C32 18 36 14 40 12" fill="none"></path></svg><span class="alias-tip">Michelle</span></span>
+<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: #cfc7e0">mine: the silver butterflies at night 🦋</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<div class="rod"><span class="knob l"></span><span class="knob r"></span></div>
+</div>
+<footer style="position: relative; max-width: 1200px; margin: 40px auto 0; padding: 32px; border-top: 1px solid rgba(200,171,110,0.35); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 13px; color: #b9b1cc; letter-spacing: 0.08em">
+<span>© 2026 Michelle Wang (Peifeier) · 王佩菲迩 · Made with care</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px 22px"><a href="assets/Michelle_Wang_Peifeier_Resume.pdf" download="Michelle_Wang_Peifeier_Resume.pdf" target="_blank" rel="noopener" style="text-decoration: none">Download CV</a><a href="https://github.com/MwMwM-2428" target="_blank" rel="noopener" style="text-decoration: none">GitHub</a><a href="https://devpost.com/MwMwM-2428" target="_blank" rel="noopener" style="text-decoration: none">Devpost</a><a href="https://www.linkedin.com/in/michelle-wang0606/" target="_blank" rel="noopener" style="text-decoration: none">LinkedIn</a><a href="mailto:mwang0627@g.ucla.edu" style="text-decoration: none">mwang0627@g.ucla.edu</a><a href="mailto:mwang2428@gmail.com" style="text-decoration: none">mwang2428@gmail.com</a></span>
+</footer>
+<p style="position: relative; margin: 0; padding: 0 32px 8px; text-align: center; font-size: 12px; letter-spacing: 0.2em; color: #b9b1cc">LAST EDITED NOV 2026</p>
+</div>
+</template>
+<template data-dc="Butterflies">
+<div style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
+<svg width="0" height="0" style="position: absolute" aria-hidden="true"><defs>
+<linearGradient id="bwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{{fillA}}"/><stop offset="0.6" stop-color="{{fillB}}"/><stop offset="1" stop-color="{{fillC}}"/></linearGradient>
+</defs></svg>
+<sc-for list="{{bs}}" as="b" hint-placeholder-count="12">
+<div class="fly {{b.path}}" style="position: absolute; left: {{b.x}}; top: {{b.y}}; width: {{b.w}}; opacity: {{b.op}}; animation-duration: {{b.dur}}; animation-delay: {{b.del}}">
+<div class="bfw" style="filter: drop-shadow(0 0 5px {{glow}}) drop-shadow(0 0 12px {{glow}})"><img class="wl" src="assets/4c92f7b05e3b0b8bafcf0ff6a8e48d74.png" alt="" style="animation-duration: {{b.flap}}; animation-delay: {{b.del}}"><img class="wr" src="assets/dd0fbc724844aac659c9b8c004047feb.png" alt="" style="animation-duration: {{b.flap}}; animation-delay: {{b.del}}"></div>
+</div>
+</sc-for>
+</div>
+</template>
+<template data-dc="ScrollOpen">
+<div style="width: 1440px; height: 900px; position: relative; overflow: hidden; background: #15132b; font-family: 'Noto Serif SC', serif; color: #ece8f3">
+<div class="bg" style="position: absolute; inset: 0"></div>
+<div style="position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(12,10,28,0.15), rgba(12,10,28,0.55))"></div>
+<div style="position: absolute; inset: 0; pointer-events: none; opacity: 0.6"><dc-import name="Butterflies" density="few" hint-size="1440px,900px"></dc-import></div>
+
+<div class="stage" style="position: absolute; left: 50%; top: 450px; width: 0; height: 0">
+<div class="paper" style="position: absolute; left: -550px; top: -310px; width: 1100px; height: 620px; overflow: hidden; background: linear-gradient(180deg, rgba(22,17,46,0.94), rgba(30,24,60,0.9) 50%, rgba(22,17,46,0.94)); box-shadow: inset 0 0 90px rgba(6,4,18,0.55)">
+<div class="sky" style="position: absolute; inset: 0"></div>
+<div style="position: absolute; inset: 18px; border: 1px solid rgba(231,199,127,0.8)"></div>
+<div style="position: absolute; inset: 26px; border: 1px solid rgba(231,199,127,0.35)"></div>
+<div style="position: absolute; right: 60px; top: 30px; width: 460px; height: 560px">
+<img class="art" src="{{art}}" alt="" style="width: 100%; height: 100%; object-fit: contain; display: block">
+</div>
+<div class="rise" style="position: absolute; left: 110px; top: 150px; width: 470px; display: flex; gap: 30px; align-items: flex-start">
+<div style="writing-mode: vertical-rl; font-size: 44px; letter-spacing: 0.4em; color: #e7c77f; border-left: 1px solid rgba(231,199,127,0.4); padding-left: 18px">{{zh}}</div>
+<div>
+<div style="font-size: 13px; letter-spacing: 0.4em; color: #c8ab6e">{{num}}</div>
+<div style="margin-top: 18px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 76px; line-height: 1">{{title}}</div>
+<div style="width: 56px; height: 1px; background: #c8ab6e; margin-top: 28px"></div>
+<div style="margin-top: 22px; max-width: 320px; font-size: 15px; line-height: 2; color: #cfc7e0; font-weight: 300">{{line}}</div>
+</div>
+</div>
+</div>
+
+<sc-for list="{{dust}}" as="d" hint-placeholder-count="10"><span class="dust" style="left: {{d.x}}; top: {{d.y}}; --dx: {{d.dx}}; --dy: {{d.dy}}; animation-delay: {{d.del}}"></span></sc-for>
+
+<div class="rodT" style="position: absolute; left: 0; top: 0"><div class="rod"><span class="knob t"></span><span class="knob b"></span></div></div>
+<div class="rodB" style="position: absolute; left: 0; top: 0"><div class="rod"><span class="knob t"></span><span class="knob b"></span></div></div>
+</div>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 46px; text-align: center; font-size: 12px; letter-spacing: 0.4em; color: #e6e0f1; text-shadow: 0 0 12px rgba(12,10,24,0.8)">{{hint}}</div>
+</div>
+</template>
+<template data-dc="__Transition"><dc-import name="ScrollOpen" num="V · REFERENCES" title="References" zh="灵 感" line="Works by other artists that shape how my site looks — mineral colour, 白描 lines, butterflies at night." art="assets/767d0d9f2f17fcd8948cba4a2af9e0ff.png" hint="CLICK TO SKIP · 点击跳过"></dc-import></template>
+<script src="dc.js"></script>
+<script src="site.js"></script>
+<script src="extras.js"></script>
+<script>
+DC.define('__Transition', class extends DCLogic { renderVals() { return {}; } });
+DC.define('References', (function(){
+class Component extends DCLogic {
+  renderVals() {
+    return {
+ "g0": [
+  {
+   "title": "华丽文雅的岩彩画",
+   "author": "画画的十步",
+   "url": "https://www.xiaohongshu.com/explore/67af1292000000002a00c2de",
+   "profile": "https://www.xiaohongshu.com/user/profile/63464336000000001901d24d",
+   "src": "assets/refs/67af1292000000002a00c2de.jpg"
+  },
+  {
+   "title": "好惊艳的泼彩。",
+   "author": "画画的十步",
+   "url": "https://www.xiaohongshu.com/explore/67642fed000000000902e625",
+   "profile": "https://www.xiaohongshu.com/user/profile/63464336000000001901d24d",
+   "src": "assets/refs/67642fed000000000902e625.jpg"
+  },
+  {
+   "title": "五节半课爆肝全开岩彩创作",
+   "author": "零",
+   "url": "https://www.xiaohongshu.com/explore/69e87022000000001a034db8",
+   "profile": "https://www.xiaohongshu.com/user/profile/60e2b25d0000000001007fc5",
+   "src": "assets/refs/69e87022000000001a034db8.jpg"
+  },
+  {
+   "title": "有无人想看我出机理教程。。",
+   "author": "KGXLYJ(有课版)",
+   "url": "https://www.xiaohongshu.com/explore/68c23fca000000001d0245ca",
+   "profile": "https://www.xiaohongshu.com/user/profile/67b30e4c000000000e012a3c",
+   "src": "assets/refs/68c23fca000000001d0245ca.jpg"
+  },
+  {
+   "title": "当紫藤遇上重肌理，古典又极具张力",
+   "author": "Al画了个啥",
+   "url": "https://www.xiaohongshu.com/explore/6a562e140000000016027dba",
+   "profile": "https://www.xiaohongshu.com/user/profile/651227d00000000024015e1b",
+   "src": "assets/refs/6a562e140000000016027dba.jpg"
+  },
+  {
+   "title": "我的川美毕设前两张和大家见面啦",
+   "author": "AniC",
+   "url": "https://www.xiaohongshu.com/explore/6a17e86c00000000370350f9",
+   "profile": "https://www.xiaohongshu.com/user/profile/6372d4b6000000002302866f",
+   "src": "assets/refs/6a17e86c00000000370350f9.jpg"
+  },
+  {
+   "title": "更一下毕设的色稿和大稿以及一个瓜",
+   "author": "tong2",
+   "url": "https://www.xiaohongshu.com/explore/6a1be3290000000007011c5f",
+   "profile": "https://www.xiaohongshu.com/user/profile/5c0cc75d0000000005001be7",
+   "src": "assets/refs/6a1be3290000000007011c5f.jpg"
+  },
+  {
+   "title": "艺术家Kimio Muraoka 笔下沉静如琉璃的女性",
+   "author": "艺启童行线上美术",
+   "url": "https://www.xiaohongshu.com/explore/6805ad30000000000e007584",
+   "profile": "https://www.xiaohongshu.com/user/profile/5e65dbaa0000000001001178",
+   "src": "assets/refs/6805ad30000000000e007584.jpg"
+  }
+ ],
+ "g1": [
+  {
+   "title": "国风｜玄境生瑶光，掌心握山河",
+   "author": "AI玩家阿紫",
+   "url": "https://www.xiaohongshu.com/explore/695e0026000000001a0363bf",
+   "profile": "https://www.xiaohongshu.com/user/profile/64e447bc00000000010121d1",
+   "src": "assets/refs/695e0026000000001a0363bf.jpg"
+  },
+  {
+   "title": "一卷开，春风来｜国风片头",
+   "author": "小九",
+   "url": "https://www.xiaohongshu.com/explore/6aeb05b5000000001a021714",
+   "profile": "https://www.xiaohongshu.com/user/profile/69c8afe00000000034019963",
+   "src": "assets/refs/6aeb05b5000000001a021714.jpg"
+  },
+  {
+   "title": "一怀古筝，半世征尘",
+   "author": "豆干干干",
+   "url": "https://www.xiaohongshu.com/explore/689f2199000000001c00b9a2",
+   "profile": "https://www.xiaohongshu.com/user/profile/5fa5333f0000000001008ffd",
+   "src": "assets/refs/689f2199000000001c00b9a2.jpg"
+  },
+  {
+   "title": "酹月呼嫦娥，仰天听天语",
+   "author": "犬芝",
+   "url": "https://www.xiaohongshu.com/explore/6a700b1a0000000035014daa",
+   "profile": "https://www.xiaohongshu.com/user/profile/6566cae6000000003c01cda1",
+   "src": "assets/refs/6a700b1a0000000035014daa.jpg"
+  },
+  {
+   "title": "“每个人的故事都重要、永恒、神圣。”",
+   "author": "连月亮也沉睡的夜晚",
+   "url": "https://www.xiaohongshu.com/explore/6a479d12000000001503c70a",
+   "profile": "https://www.xiaohongshu.com/user/profile/623e8c410000000021020924",
+   "src": "assets/refs/6a479d12000000001503c70a.jpg"
+  },
+  {
+   "title": "自由的风在森林里捉迷藏",
+   "author": "云白lin",
+   "url": "https://www.xiaohongshu.com/explore/6992c8c2000000000c03654d",
+   "profile": "https://www.xiaohongshu.com/user/profile/631e6e090000000023038f51",
+   "src": "assets/refs/6992c8c2000000000c03654d.jpg"
+  }
+ ],
+ "g2": [
+  {
+   "title": "暗夜银蝶，于黑夜里散落星光",
+   "author": "幸运小熊！好事成真！",
+   "url": "https://www.xiaohongshu.com/explore/6a902024000000000302a470",
+   "profile": "https://www.xiaohongshu.com/user/profile/5486ca95e7798956e3b1e5a1",
+   "src": "assets/refs/6a902024000000000302a470.jpg"
+  },
+  {
+   "title": "可商｜紫蝶帘符底图49",
+   "author": "小方",
+   "url": "https://www.xiaohongshu.com/explore/6a8729760000000016027a0e",
+   "profile": "https://www.xiaohongshu.com/user/profile/630f23c40000000012002766",
+   "src": "assets/refs/6a8729760000000016027a0e.jpg"
+  },
+  {
+   "title": "商用素材｜花团锦簇，螺钿的装饰纹样",
+   "author": "素材管家",
+   "url": "https://www.xiaohongshu.com/explore/68ae7c15000000001d0292d0",
+   "profile": "https://www.xiaohongshu.com/user/profile/66adf4ee000000001d03285e",
+   "src": "assets/refs/68ae7c15000000001d0292d0.jpg"
+  },
+  {
+   "title": "暗夜铃兰 | 好像睡不着就会有灵感",
+   "author": "蓝汤圆 Yuan",
+   "url": "https://www.xiaohongshu.com/explore/67caa5d1000000002902935b",
+   "profile": "https://www.xiaohongshu.com/user/profile/5dd82fa20000000001004cd7",
+   "src": "assets/refs/67caa5d1000000002902935b.jpg"
+  },
+  {
+   "title": "花，生日快乐",
+   "author": "一只鸟",
+   "url": "https://www.xiaohongshu.com/explore/69e66202000000002202a223",
+   "profile": "https://www.xiaohongshu.com/user/profile/62e8bc30000000001f006cbe",
+   "src": "assets/refs/69e66202000000002202a223.jpg"
+  },
+  {
+   "title": "很喜欢的两张～",
+   "author": "Mallow Atelier",
+   "url": "https://www.xiaohongshu.com/explore/694240df000000001e025965",
+   "profile": "https://www.xiaohongshu.com/user/profile/6842b35e000000001d00a58d",
+   "src": "assets/refs/694240df000000001e025965.jpg"
+  }
+ ],
+ "g3": [
+  {
+   "title": "绘妄司｜机能风",
+   "author": "绘妄司",
+   "url": "https://www.xiaohongshu.com/explore/6ac74df8000000000201388d",
+   "profile": "https://www.xiaohongshu.com/user/profile/691cf5950000000032025eea",
+   "src": "assets/refs/6ac74df8000000000201388d.jpg"
+  },
+  {
+   "title": "墨家天才发明家｜傲娇科研萝莉墨冷冷立",
+   "author": "伍拾设计-A艺",
+   "url": "https://www.xiaohongshu.com/explore/6a5991d6000000000101f76a",
+   "profile": "https://www.xiaohongshu.com/user/profile/68917e320000000028036ee4",
+   "src": "assets/refs/6a5991d6000000000101f76a.jpg"
+  },
+  {
+   "title": "角色设计丨机械核心",
+   "author": "猫bot（赛博魔法版）",
+   "url": "https://www.xiaohongshu.com/explore/66e515410000000027000ae8",
+   "profile": "https://www.xiaohongshu.com/user/profile/6545d747000000000d004117",
+   "src": "assets/refs/66e515410000000027000ae8.jpg"
+  },
+  {
+   "title": "银河插画村｜角色设计2",
+   "author": "我睡觉的时候也困",
+   "url": "https://www.xiaohongshu.com/explore/67ca655400000000090394ce",
+   "profile": "https://www.xiaohongshu.com/user/profile/601890b3000000000101f548",
+   "src": "assets/refs/67ca655400000000090394ce.jpg"
+  },
+  {
+   "title": "服设稿《白夜》",
+   "author": "三温",
+   "url": "https://www.xiaohongshu.com/explore/689f429e000000001b0226ce",
+   "profile": "https://www.xiaohongshu.com/user/profile/664489c30000000003033ed6",
+   "src": "assets/refs/689f429e000000001b0226ce.jpg"
+  }
+ ],
+ "g4": [
+  {
+   "title": "XVIII. The Moon",
+   "author": "薄荷豹豹冰",
+   "url": "https://www.xiaohongshu.com/explore/68fcc997000000000300dd1b",
+   "profile": "https://www.xiaohongshu.com/user/profile/64f2bcbf000000000500036f",
+   "src": "assets/refs/68fcc997000000000300dd1b.jpg"
+  },
+  {
+   "title": "原神塔罗牌第三期",
+   "author": "你心里最闪耀最甜美最可爱的小天使",
+   "url": "https://www.xiaohongshu.com/explore/69eccbd7000000001a035a65",
+   "profile": "https://www.xiaohongshu.com/user/profile/62f20dd2000000001f0040eb",
+   "src": "assets/refs/69eccbd7000000001a035a65.jpg"
+  },
+  {
+   "title": "塔罗创作",
+   "author": "阿玄没带画笔",
+   "url": "https://www.xiaohongshu.com/explore/6adf16cf000000001500e4a5",
+   "profile": "https://www.xiaohongshu.com/user/profile/67276d67000000001d02ece9",
+   "src": "assets/refs/6adf16cf000000001500e4a5.jpg"
+  }
+ ]
+};
+  }
+}
+return Component;
+})());
+DC.define('Butterflies', (function(){
+class Component extends DCLogic {
+  renderVals() {
+    const pts = [
+      [52, 14, 46], [64, 8, 36], [70, 30, 54], [44, 40, 40], [80, 20, 44], [58, 52, 32],
+      [74, 60, 40], [18, 16, 28], [30, 50, 24], [88, 42, 34], [12, 66, 22], [40, 72, 30]
+    ];
+    const many = (this.props.density ?? 'many') === 'many';
+    const list = many ? pts : pts.filter((p, i) => i % 2 === 0);
+    const paths = ['p1', 'p2', 'p3'];
+    return {
+      stroke: this.props.stroke ?? '#e7c77f',
+      glow: this.props.glow ?? 'rgba(255,214,140,0.55)',
+      fillA: '#e6dcff', fillB: '#9d8cf0', fillC: '#6a73d6',
+      bs: list.map((p, i) => ({
+        x: p[0] + '%', y: p[1] + '%', w: Math.round(p[2] * 1.15) + 'px',
+        path: paths[i % 3],
+        dur: (16 + (i * 7) % 14) + 's',
+        del: '-' + ((i * 3.7) % 16).toFixed(1) + 's',
+        flap: (0.24 + (i % 4) * 0.05).toFixed(2) + 's',
+        op: p[2] < 30 ? 0.7 : 0.95
+      }))
+    };
+  }
+}
+return Component;
+})());
+DC.define('ScrollOpen', (function(){
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const pts = [[-480, -6, '-30px', '-70px'], [-360, 4, '-10px', '80px'], [-240, -4, '20px', '-90px'], [-120, 6, '-20px', '70px'], [0, -6, '0px', '-100px'], [110, 4, '30px', '90px'], [230, -4, '-20px', '-80px'], [350, 6, '10px', '70px'], [470, -6, '30px', '-60px'], [60, 2, '-30px', '110px']];
+    return {
+      num: p.num ?? 'I · EDUCATION',
+      title: p.title ?? 'Education & CV',
+      zh: p.zh ?? '学 历',
+      line: p.line ?? 'From Beijing to Los Angeles.',
+      art: p.art ?? 'assets/e48f0a78505e00c42abdec4725176725.png',
+      hint: p.hint ?? 'UNROLLING · 展卷',
+      dust: pts.map((d, i) => ({ x: d[0] + 'px', y: d[1] + 'px', dx: d[2], dy: d[3], del: (i * 0.06).toFixed(2) + 's' }))
+    };
+  }
+}
+return Component;
+})());
+DC.mount('References', {}, document.getElementById('dc-root'), {});
+SITE.transition('References');
+SITE.init('References');
+document.addEventListener('error', function (e) { var t = e.target; if (t && t.classList && t.classList.contains('shot')) { var f = t.closest('.ref'); if (f) f.classList.add('noimg'); } }, true);
+Array.prototype.forEach.call(document.querySelectorAll('.ref .shot'), function (im) { if (im.complete && !im.naturalWidth) im.closest('.ref').classList.add('noimg'); });
+</script>
+</body>
+</html>
