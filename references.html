@@ -130,6 +130,46 @@ a{color:inherit}a:hover{opacity:.8}
 .ref .by{display:block;margin-top:2px;font-size:13px;color:#c8ab6e;letter-spacing:.04em}
 .ref .by a{text-decoration:none;border-bottom:1px solid rgba(200,171,110,.4)}
 .credit{margin:22px 0 0;max-width:620px;font-size:13px;line-height:1.9;color:#b9b1cc}
+
+/* ---- click effects: gold dust burst + unrolling scroll viewer ---- */
+.ref a.pic{cursor:zoom-in}
+.ref a.pic.tap{animation:refTap .55s ease-out}
+@keyframes refTap{0%{box-shadow:0 0 0 0 rgba(243,220,166,.75)}100%{box-shadow:0 0 0 18px rgba(243,220,166,0)}}
+.ref a.pic:active{transform:scale(.985)}
+.dust-p{position:fixed;z-index:60;width:5px;height:5px;margin:-2.5px;border-radius:50%;background:#fff3cf;box-shadow:0 0 8px #f3dca6,0 0 16px rgba(243,220,166,.7);pointer-events:none;animation:dustOut .85s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes dustOut{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+.dust-b{position:fixed;z-index:60;width:34px;margin:-17px;pointer-events:none;filter:drop-shadow(0 0 6px rgba(255,214,140,.7));animation:bflyOut 1.3s ease-out forwards}
+@keyframes bflyOut{0%{transform:translate(0,0) rotate(0) scale(.4);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1);opacity:0}}
+.lb{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:24px 16px;background:rgba(8,6,22,0);-webkit-backdrop-filter:blur(0);backdrop-filter:blur(0);transition:background .45s,backdrop-filter .45s,-webkit-backdrop-filter .45s;visibility:hidden}
+.lb.on{visibility:visible;background:rgba(8,6,22,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.lb-scroll{position:relative;width:min(760px,100%);opacity:0;transform:translateY(16px);transition:opacity .35s,transform .45s}
+.lb.on .lb-scroll{opacity:1;transform:none}
+.lb .rod{margin:0 -6px;height:16px;border-radius:8px}
+.lb-paper{display:grid;grid-template-rows:0fr;transition:grid-template-rows .8s cubic-bezier(.55,.05,.3,1) .12s}
+.lb.on .lb-paper{grid-template-rows:1fr}
+.lb-in{overflow:hidden;min-height:0;background:linear-gradient(180deg,rgba(22,17,46,.97),rgba(30,24,60,.95) 50%,rgba(22,17,46,.97));border-left:1px solid rgba(231,199,127,.6);border-right:1px solid rgba(231,199,127,.6);box-shadow:inset 0 0 90px rgba(6,4,18,.55)}
+.lb-body{margin:16px;padding:22px clamp(14px,4vw,40px) 26px;border:1px solid rgba(231,199,127,.75);text-align:center;opacity:0;transition:opacity .4s .7s}
+.lb.on .lb-body{opacity:1}
+.lb-fig{position:relative;display:flex;justify-content:center;align-items:center;min-height:200px}
+.lb-img{display:block;max-width:100%;max-height:min(calc(100vh - 340px),620px);min-height:0;height:auto;border:1px solid #c8ab6e;padding:6px;box-sizing:border-box;filter:drop-shadow(0 0 22px rgba(231,199,127,.18))}
+.lb-ph{display:none;width:min(300px,70vw);aspect-ratio:3/4;place-items:center;border:1px solid #c8ab6e;background:radial-gradient(ellipse at 50% 42%,rgba(120,96,210,.32),rgba(10,8,26,.9) 72%)}
+.lb-ph img{width:90px;filter:drop-shadow(0 0 10px rgba(255,214,140,.6));animation:breeze 5s ease-in-out infinite}
+.lb.noimg .lb-img{display:none}.lb.noimg .lb-ph{display:grid}
+.lb-num{margin-top:18px;font-size:12px;letter-spacing:.4em;color:#c8ab6e}
+.lb-t{margin:8px 0 0;font-family:'Cormorant Garamond','Noto Serif SC',serif;font-weight:400;font-size:clamp(22px,3.4vw,30px);line-height:1.35;color:#ece8f3}
+.lb-by{margin-top:6px;font-size:14px;color:#cfc7e0}
+.lb-by a{color:#e7c77f;text-decoration:none;border-bottom:1px solid rgba(231,199,127,.4)}
+.lb-go{margin-top:20px;display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 22px;background:#e7c77f;color:#1c1638;text-decoration:none;font-size:14px;letter-spacing:.12em}
+.lb-go:hover{background:#f3dca6;opacity:1}
+.lb-x,.lb-nav{position:absolute;display:grid;place-items:center;border:1px solid #c8ab6e;background:rgba(10,8,26,.7);color:#e7c77f;cursor:pointer;font-family:'Cormorant Garamond',serif;transition:background .25s,border-color .25s}
+.lb-x:hover,.lb-nav:hover{background:rgba(231,199,127,.18);border-color:#e7c77f}
+.lb-x{z-index:2;top:30px;right:30px;width:38px;height:38px;font-size:24px;line-height:1}
+.lb-nav{top:50%;width:44px;height:44px;margin-top:-22px;border-radius:50%;font-size:26px;line-height:1}
+.lb-nav.prev{left:-62px}.lb-nav.next{right:-62px}
+@media (max-width:900px){.lb-nav{z-index:2;width:40px;height:40px;margin-top:-20px;background:rgba(10,8,26,.82)}.lb-nav.prev{left:6px}.lb-nav.next{right:6px}.lb-x{top:24px;right:24px}.lb-body{margin:10px;padding:46px 12px 20px}.lb-img{max-height:calc(100vh - 330px)}}
+.lb-fig.swap{animation:swapIn .45s ease-out}
+@keyframes swapIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.lb,.lb-scroll,.lb-paper,.lb-body{transition:none}.lb-fig.swap,.ref a.pic.tap,.lb-ph img{animation:none}}
 </style>
 <link rel="stylesheet" href="site.css">
 </head>
@@ -201,7 +241,7 @@ a{color:inherit}a:hover{opacity:.8}
 <div class="refgrid">
 <sc-for list="{{g0}}" as="r" hint-placeholder-count="8">
 <figure class="ref">
-<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="View “{{r.title}}” by {{r.author}}"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
 <figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
 </figure>
 </sc-for>
@@ -215,9 +255,9 @@ a{color:inherit}a:hover{opacity:.8}
 </div>
 <p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Celestial figures, moonlight, guzheng and scrolls unrolling.</p>
 <div class="refgrid">
-<sc-for list="{{g1}}" as="r" hint-placeholder-count="6">
+<sc-for list="{{g1}}" as="r" hint-placeholder-count="5">
 <figure class="ref">
-<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="View “{{r.title}}” by {{r.author}}"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
 <figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
 </figure>
 </sc-for>
@@ -229,11 +269,11 @@ a{color:inherit}a:hover{opacity:.8}
 <h2 id="h-butterflies" style="margin: 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 52px">Butterflies & flowers <span style="font-family: 'Noto Serif SC', serif; font-style: normal; font-size: 30px; color: #c8ab6e; letter-spacing: 0.2em">蝶 · 花</span></h2>
 <a href="#top" style="font-size: 13px; letter-spacing: 0.15em; color: #b9b1cc">BACK TO TOP ↑</a>
 </div>
-<p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Silver butterflies at night, lilies of the valley, mother-of-pearl ornament.</p>
+<p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Silver butterflies at night, lilies of the valley, mother-of-pearl ornament and wind-drawn wings.</p>
 <div class="refgrid">
 <sc-for list="{{g2}}" as="r" hint-placeholder-count="6">
 <figure class="ref">
-<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="View “{{r.title}}” by {{r.author}}"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
 <figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
 </figure>
 </sc-for>
@@ -247,9 +287,9 @@ a{color:inherit}a:hover{opacity:.8}
 </div>
 <p style="margin: 10px 0 0; color: #b9b1cc; font-weight: 300">Mecha cores, inventors and costume sheets — how a whole figure is built.</p>
 <div class="refgrid">
-<sc-for list="{{g3}}" as="r" hint-placeholder-count="5">
+<sc-for list="{{g3}}" as="r" hint-placeholder-count="6">
 <figure class="ref">
-<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="View “{{r.title}}” by {{r.author}}"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
 <figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
 </figure>
 </sc-for>
@@ -265,7 +305,7 @@ a{color:inherit}a:hover{opacity:.8}
 <div class="refgrid">
 <sc-for list="{{g4}}" as="r" hint-placeholder-count="3">
 <figure class="ref">
-<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="Open “{{r.title}}” by {{r.author}} on rednote"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
+<a class="pic" href="{{r.url}}" target="_blank" rel="noopener" aria-label="View “{{r.title}}” by {{r.author}}"><img class="shot" src="{{r.src}}" alt="“{{r.title}}” by {{r.author}}" loading="lazy"><span class="ph"><img src="assets/32dbdd5c4982e98cc1b64050e25c5764.png" alt=""></span></a>
 <figcaption><span class="t">{{r.title}}</span><span class="by">by <a href="{{r.profile}}" target="_blank" rel="noopener">{{r.author}}</a> · rednote ↗</span></figcaption>
 </figure>
 </sc-for>
@@ -451,13 +491,6 @@ class Component extends DCLogic {
    "url": "https://www.xiaohongshu.com/explore/6a479d12000000001503c70a",
    "profile": "https://www.xiaohongshu.com/user/profile/623e8c410000000021020924",
    "src": "assets/refs/6a479d12000000001503c70a.jpg"
-  },
-  {
-   "title": "自由的风在森林里捉迷藏",
-   "author": "云白lin",
-   "url": "https://www.xiaohongshu.com/explore/6992c8c2000000000c03654d",
-   "profile": "https://www.xiaohongshu.com/user/profile/631e6e090000000023038f51",
-   "src": "assets/refs/6992c8c2000000000c03654d.jpg"
   }
  ],
  "g2": [
@@ -497,14 +530,21 @@ class Component extends DCLogic {
    "src": "assets/refs/69e66202000000002202a223.jpg"
   },
   {
+   "title": "自由的风在森林里捉迷藏",
+   "author": "云白lin",
+   "url": "https://www.xiaohongshu.com/explore/6992c8c2000000000c03654d",
+   "profile": "https://www.xiaohongshu.com/user/profile/631e6e090000000023038f51",
+   "src": "assets/refs/6992c8c2000000000c03654d.jpg"
+  }
+ ],
+ "g3": [
+  {
    "title": "很喜欢的两张～",
    "author": "Mallow Atelier",
    "url": "https://www.xiaohongshu.com/explore/694240df000000001e025965",
    "profile": "https://www.xiaohongshu.com/user/profile/6842b35e000000001d00a58d",
    "src": "assets/refs/694240df000000001e025965.jpg"
-  }
- ],
- "g3": [
+  },
   {
    "title": "绘妄司｜机能风",
    "author": "绘妄司",
@@ -619,6 +659,99 @@ SITE.transition('References');
 SITE.init('References');
 document.addEventListener('error', function (e) { var t = e.target; if (t && t.classList && t.classList.contains('shot')) { var f = t.closest('.ref'); if (f) f.classList.add('noimg'); } }, true);
 Array.prototype.forEach.call(document.querySelectorAll('.ref .shot'), function (im) { if (im.complete && !im.naturalWidth) im.closest('.ref').classList.add('noimg'); });
+
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LOGO = 'assets/32dbdd5c4982e98cc1b64050e25c5764.png';
+  function burst(x, y) {
+    if (reduce) return;
+    for (var i = 0; i < 16; i++) {
+      var d = document.createElement('span'); d.className = 'dust-p';
+      var a = Math.random() * Math.PI * 2, r = 40 + Math.random() * 70;
+      d.style.left = x + 'px'; d.style.top = y + 'px';
+      d.style.setProperty('--dx', Math.cos(a) * r + 'px'); d.style.setProperty('--dy', Math.sin(a) * r + 'px');
+      d.style.animationDelay = (Math.random() * 0.08) + 's';
+      document.body.appendChild(d); setTimeout(d.remove.bind(d), 1000);
+    }
+    for (var j = 0; j < 2; j++) {
+      var b = document.createElement('img'); b.className = 'dust-b'; b.src = LOGO; b.alt = '';
+      b.style.left = x + 'px'; b.style.top = y + 'px';
+      b.style.setProperty('--dx', (j ? 1 : -1) * (50 + Math.random() * 60) + 'px'); b.style.setProperty('--dy', -(90 + Math.random() * 60) + 'px');
+      b.style.setProperty('--r', (j ? 18 : -18) + 'deg');
+      document.body.appendChild(b); setTimeout(b.remove.bind(b), 1400);
+    }
+  }
+  var lb = document.createElement('div');
+  lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Reference viewer'); lb.hidden = true;
+  lb.innerHTML = '<div class="lb-scroll"><button type="button" class="lb-x" aria-label="Close">×</button>' +
+    '<button type="button" class="lb-nav prev" aria-label="Previous reference">‹</button><button type="button" class="lb-nav next" aria-label="Next reference">›</button>' +
+    '<div class="rod"><span class="knob l"></span><span class="knob r"></span></div>' +
+    '<div class="lb-paper"><div class="lb-in"><div class="lb-body">' +
+    '<div class="lb-fig"><img class="lb-img" alt=""><div class="lb-ph"><img src="' + LOGO + '" alt=""></div></div>' +
+    '<div class="lb-num"></div><h2 class="lb-t"></h2><div class="lb-by">by <a target="_blank" rel="noopener"></a></div>' +
+    '<a class="lb-go" target="_blank" rel="noopener">View original on rednote ↗</a>' +
+    '</div></div></div><div class="rod"><span class="knob l"></span><span class="knob r"></span></div></div>';
+  document.body.appendChild(lb);
+  var q = function (c) { return lb.querySelector(c); };
+  var cards = [], idx = 0, lastFocus = null, closing = null;
+  function refresh() { cards = Array.prototype.slice.call(document.querySelectorAll('.ref')); }
+  function fill(i, swap) {
+    idx = (i + cards.length) % cards.length;
+    var f = cards[idx], pic = f.querySelector('a.pic'), shot = f.querySelector('.shot'), by = f.querySelector('.by a');
+    var title = f.querySelector('.t').textContent;
+    var sec = f.closest('section'), h = sec && sec.querySelector('h2');
+    lb.classList.toggle('noimg', f.classList.contains('noimg'));
+    var im = q('.lb-img'); im.src = shot.getAttribute('src'); im.alt = shot.alt;
+    q('.lb-t').textContent = title;
+    q('.lb-by a').textContent = by.textContent; q('.lb-by a').href = by.href;
+    q('.lb-go').href = pic.href;
+    q('.lb-num').textContent = (h ? h.firstChild.textContent.trim().toUpperCase() + ' · ' : '') + (idx + 1) + ' / ' + cards.length;
+    if (swap && !reduce) { var fig = q('.lb-fig'); fig.classList.remove('swap'); void fig.offsetWidth; fig.classList.add('swap'); }
+  }
+  q('.lb-img').addEventListener('error', function () { lb.classList.add('noimg'); });
+  function open(i) {
+    refresh(); clearTimeout(closing); lastFocus = document.activeElement;
+    fill(i, false); lb.hidden = false; void lb.offsetWidth; lb.classList.add('on');
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(function () { q('.lb-x').focus(); }, 50);
+  }
+  function close() {
+    if (lb.hidden) return;
+    lb.classList.remove('on'); document.documentElement.style.overflow = '';
+    closing = setTimeout(function () { lb.hidden = true; }, reduce ? 0 : 450);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.ref a.pic');
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+    e.preventDefault();
+    var r = a.getBoundingClientRect();
+    var x = e.clientX || (r.left + r.width / 2), y = e.clientY || (r.top + r.height / 2);
+    burst(x, y);
+    a.classList.remove('tap'); void a.offsetWidth; a.classList.add('tap');
+    refresh(); var i = cards.indexOf(a.closest('.ref'));
+    setTimeout(function () { open(i); }, reduce ? 0 : 220);
+  });
+  q('.lb-x').addEventListener('click', close);
+  q('.prev').addEventListener('click', function () { fill(idx - 1, true); });
+  q('.next').addEventListener('click', function () { fill(idx + 1, true); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') fill(idx - 1, true);
+    else if (e.key === 'ArrowRight') fill(idx + 1, true);
+    else if (e.key === 'Tab') {
+      var fs = Array.prototype.filter.call(lb.querySelectorAll('button, a[href]'), function (el) { return el.offsetParent !== null; });
+      var first = fs[0], last = fs[fs.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  var sx = null;
+  lb.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', function (e) { if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) fill(idx + (dx < 0 ? 1 : -1), true); sx = null; });
+})();
 </script>
 </body>
 </html>
