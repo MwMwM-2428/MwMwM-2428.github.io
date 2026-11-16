@@ -19,8 +19,13 @@ img, video { max-width: 100%; }
 .transition .dc-ScrollOpen .art,
 .transition .dc-ScrollOpen .dust { animation-duration: 7s !important; animation-iteration-count: 1 !important; animation-fill-mode: forwards !important; }
 
-/* Keep the galaxy background tall enough on narrow screens */
-@media (max-width: 900px) { .tile { aspect-ratio: auto !important; height: 820px; } }
+/* Galaxy background: one fixed, GPU-composited layer behind the page.
+   (Replaces ~30 stacked full-width image tiles that had to be re-rasterised on every
+   zoom level and jumped size at the 900px breakpoint — the cause of the zoom flashing.) */
+.galaxy { position: fixed; left: 0; top: 0; width: 100%; height: 100vh; height: 100lvh; pointer-events: none;
+  background: #15132b url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center / cover no-repeat;
+  transform: translateZ(0); backface-visibility: hidden; }
+.galaxy > .tile { display: none; }
 
 /* Phones: tighten the scroll frame and scale down the big titles */
 @media (max-width: 640px) {
@@ -36,6 +41,16 @@ img, video { max-width: 100%; }
   #coursework article a { height: auto !important; min-height: 44px; padding: 10px 14px !important; white-space: normal; text-align: center; letter-spacing: .06em !important; }
 }
 .opening-stage { background: #15132b url(assets/b7d15e940b06f0d2a431e60874daecab.jpg) center / cover no-repeat; }
+
+/* Comments: show each visitor's name under their flower, not only on hover */
+.alias-wrap { display: inline-flex !important; flex-direction: column; align-items: center; }
+.alias-wrap .alias-tip { position: static !important; order: 2; opacity: 1 !important; transform: none !important;
+  background: none !important; border: none !important; padding: 6px 0 0 !important; font-size: 13px !important;
+  color: #e7c77f !important; letter-spacing: .08em; white-space: normal; text-align: center; max-width: 160px; }
+.alias-wrap .alias-tip::before { content: "— "; }
+
+/* Leave-your-mark: the visitor's own mark keeps its name showing */
+.mark.mine .tip { opacity: 1 !important; transform: translate(-50%, -2px) !important; }
 
 .local-thanks { margin: 14px auto 0; max-width: 560px; text-align: center; font-size: 14px; letter-spacing: .04em; color: #e7c77f; }
 

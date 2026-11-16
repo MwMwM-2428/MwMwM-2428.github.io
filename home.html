@@ -92,7 +92,7 @@ input::placeholder{color:inherit;opacity:.55}
 <div class="mist" style="position: absolute; left: -15%; top: -240px; width: 80%; height: 1000px; background: radial-gradient(closest-side, {{t.mist}}, transparent); pointer-events: none"></div>
 <div class="mist" style="position: absolute; right: -20%; top: 1100px; width: 70%; height: 900px; background: radial-gradient(closest-side, {{t.mist}}, transparent); pointer-events: none"></div>
 <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}">
-<div aria-hidden="true" style="position: absolute; inset: 0; display: flex; flex-direction: column; pointer-events: none"><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div></div>
+<div class="galaxy" aria-hidden="true"><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div><div class="tile"></div><div class="tile flip"></div></div>
 <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(rgba(10,8,26,0), rgba(10,8,26,0.25) 30%, rgba(10,8,26,0.25) 75%, rgba(10,8,26,0.1)); pointer-events: none"></div>
 <div style="position: absolute; left: 0; top: 0; width: 70%; height: 1000px; background: radial-gradient(ellipse at 25% 42%, rgba(12,10,24,0.62), transparent 68%); pointer-events: none"></div>
 </sc-if>
@@ -149,7 +149,7 @@ input::placeholder{color:inherit;opacity:.55}
 <svg viewBox="0 0 40 30" width="34" height="26" fill="none" stroke="{{t.line}}" stroke-width="1" aria-hidden="true" style="position: absolute; left: 50%; bottom: -14px; transform: translateX(-50%); background: {{t.bg}}; padding: 0 8px"><path d="M20 15 C14 3 3 2 4 10 C5 15 12 16 20 15Z M20 15 C26 3 37 2 36 10 C35 15 28 16 20 15Z M20 15 C15 18 9 25 12 27 C16 29 19 22 20 15Z M20 15 C25 18 31 25 28 27 C24 29 21 22 20 15Z"></path></svg>
 </div>
 <sc-for list="{{marks}}" as="m" hint-placeholder-count="8">
-<button type="button" class="mark" aria-label="{{m.aria}}" style="left: calc(50% + {{m.dx}}px); top: {{m.dy}}px">
+<button type="button" class="mark {{m.cls}}" aria-label="{{m.aria}}" style="left: calc(50% + {{m.dx}}px); top: {{m.dy}}px">
 <span class="tip" style="padding: 6px 14px; background: {{t.bg}}; border: 1px solid {{t.line}}; font-size: 13px; letter-spacing: 0.06em; color: {{t.ink}}">{{m.name}}</span>
 <img src="{{m.img}}" alt="" width="{{m.s}}" height="{{m.s}}" style="animation-delay: {{m.del}}">
 </button>
@@ -171,7 +171,7 @@ input::placeholder{color:inherit;opacity:.55}
 <p style="margin: 10px auto 0; max-width: 560px; text-align: center; color: {{t.muted}}; font-size: 15px; line-height: 1.9; letter-spacing: 0.04em">{{s.gSub}}</p>
 <form onSubmit="{{sign}}" style="margin: 40px auto 0; max-width: 760px; display: flex; flex-direction: column; align-items: center; gap: 30px">
 <label style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.2em; color: {{t.line}}">{{s.gName}}
-<input type="text" value="{{gName}}" onChange="{{onGName}}" placeholder="{{s.gPh}}" maxlength="24" style="height: 48px; background: transparent; border: none; border-bottom: 1px solid {{t.line}}; color: {{t.ink}}; font-family: 'Noto Serif SC', serif; font-size: 17px; text-align: center; outline: none">
+<input type="text" value="{{gName}}" onChange="{{onGName}}" placeholder="{{s.gPh}}" maxlength="24" required style="height: 48px; background: transparent; border: none; border-bottom: 1px solid {{t.line}}; color: {{t.ink}}; font-family: 'Noto Serif SC', serif; font-size: 17px; text-align: center; outline: none">
 </label>
 <fieldset style="border: none; margin: 0; padding: 0; min-width: 0; width: 100%">
 <legend style="width: 100%; text-align: center; font-size: 12px; letter-spacing: 0.2em; color: {{t.line}}; margin-bottom: 16px; padding: 0">{{s.gPick}}</legend>
@@ -353,7 +353,7 @@ class Component extends DCLogic {
         const a = (115 + (n > 1 ? i * 310 / (n - 1) : 0)) * Math.PI / 180;
         const r = 1 + 0.06 * ((i % 3) - 1);
         return {
-          name: m.name, img: IMG[m.kind], aria: s.visitor + m.name,
+          name: m.name, img: IMG[m.kind], aria: s.visitor + m.name, cls: m.mine ? 'mine' : '',
           dx: Math.round(Math.cos(a) * 250 * r),
           dy: Math.round(325 + Math.sin(a) * 330 * r),
           s: m.mine ? 58 : 42 + (i % 3) * 5,

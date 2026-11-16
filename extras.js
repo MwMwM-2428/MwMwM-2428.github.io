@@ -1,4 +1,4 @@
-/* Extras: contact / email dropdowns with copy, shooting-star firework, real audio, comment aliases. */
+/* Extras: contact / email dropdowns with copy, shooting-star firework, real audio, comments that stay on the page. */
 (function () {
   'use strict';
   var EMAILS = [
@@ -77,7 +77,7 @@
     l.style.height = document.documentElement.scrollHeight + 'px';
     return l;
   }
-  function burst(l, x, y, img) {
+  function burst(l, x, y, img, noPop) {
     var colors = ['#fff6dc', '#f3dca6', '#e7c77f', '#c9b8ff', '#9d8cf0'];
     for (var i = 0; i < 30; i++) {
       var d = document.createElement('span');
@@ -92,21 +92,29 @@
     }
     var ring = document.createElement('span'); ring.className = 'xring'; ring.style.left = x + 'px'; ring.style.top = y + 'px'; l.appendChild(ring);
     setTimeout(function () { ring.remove(); }, 900);
+    if (noPop) return;
     var pop = document.createElement('img'); pop.src = img; pop.alt = ''; pop.className = 'xpop'; pop.style.left = x + 'px'; pop.style.top = y + 'px'; l.appendChild(pop);
     setTimeout(function () { pop.classList.add('out'); }, 2300);
     setTimeout(function () { pop.remove(); }, 3100);
   }
-  function shoot(fromEl, imgSrc) {
+  function shoot(fromEl, imgSrc, targetEl, onLand) {
     var photo = document.querySelector('img[src*="c9c749fc2b8b3c077c100f783e415bb6"]');
-    if (!photo) return;
+    if (!photo) { if (onLand) onLand(); return; }
     var frame = photo.closest('div[style*="border-radius: 190px"]') || photo;
     var l = layer();
     var fr = fromEl.getBoundingClientRect(), pr = frame.getBoundingClientRect();
     var sx = fr.left + fr.width / 2 + window.scrollX, sy = fr.top + fr.height / 2 + window.scrollY;
-    var side = Math.random() < 0.5 ? -1 : 1;
-    var tx = (side > 0 ? pr.right + 34 : pr.left - 34) + window.scrollX;
-    var ty = pr.top + window.scrollY + pr.height * (0.22 + Math.random() * 0.4);
-    if (pr.top < 0 || pr.bottom > window.innerHeight) window.scrollTo({ top: Math.max(0, ty - window.innerHeight / 2), behavior: 'smooth' });
+    var tx, ty, side;
+    if (targetEl) {
+      var tr0 = targetEl.getBoundingClientRect();
+      tx = tr0.left + tr0.width / 2 + window.scrollX; ty = tr0.top + tr0.height / 2 + window.scrollY;
+      side = tx > pr.left + pr.width / 2 + window.scrollX ? 1 : -1;
+    } else {
+      side = Math.random() < 0.5 ? -1 : 1;
+      tx = (side > 0 ? pr.right + 34 : pr.left - 34) + window.scrollX;
+      ty = pr.top + window.scrollY + pr.height * (0.22 + Math.random() * 0.4);
+    }
+    window.scrollTo({ top: Math.max(0, ty - window.innerHeight / 2), behavior: 'smooth' });
     var star = document.createElement('div'); star.className = 'xstar';
     star.innerHTML = '<img src="' + imgSrc + '" alt=""><span class="xcore"></span>';
     l.appendChild(star);
@@ -125,15 +133,28 @@
         setTimeout(function (el) { el.remove(); }.bind(null, tr), 700);
       }
       if (k < 1) requestAnimationFrame(step);
-      else { star.remove(); burst(l, tx, ty, imgSrc); }
+      else { star.remove(); burst(l, tx, ty, imgSrc, !!targetEl); if (onLand) setTimeout(onLand, targetEl ? 250 : 0); }
     }
     requestAnimationFrame(step);
   }
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest('button.pick');
-    if (!b || reduce) return;
-    var img = b.querySelector('img');
-    if (img) shoot(b, img.getAttribute('src'));
+  // Choosing a cursor only selects it. Clicking "Leave my mark" (with a name) sends the
+  // shooting star to the visitor's new mark beside the photo, where their name appears.
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form.querySelector || !form.querySelector('button.pick')) return;
+    var nameIn = form.querySelector('input[type="text"]');
+    if (!nameIn || !nameIn.value.trim()) return;
+    var chosen = form.querySelector('button.pick[aria-pressed="true"]') || form.querySelector('button.pick');
+    var img = chosen && chosen.querySelector('img');
+    var from = form.querySelector('button[type="submit"]') || chosen;
+    if (!img || reduce) return;
+    var src = img.getAttribute('src');
+    setTimeout(function () {                       // let the page add the new mark first
+      var marks = document.querySelectorAll('.mark.mine');
+      var target = marks[marks.length - 1];
+      if (target) { target.style.visibility = 'hidden'; }
+      shoot(from, src, target, function () { if (target) target.style.visibility = ''; });
+    }, 0);
   }, true);
 
   /* ---------- music: official YouTube / Bilibili players inside the framed screen ---------- */
@@ -207,27 +228,46 @@
     if (play) player.playVideo(); else player.pauseVideo();
   };
 
-  /* ---------- comment aliases (static comment forms) ---------- */
+  /* ---------- comments on static forms: stay on the page, keep the name, survive reloads ---------- */
+  function boxes() { return Array.prototype.filter.call(document.querySelectorAll('#comments, .cbox'), function (b) { var f = b.querySelector('form'); return f && !f.hasAttribute('data-dc-on'); }); }
+  function storeKey(box) { return 'mw-notes:' + location.pathname.replace(/\/$/, '/index.html') + ':' + boxes().indexOf(box); }
+  function loadNotes(box) { try { return JSON.parse(localStorage.getItem(storeKey(box)) || '[]'); } catch (e) { return []; } }
+  function saveNotes(box, notes) { try { localStorage.setItem(storeKey(box), JSON.stringify(notes.slice(-60))); } catch (e) {} }
+  function noteList(box) {
+    var form = box.querySelector('form');
+    return Array.prototype.filter.call(form.parentNode.children, function (c) { return c.tagName === 'DIV' && c.querySelector('.alias-wrap'); }).pop();
+  }
+  function addNote(box, who, text) {
+    var list = noteList(box);
+    var tpl = list && list.querySelector(':scope > div');
+    if (!tpl) return;
+    var item = tpl.cloneNode(true); item.setAttribute('data-keep', ''); item.style.marginTop = '0px';
+    var tip = item.querySelector('.alias-tip'); if (tip) tip.textContent = who;
+    var w = item.querySelector('.alias-wrap'); if (w) w.setAttribute('aria-label', 'Comment by ' + who);
+    var p = item.querySelector('p'); if (p) p.textContent = text;
+    list.insertBefore(item, list.firstChild);
+  }
   document.addEventListener('submit', function (e) {
     var form = e.target;
-    if (!form.closest('#comments, .cbox') || form.hasAttribute('data-dc-on')) return;
-    var note = form.querySelector('input:not(.alias-in)');
+    var box = form.closest('#comments, .cbox');
+    if (!box || form.hasAttribute('data-dc-on')) return;
+    e.preventDefault();
+    var note = form.querySelector('input[type="text"]:not(.alias-in), textarea');
     var alias = form.querySelector('.alias-in');
     var text = note && note.value.trim(); if (!text) return;
     var who = (alias && alias.value.trim()) || 'a visitor';
-    var box = form.parentNode;
-    var list = Array.prototype.filter.call(box.children, function (c) { return c.tagName === 'DIV' && c.querySelector('.alias-wrap'); }).pop();
-    var tpl = list && list.querySelector(':scope > div');
-    if (tpl) {
-      var item = tpl.cloneNode(true); item.setAttribute('data-keep', ''); item.style.marginTop = '0px';
-      var tip = item.querySelector('.alias-tip'); if (tip) tip.textContent = who;
-      var w = item.querySelector('.alias-wrap'); if (w) w.setAttribute('aria-label', 'Comment by ' + who);
-      var p = item.querySelector('p'); if (p) p.textContent = text;
-      list.insertBefore(item, list.firstChild);
-    }
-    setTimeout(function () { note.value = ''; if (alias) alias.value = ''; }, 0);
+    addNote(box, who, text);
+    var notes = loadNotes(box); notes.push({ alias: who, text: text, at: Date.now() }); saveNotes(box, notes);
+    note.value = ''; if (alias) alias.value = '';
   }, true);
+  function restoreNotes() {
+    boxes().forEach(function (box) {
+      if (box.__restored) return; box.__restored = true;
+      loadNotes(box).forEach(function (n) { addNote(box, n.alias, n.text); });
+    });
+  }
 
-  window.addEventListener('DOMContentLoaded', addContactButton);
-  if (document.readyState !== 'loading') addContactButton();
+  function ready() { addContactButton(); restoreNotes(); }
+  window.addEventListener('DOMContentLoaded', ready);
+  if (document.readyState !== 'loading') setTimeout(ready, 0);
 })();

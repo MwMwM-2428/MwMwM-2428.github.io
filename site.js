@@ -1,8 +1,6 @@
-/* Site behaviour: opening screen, butterfly-free scroll transitions, comment delivery. */
+/* Site behaviour: opening screen, butterfly-free scroll transitions, comment forms. */
 (function () {
   'use strict';
-  var EMAIL = 'mwang2428@gmail.com';
-  var PAGE_NAMES = { Main: 'Home', Education: 'Education', Projects: 'Projects', Research: 'Research', Life: 'Life' };
 
   function fitCover(box) {
     var s = Math.max(window.innerWidth / 1440, window.innerHeight / 900);
@@ -58,30 +56,12 @@
         stage.setAttribute('role', 'link'); stage.setAttribute('tabindex', '0'); stage.setAttribute('aria-label', 'Enter Michelle Wang’s website');
         return;
       }
-      // Comments: deliver each note to Michelle by email, and thank the visitor on the page.
-      var pageLabel = PAGE_NAMES[name] || name;
-      function deliver(form, text) {
-        var subject = 'A note from your website (' + pageLabel + ')';
-        var aliasEl = form.querySelector('.alias-in');
-        var who = aliasEl && aliasEl.value.trim();
-        var body = (who ? 'From: ' + who + '\n\n' : '') + text;
-        window.location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-        var thanks = form.parentNode.querySelector('.local-thanks');
-        if (!thanks) {
-          thanks = document.createElement('p');
-          thanks.className = 'local-thanks'; thanks.setAttribute('data-keep', '');
-          form.parentNode.insertBefore(thanks, form.nextSibling);
-        }
-        thanks.textContent = 'Thank you ✦ Your email app should open with your note to Michelle — just press send.';
-      }
+      // Comments stay on the page (no email hand-off). Static forms are handled in extras.js;
+      // here we only stop the browser from submitting/reloading them.
       document.addEventListener('submit', function (e) {
         var form = e.target;
-        var input = form.querySelector('input[type="text"]:not(.alias-in), textarea');
-        if (!input) return;
         if (!form.closest('#comments, .cbox')) return;
-        var text = (input.value || '').trim();
         if (!form.hasAttribute('data-dc-on')) e.preventDefault();
-        if (text) deliver(form, text);
       }, true);
       // Static comment forms use type="button" — make Enter and the button submit them.
       Array.prototype.forEach.call(document.querySelectorAll('#comments form, .cbox form'), function (form) {
