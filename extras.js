@@ -267,7 +267,78 @@
     });
   }
 
-  function ready() { addContactButton(); restoreNotes(); }
+  /* ---------- comments pop up: as they scroll into view, and with a sparkle when a new one is left ---------- */
+  var POP_IN = [
+    { opacity: 0, transform: 'translateY(28px) scale(.5)', filter: 'drop-shadow(0 0 0 rgba(255,214,140,0))' },
+    { opacity: 1, transform: 'translateY(-8px) scale(1.08)', filter: 'drop-shadow(0 0 14px rgba(255,214,140,.8))', offset: 0.6 },
+    { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'drop-shadow(0 0 0 rgba(255,214,140,0))' }
+  ];
+  var POP_NEW = [
+    { opacity: 0, transform: 'translateY(-30px) scale(.2) rotate(-8deg)' },
+    { opacity: 1, transform: 'translateY(6px) scale(1.22) rotate(3deg)', offset: 0.55 },
+    { opacity: 1, transform: 'translateY(-2px) scale(.95) rotate(-1deg)', offset: 0.8 },
+    { opacity: 1, transform: 'none' }
+  ];
+  var popSeen = typeof WeakSet === 'function' ? new WeakSet() : null;
+  var quietUntil = 0, popIO = null, popQueue = [], popTimer = null;
+  function commentLists() {
+    var out = [];
+    Array.prototype.forEach.call(document.querySelectorAll('#comments, .cbox'), function (box) {
+      var form = box.querySelector('form'); if (!form) return;
+      var list = Array.prototype.filter.call(form.parentNode.children, function (c) { return c.tagName === 'DIV' && c.querySelector('.alias-wrap'); }).pop();
+      if (list && out.indexOf(list) === -1) out.push(list);
+    });
+    return out;
+  }
+  function flushPops() {
+    popTimer = null;
+    popQueue.sort(function (a, b) { var ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect(); return (ra.top - rb.top) || (ra.left - rb.left); });
+    popQueue.forEach(function (el, i) { el.animate(POP_IN, { duration: 760, delay: i * 110, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'backwards' }); });
+    popQueue = [];
+  }
+  function scanComments() {
+    if (!popSeen || reduce || !window.IntersectionObserver || !Element.prototype.animate) return;
+    if (!popIO) popIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        popIO.unobserve(e.target);
+        popQueue.push(e.target);
+      });
+      if (popQueue.length && !popTimer) popTimer = setTimeout(flushPops, 0);
+    }, { threshold: 0.15 });
+    var quiet = Date.now() < quietUntil;
+    commentLists().forEach(function (list) {
+      Array.prototype.forEach.call(list.children, function (item) {
+        if (popSeen.has(item)) return;
+        popSeen.add(item);
+        if (!quiet) popIO.observe(item);
+      });
+    });
+  }
+  // Read the note before the form handlers clear it, then pop the new comment once it is on the page.
+  window.addEventListener('submit', function (e) {
+    var box = e.target.closest && e.target.closest('#comments, .cbox');
+    if (!box) return;
+    var note = e.target.querySelector('input[type="text"]:not(.alias-in), textarea');
+    if (!note || !note.value.trim()) return;
+    quietUntil = Date.now() + 400;
+    setTimeout(function () {
+      scanComments();
+      var list = commentLists().filter(function (l) { return box.contains(l); })[0];
+      var item = list && list.firstElementChild;
+      if (!item || reduce || !item.animate) return;
+      item.animate(POP_NEW, { duration: 900, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'backwards' });
+      setTimeout(function () {
+        var icon = item.querySelector('.alias-wrap svg, .alias-wrap img') || item;
+        var r = icon.getBoundingClientRect();
+        burst(layer(), r.left + r.width / 2 + window.scrollX, r.top + r.height / 2 + window.scrollY, '', true);
+      }, 420);
+    }, 40);
+  }, true);
+  var scanPending = false;
+  if (window.MutationObserver) new MutationObserver(function () { if (scanPending) return; scanPending = true; requestAnimationFrame(function () { scanPending = false; scanComments(); }); }).observe(document.documentElement, { childList: true, subtree: true });
+
+  function ready() { addContactButton(); restoreNotes(); scanComments(); }
   window.addEventListener('DOMContentLoaded', ready);
   if (document.readyState !== 'loading') setTimeout(ready, 0);
 })();
