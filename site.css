@@ -125,3 +125,10 @@ main.scroll { -webkit-backdrop-filter: none !important; backdrop-filter: none !i
 /* ---------- References: the three tarot pieces sit on one row ---------- */
 #tarot .refgrid { columns: auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 22px; align-items: start; }
 @media (max-width: 520px) { #tarot .refgrid { column-gap: 10px; } #tarot .ref figcaption { font-size: 12px; } #tarot .ref .t { font-size: 13px; } }
+
+/* ---------- Art credits under the line drawings ---------- */
+.art-credit { margin: 0; font-size: 13px; line-height: 1.6; letter-spacing: .04em; color: #c8ab6e; text-align: center; }
+.art-credit a { color: #e7c77f; text-decoration: none; border-bottom: 1px solid rgba(200,171,110,.4); }
+.art-credit a:hover { border-bottom-color: #e7c77f; opacity: 1; }
+div[style*="position: relative"] > img.art + .art-credit { position: absolute; left: 0; right: 0; top: 100%; margin-top: 10px; }
+.card-cell { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
